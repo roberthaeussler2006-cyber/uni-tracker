@@ -33,6 +33,9 @@ export default function WeekSelector({ weeks, selectedWeekNumber, onWeekChange }
             {formatDateRange(currentWeek.start_date, currentWeek.end_date)}
           </div>
         )}
+        <div className="text-xs text-gray-500 mt-1">
+          Readings for KW {selectedWeekNumber + 1} · Exercises for KW {selectedWeekNumber}
+        </div>
       </div>
 
       <button
