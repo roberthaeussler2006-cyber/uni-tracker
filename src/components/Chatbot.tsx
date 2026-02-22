@@ -1,10 +1,104 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 
 interface Message {
   role: 'user' | 'assistant'
   content: string
+}
+
+function renderMarkdown(text: string) {
+  const lines = text.split('\n')
+  const elements: React.ReactNode[] = []
+  let listItems: React.ReactNode[] = []
+  let listType: 'ul' | 'ol' | null = null
+  let key = 0
+
+  function flushList() {
+    if (listItems.length > 0 && listType) {
+      if (listType === 'ul') {
+        elements.push(<ul key={key++} className="list-disc list-inside space-y-0.5 my-1">{listItems}</ul>)
+      } else {
+        elements.push(<ol key={key++} className="list-decimal list-inside space-y-0.5 my-1">{listItems}</ol>)
+      }
+      listItems = []
+      listType = null
+    }
+  }
+
+  function formatInline(str: string): React.ReactNode {
+    // Bold: **text**
+    const parts: React.ReactNode[] = []
+    let remaining = str
+    let inlineKey = 0
+    while (remaining.length > 0) {
+      const boldMatch = remaining.match(/\*\*(.+?)\*\*/)
+      if (boldMatch && boldMatch.index !== undefined) {
+        if (boldMatch.index > 0) {
+          parts.push(remaining.slice(0, boldMatch.index))
+        }
+        parts.push(<strong key={inlineKey++} className="font-semibold text-white">{boldMatch[1]}</strong>)
+        remaining = remaining.slice(boldMatch.index + boldMatch[0].length)
+      } else {
+        parts.push(remaining)
+        break
+      }
+    }
+    return parts.length === 1 ? parts[0] : <>{parts}</>
+  }
+
+  for (const line of lines) {
+    const trimmed = line.trim()
+
+    // Empty line
+    if (trimmed === '') {
+      flushList()
+      elements.push(<div key={key++} className="h-2" />)
+      continue
+    }
+
+    // Unordered list: - item or • item or → item
+    const ulMatch = trimmed.match(/^[-•→]\s+(.+)/)
+    if (ulMatch) {
+      if (listType !== 'ul') flushList()
+      listType = 'ul'
+      listItems.push(<li key={key++} className="text-gray-300">{formatInline(ulMatch[1])}</li>)
+      continue
+    }
+
+    // Ordered list: 1. item
+    const olMatch = trimmed.match(/^(\d+)[.)]\s+(.+)/)
+    if (olMatch) {
+      if (listType !== 'ol') flushList()
+      listType = 'ol'
+      listItems.push(<li key={key++} className="text-gray-300">{formatInline(olMatch[2])}</li>)
+      continue
+    }
+
+    // Indented sub-items (→ or spaces + -)
+    const subMatch = trimmed.match(/^\s{2,}[→\-•]\s*(.+)/)
+    if (subMatch && listType) {
+      listItems.push(<li key={key++} className="text-gray-400 ml-4 text-xs">{formatInline(subMatch[1])}</li>)
+      continue
+    }
+
+    // Regular paragraph
+    flushList()
+    elements.push(<p key={key++} className="my-0.5">{formatInline(trimmed)}</p>)
+  }
+
+  flushList()
+  return elements
+}
+
+function FormattedMessage({ content, isUser }: { content: string; isUser: boolean }) {
+  const rendered = useMemo(() => isUser ? null : renderMarkdown(content), [content, isUser])
+
+  if (isUser) {
+    return <>{content}</>
+  }
+
+  return <div className="space-y-0">{rendered}</div>
 }
 
 export default function Chatbot() {
@@ -118,13 +212,13 @@ export default function Chatbot() {
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`max-w-[85%] px-3 py-2 rounded-xl text-sm whitespace-pre-wrap ${
+                  className={`max-w-[85%] px-3 py-2 rounded-xl text-sm ${
                     msg.role === 'user'
-                      ? 'bg-indigo-600 text-white rounded-br-sm'
+                      ? 'bg-indigo-600 text-white rounded-br-sm whitespace-pre-wrap'
                       : 'bg-gray-800 text-gray-200 rounded-bl-sm'
                   }`}
                 >
-                  {msg.content}
+                  <FormattedMessage content={msg.content} isUser={msg.role === 'user'} />
                 </div>
               </div>
             ))}
