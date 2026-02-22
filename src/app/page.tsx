@@ -59,7 +59,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-950">
       <header className="sticky top-0 z-50 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800">
         <div className="max-w-5xl mx-auto px-4">
-          <div className="flex items-center justify-between h-14">
+          <div className="flex items-center justify-between h-11">
             <span className="text-base font-medium text-gray-400">HSG Tracker</span>
             <span className="text-sm text-gray-500">KW {selectedWeekNumber}</span>
           </div>
@@ -81,7 +81,7 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-6">
+      <main className="max-w-5xl mx-auto px-4 py-3">
         {activeTab === 'weekly' && currentWeek && (
           <WeeklyView
             subjects={subjects}

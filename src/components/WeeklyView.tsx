@@ -159,14 +159,11 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       />
 
       {/* Weekly Score */}
-      <div className="flex items-center gap-4 mb-6 p-4 bg-gray-900 rounded-xl border border-gray-800">
-        <ProgressRing completed={completedCount} total={totalCount} />
+      <div className="flex items-center gap-3 mb-3 p-3 bg-gray-900 rounded-xl border border-gray-800">
+        <ProgressRing completed={completedCount} total={totalCount} size={52} />
         <div>
-          <div className="text-base font-medium text-white">
-            {completedCount} of {totalCount} tasks done
-          </div>
-          <div className="text-sm text-gray-400">
-            {totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0}% complete
+          <div className="text-sm font-medium text-white">
+            {completedCount}/{totalCount} tasks · {totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0}%
           </div>
         </div>
       </div>
@@ -174,7 +171,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       {loading ? (
         <div className="text-center text-gray-400 py-12">Generating tasks...</div>
       ) : (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {tasksBySubject.map(({ subject, tasks: subjectTasks }) => {
             const regularTasks = subjectTasks.filter((t) => t.day_of_week === null)
             const dailyTasks = subjectTasks.filter((t) => t.day_of_week !== null)
@@ -188,8 +185,8 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
             })
 
             return (
-              <div key={subject.id} className="bg-gray-900 rounded-xl border border-gray-800 p-4">
-                <div className="flex items-center justify-between mb-2">
+              <div key={subject.id} className="bg-gray-900 rounded-xl border border-gray-800 p-3">
+                <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: subject.color }} />
                     <span className="text-base font-medium text-white">{subject.name}</span>
@@ -228,15 +225,14 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       )}
 
       {/* Weekly Reflection */}
-      <div className="mt-6">
-        <label className="block text-base font-medium text-gray-400 mb-2">Weekly Reflection</label>
+      <div className="mt-3">
         <textarea
           value={reflectionNotes}
           onChange={(e) => setReflectionNotes(e.target.value)}
           onBlur={() => saveReflection(reflectionNotes)}
-          placeholder="How did this week go? What will you focus on next week?"
-          rows={3}
-          className="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl text-base text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gray-700 resize-none"
+          placeholder="Weekly reflection notes..."
+          rows={2}
+          className="w-full px-3 py-2 bg-gray-900 border border-gray-800 rounded-xl text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gray-700 resize-none"
         />
       </div>
 
