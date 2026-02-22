@@ -27,13 +27,13 @@ export default function WeekSelector({ weeks, selectedWeekNumber, onWeekChange }
       </button>
 
       <div className="text-center">
-        <div className="text-lg font-semibold text-white">KW {selectedWeekNumber}</div>
+        <div className="text-xl font-semibold text-white">KW {selectedWeekNumber}</div>
         {currentWeek && (
-          <div className="text-sm text-gray-400">
+          <div className="text-base text-gray-400">
             {formatDateRange(currentWeek.start_date, currentWeek.end_date)}
           </div>
         )}
-        <div className="text-xs text-gray-500 mt-1">
+        <div className="text-sm text-gray-500 mt-1">
           Readings for KW {selectedWeekNumber + 1} · Exercises for KW {selectedWeekNumber}
         </div>
       </div>

@@ -70,27 +70,27 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
       {/* Overall Progress */}
       <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-white">Semester Progress</span>
-          <span className="text-sm text-gray-400">{overallPct}%</span>
+          <span className="text-base font-medium text-white">Semester Progress</span>
+          <span className="text-base text-gray-400">{overallPct}%</span>
         </div>
-        <div className="w-full h-2 bg-gray-800 rounded-full">
+        <div className="w-full h-2.5 bg-gray-800 rounded-full">
           <div
             className="h-full bg-indigo-500 rounded-full transition-all duration-500"
             style={{ width: `${overallPct}%` }}
           />
         </div>
-        <p className="text-xs text-gray-500 mt-1">{completedTasks} of {totalTasks} tasks completed</p>
+        <p className="text-sm text-gray-500 mt-1">{completedTasks} of {totalTasks} tasks completed</p>
       </div>
 
       {/* Heatmap */}
       <div className="bg-gray-900 rounded-xl border border-gray-800 p-4 overflow-x-auto">
-        <h3 className="text-sm font-medium text-white mb-4">Completion Heatmap</h3>
+        <h3 className="text-base font-medium text-white mb-4">Completion Heatmap</h3>
         <div className="min-w-[600px]">
           {/* Header row: subject abbreviations */}
-          <div className="flex gap-1 mb-1 pl-14">
+          <div className="flex gap-1 mb-1 pl-16">
             {subjects.map((s) => (
-              <div key={s.id} className="w-10 text-center">
-                <span className="text-[10px] text-gray-500">{s.short_name}</span>
+              <div key={s.id} className="w-12 text-center">
+                <span className="text-xs text-gray-500">{s.short_name}</span>
               </div>
             ))}
           </div>
@@ -98,15 +98,15 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
           {/* Data rows */}
           {heatmapData.map(({ week, subjects: subjectData }) => (
             <div key={week.id} className="flex items-center gap-1 mb-1">
-              <span className="text-[10px] text-gray-500 w-12 text-right pr-2">KW {week.week_number}</span>
+              <span className="text-xs text-gray-500 w-14 text-right pr-2">KW {week.week_number}</span>
               {subjectData.map(({ subject, pct, completed, total }) => (
                 <div
                   key={subject.id}
-                  className="w-10 h-7 rounded-sm flex items-center justify-center group relative"
+                  className="w-12 h-8 rounded-sm flex items-center justify-center group relative"
                   style={{ backgroundColor: getCellColor(pct, subject.color) }}
                 >
                   {total > 0 && (
-                    <span className="text-[9px] text-white/60">{completed}/{total}</span>
+                    <span className="text-[11px] text-white/60">{completed}/{total}</span>
                   )}
                 </div>
               ))}
@@ -117,16 +117,16 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
 
       {/* Per-subject bars */}
       <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
-        <h3 className="text-sm font-medium text-white mb-4">Per Subject</h3>
+        <h3 className="text-base font-medium text-white mb-4">Per Subject</h3>
         <div className="space-y-3">
           {subjectStats.map(({ subject, completed, total, pct }) => (
             <div key={subject.id}>
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: subject.color }} />
-                  <span className="text-xs text-gray-300">{subject.name}</span>
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: subject.color }} />
+                  <span className="text-sm text-gray-300">{subject.name}</span>
                 </div>
-                <span className="text-xs text-gray-500">{completed}/{total}</span>
+                <span className="text-sm text-gray-500">{completed}/{total}</span>
               </div>
               <div className="w-full h-1.5 bg-gray-800 rounded-full">
                 <div

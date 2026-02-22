@@ -27,7 +27,7 @@ export default function AddTaskModal({ subjects, defaultSubjectId, onAdd, onClos
         className="bg-gray-900 border border-gray-800 rounded-xl p-5 w-full max-w-sm mx-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-sm font-medium text-white mb-4">Add Task</h3>
+        <h3 className="text-base font-medium text-white mb-4">Add Task</h3>
         <form onSubmit={handleSubmit} className="space-y-3">
           <input
             type="text"
@@ -35,12 +35,12 @@ export default function AddTaskModal({ subjects, defaultSubjectId, onAdd, onClos
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Task name"
             autoFocus
-            className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
+            className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-base text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
           />
           <select
             value={subjectId}
             onChange={(e) => setSubjectId(e.target.value)}
-            className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white focus:outline-none focus:border-gray-600"
+            className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-base text-white focus:outline-none focus:border-gray-600"
           >
             {subjects.map((s) => (
               <option key={s.id} value={s.id}>{s.name}</option>
@@ -50,14 +50,14 @@ export default function AddTaskModal({ subjects, defaultSubjectId, onAdd, onClos
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2 text-sm text-gray-400 hover:text-white bg-gray-800 rounded-lg transition-colors"
+              className="flex-1 py-2.5 text-base text-gray-400 hover:text-white bg-gray-800 rounded-lg transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!title.trim()}
-              className="flex-1 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg disabled:opacity-50 transition-colors"
+              className="flex-1 py-2.5 text-base text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg disabled:opacity-50 transition-colors"
             >
               Add
             </button>

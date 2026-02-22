@@ -4,7 +4,7 @@ interface Props {
   size?: number
 }
 
-export default function ProgressRing({ completed, total, size = 64 }: Props) {
+export default function ProgressRing({ completed, total, size = 72 }: Props) {
   const pct = total > 0 ? completed / total : 0
   const radius = (size - 8) / 2
   const circumference = 2 * Math.PI * radius
@@ -34,7 +34,7 @@ export default function ProgressRing({ completed, total, size = 64 }: Props) {
           className="transition-all duration-500"
         />
       </svg>
-      <span className="absolute text-xs font-medium text-gray-300">
+      <span className="absolute text-sm font-medium text-gray-300">
         {completed}/{total}
       </span>
     </div>

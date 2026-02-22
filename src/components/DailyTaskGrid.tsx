@@ -26,10 +26,10 @@ export default function DailyTaskGrid({ title, tasks, subjectColor, onToggle }: 
   return (
     <div className="py-1.5">
       <div className="flex items-center gap-2 mb-1">
-        <span className={`text-sm ${completedCount === 7 ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
+        <span className={`text-base ${completedCount === 7 ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
           {title}
         </span>
-        <span className="text-xs text-gray-500">{completedCount}/7</span>
+        <span className="text-sm text-gray-500">{completedCount}/7</span>
       </div>
       <div className="flex gap-1.5">
         {sortedTasks.map((task, i) => (
@@ -38,9 +38,9 @@ export default function DailyTaskGrid({ title, tasks, subjectColor, onToggle }: 
             onClick={() => handleToggle(task)}
             className="flex flex-col items-center gap-0.5"
           >
-            <span className="text-[10px] text-gray-500">{DAY_NAMES[i]}</span>
+            <span className="text-xs text-gray-500">{DAY_NAMES[i]}</span>
             <div
-              className="w-6 h-6 rounded flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded flex items-center justify-center transition-colors"
               style={{
                 backgroundColor: task.is_completed ? subjectColor : '#1f2937',
                 border: task.is_completed ? 'none' : '1px solid #374151',

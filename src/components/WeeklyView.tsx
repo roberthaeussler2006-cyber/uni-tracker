@@ -162,10 +162,10 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       <div className="flex items-center gap-4 mb-6 p-4 bg-gray-900 rounded-xl border border-gray-800">
         <ProgressRing completed={completedCount} total={totalCount} />
         <div>
-          <div className="text-sm font-medium text-white">
+          <div className="text-base font-medium text-white">
             {completedCount} of {totalCount} tasks done
           </div>
-          <div className="text-xs text-gray-400">
+          <div className="text-sm text-gray-400">
             {totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0}% complete
           </div>
         </div>
@@ -192,11 +192,11 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: subject.color }} />
-                    <span className="text-sm font-medium text-white">{subject.name}</span>
+                    <span className="text-base font-medium text-white">{subject.name}</span>
                   </div>
                   <button
                     onClick={() => setAddModalSubject(subject.id)}
-                    className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+                    className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
                   >
                     + add
                   </button>
@@ -229,14 +229,14 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
 
       {/* Weekly Reflection */}
       <div className="mt-6">
-        <label className="block text-sm font-medium text-gray-400 mb-2">Weekly Reflection</label>
+        <label className="block text-base font-medium text-gray-400 mb-2">Weekly Reflection</label>
         <textarea
           value={reflectionNotes}
           onChange={(e) => setReflectionNotes(e.target.value)}
           onBlur={() => saveReflection(reflectionNotes)}
           placeholder="How did this week go? What will you focus on next week?"
           rows={3}
-          className="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gray-700 resize-none"
+          className="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl text-base text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gray-700 resize-none"
         />
       </div>
 

@@ -24,7 +24,7 @@ export default function TaskItem({ task, subjectColor, onToggle, onDelete }: Pro
     <div className="flex items-center gap-3 py-1.5 group">
       <button
         onClick={handleToggle}
-        className="flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors"
+        className="flex-shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center transition-colors"
         style={{
           borderColor: task.is_completed ? subjectColor : '#4b5563',
           backgroundColor: task.is_completed ? subjectColor : 'transparent',
@@ -37,7 +37,7 @@ export default function TaskItem({ task, subjectColor, onToggle, onDelete }: Pro
         )}
       </button>
 
-      <span className={`text-sm flex-1 ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
+      <span className={`text-base flex-1 ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
         {task.title}
       </span>
 

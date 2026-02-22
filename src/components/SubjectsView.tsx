@@ -72,9 +72,9 @@ export default function SubjectsView({ subjects, weeks, currentWeek }: Props) {
             <div className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-white">{subject.name}</span>
+                  <span className="text-base font-medium text-white">{subject.name}</span>
                 </div>
-                <span className="text-xs text-gray-400">
+                <span className="text-sm text-gray-400">
                   {total > 0 ? `${completed}/${total}` : 'No tasks'}
                 </span>
               </div>
@@ -94,7 +94,7 @@ export default function SubjectsView({ subjects, weeks, currentWeek }: Props) {
 
               {/* Schedule */}
               {subject.schedule && (
-                <p className="text-xs text-gray-500 mb-2">{subject.schedule}</p>
+                <p className="text-sm text-gray-500 mb-2">{subject.schedule}</p>
               )}
 
               {/* Note */}
@@ -104,13 +104,13 @@ export default function SubjectsView({ subjects, weeks, currentWeek }: Props) {
                 onBlur={() => saveNote(subject.id, notes[subject.id] || '')}
                 placeholder="Notes for this week..."
                 rows={2}
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700/50 rounded-lg text-xs text-gray-300 placeholder-gray-600 focus:outline-none focus:border-gray-600 resize-none"
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-700/50 rounded-lg text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-gray-600 resize-none"
               />
 
               {/* Expand / collapse for history */}
               <button
                 onClick={() => setExpandedSubject(isExpanded ? null : subject.id)}
-                className="mt-2 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+                className="mt-2 text-sm text-gray-500 hover:text-gray-300 transition-colors"
               >
                 {isExpanded ? 'Hide history' : 'Show history'}
               </button>
@@ -128,7 +128,7 @@ export default function SubjectsView({ subjects, weeks, currentWeek }: Props) {
 
                     return (
                       <div key={week.id} className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500 w-10">KW {week.week_number}</span>
+                        <span className="text-sm text-gray-500 w-12">KW {week.week_number}</span>
                         <div className="flex-1 h-1.5 bg-gray-800 rounded-full">
                           <div
                             className="h-full rounded-full"
@@ -139,7 +139,7 @@ export default function SubjectsView({ subjects, weeks, currentWeek }: Props) {
                             }}
                           />
                         </div>
-                        <span className="text-xs text-gray-500 w-12 text-right">{weekCompleted}/{weekTotal}</span>
+                        <span className="text-sm text-gray-500 w-14 text-right">{weekCompleted}/{weekTotal}</span>
                       </div>
                     )
                   })}

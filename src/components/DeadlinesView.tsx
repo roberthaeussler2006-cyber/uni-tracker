@@ -84,10 +84,10 @@ export default function DeadlinesView({ subjects }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-sm font-medium text-gray-400">Upcoming</h2>
+        <h2 className="text-base font-medium text-gray-400">Upcoming</h2>
         <button
           onClick={() => setShowAdd(!showAdd)}
-          className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+          className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
         >
           {showAdd ? 'Cancel' : '+ Add deadline'}
         </button>
@@ -101,19 +101,19 @@ export default function DeadlinesView({ subjects }: Props) {
             onChange={(e) => setNewTitle(e.target.value)}
             placeholder="Deadline title"
             autoFocus
-            className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
+            className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-base text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
           />
           <div className="flex gap-2">
             <input
               type="date"
               value={newDate}
               onChange={(e) => setNewDate(e.target.value)}
-              className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white focus:outline-none focus:border-gray-600"
+              className="flex-1 px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-base text-white focus:outline-none focus:border-gray-600"
             />
             <select
               value={newSubject}
               onChange={(e) => setNewSubject(e.target.value)}
-              className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white focus:outline-none focus:border-gray-600"
+              className="flex-1 px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-base text-white focus:outline-none focus:border-gray-600"
             >
               <option value="">General</option>
               {subjects.map((s) => (
@@ -126,12 +126,12 @@ export default function DeadlinesView({ subjects }: Props) {
             value={newDescription}
             onChange={(e) => setNewDescription(e.target.value)}
             placeholder="Description (optional)"
-            className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
+            className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-base text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
           />
           <button
             type="submit"
             disabled={!newTitle.trim() || !newDate}
-            className="w-full py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg disabled:opacity-50 transition-colors"
+            className="w-full py-2.5 text-base text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg disabled:opacity-50 transition-colors"
           >
             Add Deadline
           </button>
@@ -151,24 +151,24 @@ export default function DeadlinesView({ subjects }: Props) {
               <div className="flex items-start justify-between mb-2">
                 <div>
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
-                    <span className="text-sm font-medium text-white">{deadline.title}</span>
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+                    <span className="text-base font-medium text-white">{deadline.title}</span>
                   </div>
-                  <div className="flex items-center gap-2 mt-0.5 ml-4">
-                    <span className="text-xs text-gray-500">{getSubjectName(deadline.subject_id)}</span>
-                    <span className="text-xs text-gray-600">·</span>
-                    <span className="text-xs text-gray-500">{deadline.date}</span>
+                  <div className="flex items-center gap-2 mt-0.5 ml-5">
+                    <span className="text-sm text-gray-500">{getSubjectName(deadline.subject_id)}</span>
+                    <span className="text-sm text-gray-600">·</span>
+                    <span className="text-sm text-gray-500">{deadline.date}</span>
                   </div>
                   {deadline.description && (
-                    <p className="text-xs text-gray-500 mt-1 ml-4">{deadline.description}</p>
+                    <p className="text-sm text-gray-500 mt-1 ml-5">{deadline.description}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="text-right">
-                    <span className={`text-lg font-bold ${days <= 3 ? 'text-red-400' : days <= 7 ? 'text-yellow-400' : 'text-white'}`}>
+                    <span className={`text-xl font-bold ${days <= 3 ? 'text-red-400' : days <= 7 ? 'text-yellow-400' : 'text-white'}`}>
                       {days}
                     </span>
-                    <span className="text-xs text-gray-500 ml-1">days</span>
+                    <span className="text-sm text-gray-500 ml-1">days</span>
                   </div>
                   <button
                     onClick={() => deleteDeadline(deadline.id)}
@@ -195,13 +195,13 @@ export default function DeadlinesView({ subjects }: Props) {
 
       {past.length > 0 && (
         <>
-          <h2 className="text-sm font-medium text-gray-500 mt-8 mb-2">Past</h2>
+          <h2 className="text-base font-medium text-gray-500 mt-8 mb-2">Past</h2>
           {past.map((deadline) => (
             <div key={deadline.id} className="bg-gray-900/50 rounded-xl border border-gray-800/50 p-4 opacity-50">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: getSubjectColor(deadline.subject_id) }} />
-                <span className="text-sm text-gray-400 line-through">{deadline.title}</span>
-                <span className="text-xs text-gray-600 ml-auto">{deadline.date}</span>
+                <span className="text-base text-gray-400 line-through">{deadline.title}</span>
+                <span className="text-sm text-gray-600 ml-auto">{deadline.date}</span>
               </div>
             </div>
           ))}
