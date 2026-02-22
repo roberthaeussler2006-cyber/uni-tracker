@@ -171,7 +171,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       {loading ? (
         <div className="text-center text-gray-400 py-12">Generating tasks...</div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="md:columns-2 gap-3 space-y-3">
           {tasksBySubject.map(({ subject, tasks: subjectTasks }) => {
             const regularTasks = subjectTasks.filter((t) => t.day_of_week === null)
             const dailyTasks = subjectTasks.filter((t) => t.day_of_week !== null)
@@ -185,7 +185,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
             })
 
             return (
-              <div key={subject.id} className="bg-gray-900 rounded-xl border border-gray-800 p-3">
+              <div key={subject.id} className="bg-gray-900 rounded-xl border border-gray-800 p-3 break-inside-avoid">
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: subject.color }} />
