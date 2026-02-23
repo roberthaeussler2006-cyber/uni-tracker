@@ -291,7 +291,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                     selectedWeekNumber={selectedWeekNumber}
                   />
                 )}
-                {subject.short_name === 'BusAdmin' && (
+                {subject.short_name === 'BusAdmin' && selectedWeekNumber >= 10 && (
                   <ReadingProgressTracker
                     subject="BusAdmin"
                     currentWeek={currentWeek}
