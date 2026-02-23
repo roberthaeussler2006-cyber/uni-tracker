@@ -22,42 +22,53 @@ export default function TaskItem({ task, subjectColor, subtitle, onToggle, onDel
   }
 
   return (
-    <div className="flex items-center gap-3 py-1.5 group">
-      <button
-        onClick={handleToggle}
-        className="flex-shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center transition-colors"
-        style={{
-          borderColor: task.is_completed ? subjectColor : '#4b5563',
-          backgroundColor: task.is_completed ? subjectColor : 'transparent',
-        }}
-      >
-        {task.is_completed && (
-          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-          </svg>
-        )}
-      </button>
+    <div className="py-1.5 group">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={handleToggle}
+          className="flex-shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center transition-colors"
+          style={{
+            borderColor: task.is_completed ? subjectColor : '#4b5563',
+            backgroundColor: task.is_completed ? subjectColor : 'transparent',
+          }}
+        >
+          {task.is_completed && (
+            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+            </svg>
+          )}
+        </button>
 
-      <div className="flex-1 min-w-0">
-        <span className={`text-base ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
-          {task.title}
-        </span>
-        {subtitle && (
-          <p className={`text-base mt-0.5 ${task.is_completed ? 'text-gray-500' : 'text-gray-300'}`}>
-            {subtitle}
-          </p>
+        <div className="flex-1 min-w-0">
+          <span className={`text-base ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
+            {task.title}
+          </span>
+        </div>
+
+        {task.is_custom && onDelete && (
+          <button
+            onClick={() => onDelete(task.id)}
+            className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-red-400 transition-all"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         )}
       </div>
 
-      {task.is_custom && onDelete && (
-        <button
-          onClick={() => onDelete(task.id)}
-          className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-red-400 transition-all"
+      {subtitle && (
+        <div
+          className={`ml-9 mt-1.5 rounded-lg px-3 py-2 border-l-3 ${task.is_completed ? 'opacity-40' : ''}`}
+          style={{
+            backgroundColor: subjectColor + '12',
+            borderLeftColor: subjectColor,
+          }}
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+          <span className={`text-sm ${task.is_completed ? 'text-gray-400' : 'text-gray-200'}`}>
+            {subtitle}
+          </span>
+        </div>
       )}
     </div>
   )
