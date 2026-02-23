@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Week } from '@/lib/types'
 import {
@@ -28,7 +28,6 @@ export default function ReadingProgressTracker({ subject, currentWeek, selectedW
   const [inputValue, setInputValue] = useState('')
   const [book, setBook] = useState<'constitutional' | 'pil'>('constitutional')
   const [saving, setSaving] = useState(false)
-  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isLaw = subject === 'Law'
   const isFm = subject === 'BusAdmin'
 
@@ -54,24 +53,21 @@ export default function ReadingProgressTracker({ subject, currentWeek, selectedW
     loadProgress()
   }, [loadProgress])
 
-  function save(page: number, selectedBook: string) {
-    if (saveTimer.current) clearTimeout(saveTimer.current)
-    saveTimer.current = setTimeout(async () => {
-      setSaving(true)
-      const record: Record<string, unknown> = {
-        week_id: currentWeek.id,
-        subject,
-        current_page: page,
-      }
-      if (isLaw) record.book = selectedBook
+  async function save(page: number, selectedBook: string) {
+    setSaving(true)
+    const record: Record<string, unknown> = {
+      week_id: currentWeek.id,
+      subject,
+      current_page: page,
+    }
+    if (isLaw) record.book = selectedBook
 
-      const { error } = await supabase
-        .from('tracker_reading_progress')
-        .upsert(record, { onConflict: 'week_id,subject' })
+    const { error } = await supabase
+      .from('tracker_reading_progress')
+      .upsert(record, { onConflict: 'week_id,subject' })
 
-      if (error) console.error('Failed to save reading progress:', error)
-      setSaving(false)
-    }, 500)
+    if (error) console.error('Failed to save reading progress:', error)
+    setSaving(false)
   }
 
   // Get max page for current context
@@ -167,8 +163,8 @@ export default function ReadingProgressTracker({ subject, currentWeek, selectedW
         {saving && <span className="text-xs text-gray-500">Saving...</span>}
       </div>
 
-      {/* Law book toggle */}
-      {isLaw && (
+      {/* Law book toggle — only show PIL tab from KW 15+ (PIL reading starts KW 16) */}
+      {isLaw && selectedWeekNumber >= 15 && (
         <div className="flex gap-1 mb-2">
           <button
             onClick={() => handleBookChange('constitutional')}
