@@ -5,7 +5,6 @@ import { supabase } from '@/lib/supabase'
 import { Subject, Week, TabType } from '@/lib/types'
 import { getCurrentWeekNumber } from '@/lib/weeks'
 import WeeklyView from '@/components/WeeklyView'
-import SubjectsView from '@/components/SubjectsView'
 import AnalyticsView from '@/components/AnalyticsView'
 import DeadlinesView from '@/components/DeadlinesView'
 import AccountingView from '@/components/AccountingView'
@@ -13,7 +12,6 @@ import Chatbot from '@/components/Chatbot'
 
 const TABS: { key: TabType; label: string }[] = [
   { key: 'weekly', label: 'Weekly' },
-  { key: 'subjects', label: 'Subjects' },
   { key: 'analytics', label: 'Analytics' },
   { key: 'deadlines', label: 'Deadlines' },
   { key: 'accounting', label: 'Accounting' },
@@ -93,10 +91,7 @@ export default function Dashboard() {
             onWeekChange={setSelectedWeekNumber}
           />
         )}
-        {activeTab === 'subjects' && currentWeek && (
-          <SubjectsView subjects={subjects} weeks={weeks} currentWeek={currentWeek} />
-        )}
-        {activeTab === 'analytics' && (
+{activeTab === 'analytics' && (
           <AnalyticsView subjects={subjects} weeks={weeks} />
         )}
         {activeTab === 'deadlines' && (

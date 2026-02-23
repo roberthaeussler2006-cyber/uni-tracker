@@ -292,3 +292,100 @@ export function getTaskSubtitle(
 
   return null
 }
+
+// ─── Math B Sub-chapters (for progress tracking) ───
+
+export interface MathSubchapter {
+  id: string       // e.g. "1.1", "3.5"
+  title: string    // short descriptive title
+  chapter: number  // main chapter number (1-8)
+}
+
+export const MATH_SUBCHAPTERS: MathSubchapter[] = [
+  // Chapter 1: Integrals (10 sub-chapters)
+  { id: '1.1', title: 'Antiderivatives', chapter: 1 },
+  { id: '1.2', title: 'Rules of integration', chapter: 1 },
+  { id: '1.3', title: 'Substitution method', chapter: 1 },
+  { id: '1.4', title: 'Integration by parts', chapter: 1 },
+  { id: '1.5', title: 'Partial fractions', chapter: 1 },
+  { id: '1.6', title: 'Definite integral', chapter: 1 },
+  { id: '1.7', title: 'Fundamental theorem of calculus', chapter: 1 },
+  { id: '1.8', title: 'Improper integrals', chapter: 1 },
+  { id: '1.9', title: 'Numerical integration', chapter: 1 },
+  { id: '1.10', title: 'Applications of integrals', chapter: 1 },
+
+  // Chapter 2: Applications of Integral Calculus (2 sub-chapters)
+  { id: '2.1', title: 'Area between curves', chapter: 2 },
+  { id: '2.2', title: 'Economic applications', chapter: 2 },
+
+  // Chapter 3: Matrices and Determinants (8 sub-chapters)
+  { id: '3.1', title: 'Matrix basics', chapter: 3 },
+  { id: '3.2', title: 'Matrix operations', chapter: 3 },
+  { id: '3.3', title: 'Matrix multiplication', chapter: 3 },
+  { id: '3.4', title: 'Transpose and special matrices', chapter: 3 },
+  { id: '3.5', title: 'Inverse matrix', chapter: 3 },
+  { id: '3.6', title: 'Determinants', chapter: 3 },
+  { id: '3.7', title: 'Properties of determinants', chapter: 3 },
+  { id: '3.8', title: 'Cramer\'s rule', chapter: 3 },
+
+  // Chapter 4: Vectors (7 sub-chapters)
+  { id: '4.1', title: 'Vector basics', chapter: 4 },
+  { id: '4.2', title: 'Vector operations', chapter: 4 },
+  { id: '4.3', title: 'Linear combinations', chapter: 4 },
+  { id: '4.4', title: 'Scalar product', chapter: 4 },
+  { id: '4.5', title: 'Cross product', chapter: 4 },
+  { id: '4.6', title: 'Lines and planes', chapter: 4 },
+  { id: '4.7', title: 'Distance calculations', chapter: 4 },
+
+  // Chapter 5: Systems of Linear Equations (7 sub-chapters)
+  { id: '5.1', title: 'Introduction to linear systems', chapter: 5 },
+  { id: '5.2', title: 'Gaussian elimination', chapter: 5 },
+  { id: '5.3', title: 'Solution sets', chapter: 5 },
+  { id: '5.4', title: 'Homogeneous systems', chapter: 5 },
+  { id: '5.5', title: 'Matrix rank', chapter: 5 },
+  { id: '5.6', title: 'Applications', chapter: 5 },
+  { id: '5.7', title: 'Leontief model', chapter: 5 },
+
+  // Chapter 6: Eigenvalues and Eigenvectors (3 sub-chapters)
+  { id: '6.1', title: 'Definition and computation', chapter: 6 },
+  { id: '6.2', title: 'Diagonalization', chapter: 6 },
+  { id: '6.3', title: 'Applications', chapter: 6 },
+
+  // Chapter 7: Difference Equations (4 sub-chapters)
+  { id: '7.1', title: 'First-order difference equations', chapter: 7 },
+  { id: '7.2', title: 'Second-order difference equations', chapter: 7 },
+  { id: '7.3', title: 'Stability analysis', chapter: 7 },
+  { id: '7.4', title: 'Applications', chapter: 7 },
+
+  // Chapter 8: Applications of Linear Algebra (2 sub-chapters)
+  { id: '8.1', title: 'Markov chains', chapter: 8 },
+  { id: '8.2', title: 'Input-output analysis', chapter: 8 },
+]
+
+// Expected sub-chapter to reach by each KW (semester weeks KW 9-22, Easter break KW 14-15)
+// ~3.6 sub-chapters per teaching week across 12 teaching weeks
+const mathExpectedPace: Record<number, string> = {
+  9: '1.4',    // Week 1: 4 sub-chapters
+  10: '1.8',   // Week 2: 4 sub-chapters
+  11: '2.2',   // Week 3: finish Ch 1, all of Ch 2
+  12: '3.4',   // Week 4: into Ch 3
+  13: '3.8',   // Week 5: finish Ch 3
+  // 14-15: Easter break
+  16: '4.4',   // Week 6: into Ch 4
+  17: '4.7',   // Week 7: finish Ch 4
+  18: '5.4',   // Week 8: into Ch 5
+  19: '5.7',   // Week 9: finish Ch 5
+  20: '6.3',   // Week 10: all of Ch 6
+  21: '7.4',   // Week 11: all of Ch 7
+  22: '8.2',   // Week 12: all of Ch 8 — done
+}
+
+export function getMathExpectedSubchapter(weekNumber: number): string | null {
+  // During Easter break, use KW 13 expectation
+  if (weekNumber === 14 || weekNumber === 15) return mathExpectedPace[13] || null
+  return mathExpectedPace[weekNumber] || null
+}
+
+export function getMathSubchapterIndex(subchapterId: string): number {
+  return MATH_SUBCHAPTERS.findIndex((sc) => sc.id === subchapterId)
+}

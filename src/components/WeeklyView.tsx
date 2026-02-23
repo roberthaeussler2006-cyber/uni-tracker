@@ -10,6 +10,7 @@ import DailyTaskGrid from './DailyTaskGrid'
 import AddTaskModal from './AddTaskModal'
 import ScheduleModal from './ScheduleModal'
 import ScheduleImageModal from './ScheduleImageModal'
+import MathProgressTracker from './MathProgressTracker'
 import { getTaskSubtitle, getFullSchedule, hasSchedule, getScheduleImages } from '@/lib/scheduleData'
 import { getCurrentWeekNumber } from '@/lib/weeks'
 
@@ -259,6 +260,14 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                     onToggle={handleToggle}
                   />
                 ))}
+
+                {/* Math Progress Tracker */}
+                {subject.short_name === 'Math' && (
+                  <MathProgressTracker
+                    currentWeek={currentWeek}
+                    selectedWeekNumber={selectedWeekNumber}
+                  />
+                )}
               </div>
             )
           })}
