@@ -165,6 +165,15 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
         onWeekChange={onWeekChange}
       />
 
+      {/* Easter Break Banner */}
+      {(selectedWeekNumber === 14 || selectedWeekNumber === 15) && (
+        <div className="mb-3 p-4 bg-amber-900/20 border border-amber-800/40 rounded-xl text-center">
+          <span className="text-2xl">🐣</span>
+          <p className="text-lg font-medium text-amber-200 mt-1">Easter Break</p>
+          <p className="text-base text-amber-300/70">No lectures or exercises this week</p>
+        </div>
+      )}
+
       {/* Weekly Score */}
       <div className="flex items-center gap-4 mb-3 p-4 bg-gray-900 rounded-xl border border-gray-800">
         <ProgressRing completed={completedCount} total={totalCount} size={56} />

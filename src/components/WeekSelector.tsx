@@ -15,6 +15,7 @@ export default function WeekSelector({ weeks, selectedWeekNumber, currentWeekNum
   const minWeek = Math.min(...weeks.map((w) => w.week_number))
   const maxWeek = Math.max(...weeks.map((w) => w.week_number))
   const isOnCurrentWeek = selectedWeekNumber === currentWeekNumber
+  const isEasterBreak = selectedWeekNumber === 14 || selectedWeekNumber === 15
 
   return (
     <div className="mb-3">
@@ -32,15 +33,20 @@ export default function WeekSelector({ weeks, selectedWeekNumber, currentWeekNum
         <div className="text-center">
           <div className="text-xl font-semibold text-white leading-tight">
             KW {selectedWeekNumber}
-            {currentWeek && (
+            {isEasterBreak && (
+              <span className="text-base text-amber-300 font-normal ml-2">🐣 Easter Break</span>
+            )}
+            {!isEasterBreak && currentWeek && (
               <span className="text-base text-gray-400 font-normal ml-2">
                 {formatDateRange(currentWeek.start_date, currentWeek.end_date)}
               </span>
             )}
           </div>
-          <div className="text-base text-gray-500">
-            Readings for KW {selectedWeekNumber + 1} · Exercises for KW {selectedWeekNumber}
-          </div>
+          {!isEasterBreak && (
+            <div className="text-base text-gray-500">
+              Readings for KW {selectedWeekNumber + 1} · Exercises for KW {selectedWeekNumber}
+            </div>
+          )}
         </div>
 
         <button
