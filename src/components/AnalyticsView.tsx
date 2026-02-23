@@ -28,6 +28,11 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
     return <div className="text-center text-gray-400 py-12">Loading analytics...</div>
   }
 
+  // Daily tasks count as 1/7 each (so a full 7-day group = 1 task)
+  const DAILY_WEIGHT = 1 / 7
+  const weightedTotal = (arr: Task[]) => arr.reduce((s, t) => s + (t.day_of_week !== null ? DAILY_WEIGHT : 1), 0)
+  const weightedCompleted = (arr: Task[]) => arr.reduce((s, t) => t.is_completed ? s + (t.day_of_week !== null ? DAILY_WEIGHT : 1) : s, 0)
+
   // Build heatmap data: weeks x subjects
   const heatmapData = weeks.map((week) => ({
     week,
@@ -35,22 +40,22 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
       const subjectWeekTasks = tasks.filter(
         (t) => t.week_id === week.id && t.subject_id === subject.id
       )
-      const total = subjectWeekTasks.length
-      const completed = subjectWeekTasks.filter((t) => t.is_completed).length
+      const total = weightedTotal(subjectWeekTasks)
+      const completed = weightedCompleted(subjectWeekTasks)
       return { subject, total, completed, pct: total > 0 ? completed / total : -1 }
     }),
   }))
 
   // Overall stats
-  const totalTasks = tasks.length
-  const completedTasks = tasks.filter((t) => t.is_completed).length
+  const totalTasks = weightedTotal(tasks)
+  const completedTasks = weightedCompleted(tasks)
   const overallPct = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0
 
   // Per-subject stats
   const subjectStats = subjects.map((subject) => {
     const subjectTasks = tasks.filter((t) => t.subject_id === subject.id)
-    const total = subjectTasks.length
-    const completed = subjectTasks.filter((t) => t.is_completed).length
+    const total = weightedTotal(subjectTasks)
+    const completed = weightedCompleted(subjectTasks)
     return { subject, total, completed, pct: total > 0 ? Math.round((completed / total) * 100) : 0 }
   })
 

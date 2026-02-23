@@ -11,6 +11,7 @@ import AddTaskModal from './AddTaskModal'
 import ScheduleModal from './ScheduleModal'
 import ScheduleImageModal from './ScheduleImageModal'
 import MathProgressTracker from './MathProgressTracker'
+import ReadingProgressTracker from './ReadingProgressTracker'
 import { getTaskSubtitle, getFullSchedule, hasSchedule, getScheduleImages } from '@/lib/scheduleData'
 import { getCurrentWeekNumber } from '@/lib/weeks'
 
@@ -148,8 +149,15 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       .eq('id', currentWeek.id)
   }
 
-  const completedCount = tasks.filter((t) => t.is_completed).length
-  const totalCount = tasks.length
+  // Daily tasks count as 1/7 each (so a full 7-day group = 1 task)
+  const DAILY_WEIGHT = 1 / 7
+  const completedCount = tasks.reduce((sum, t) => {
+    if (!t.is_completed) return sum
+    return sum + (t.day_of_week !== null ? DAILY_WEIGHT : 1)
+  }, 0)
+  const totalCount = tasks.reduce((sum, t) => {
+    return sum + (t.day_of_week !== null ? DAILY_WEIGHT : 1)
+  }, 0)
 
   // Group tasks by subject
   const tasksBySubject = subjects.map((subject) => ({
@@ -177,10 +185,10 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
 
       {/* Weekly Score */}
       <div className="flex items-center gap-4 mb-3 p-4 bg-gray-900 rounded-xl border border-gray-800">
-        <ProgressRing completed={completedCount} total={totalCount} size={56} />
+        <ProgressRing completed={Math.round(completedCount)} total={Math.round(totalCount)} size={56} />
         <div>
           <div className="text-base font-medium text-white">
-            {completedCount}/{totalCount} tasks · {totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0}%
+            {Math.round(completedCount * 10) / 10}/{Math.round(totalCount)} tasks · {totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0}%
           </div>
         </div>
       </div>
@@ -264,6 +272,29 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                 {/* Math Progress Tracker */}
                 {subject.short_name === 'Math' && (
                   <MathProgressTracker
+                    currentWeek={currentWeek}
+                    selectedWeekNumber={selectedWeekNumber}
+                  />
+                )}
+
+                {/* Reading Progress Trackers */}
+                {subject.short_name === 'Law' && (
+                  <ReadingProgressTracker
+                    subject="Law"
+                    currentWeek={currentWeek}
+                    selectedWeekNumber={selectedWeekNumber}
+                  />
+                )}
+                {subject.short_name === 'Macro' && (
+                  <ReadingProgressTracker
+                    subject="Macro"
+                    currentWeek={currentWeek}
+                    selectedWeekNumber={selectedWeekNumber}
+                  />
+                )}
+                {subject.short_name === 'BusAdmin' && (
+                  <ReadingProgressTracker
+                    subject="BusAdmin"
                     currentWeek={currentWeek}
                     selectedWeekNumber={selectedWeekNumber}
                   />

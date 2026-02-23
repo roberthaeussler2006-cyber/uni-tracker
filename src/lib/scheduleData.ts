@@ -12,46 +12,48 @@ type SubjectSchedule = Record<number, WeekReading>
 // Economics B: Macroeconomics (Blanchard, 7th Global Edition)
 // Lectures: Monday 12:15-14:00
 // Tutorials: biweekly
-// Reading approach: full chapters (no sub-section jumping), extensions folded into lighter weeks
+// Reading includes sub-sections from later chapters alongside core chapters
 const macroSchedule: SubjectSchedule = {
-  // KW 8 not tracked (before semester)
+  8: {
+    reading: 'Ch 1–2: Introduction & National Accounts (~44p)',
+  },
   9: {
-    reading: 'Ch 3: The Goods Market (~20p)',
-    practice: 'Tutorial 1: Intro & National Accounts (Ch 1, 2)',
+    reading: 'Ch 3, 5.1, 14.1–14.2: Goods Market & Expectations (~44p)',
+    practice: 'Tutorial 1: Intro & National Accounts (Ch 1–2)',
   },
   10: {
-    reading: 'Ch 4: Financial Markets I + Ch 14.1–14.2: Expectations (~37p)',
+    reading: 'Ch 4, 5.2: Financial Markets (~27p)',
   },
   11: {
-    reading: 'Ch 5–6: IS-LM Model + Extended IS-LM (~45p)',
-    practice: 'Tutorial 2: Goods Market & Financial Markets',
+    reading: 'Ch 5–6: IS-LM Model (~34p)',
+    practice: 'Tutorial 2: Goods & Financial Markets (Ch 3–4, 5.1–5.2, 14.1–14.2)',
   },
   12: {
     reading: 'Ch 7: The Labor Market (~20p)',
   },
   13: {
     reading: 'Ch 8: Phillips Curve & Inflation (~20p)',
-    practice: 'Tutorial 3: The IS-LM Model',
+    practice: 'Tutorial 3: The IS-LM Model (Ch 5–6)',
   },
   // KW 14-15: Easter break
   16: {
-    reading: 'Ch 9: The IS-LM-PC Model (~19p)',
-    practice: 'Tutorial 4: Labor Market & Inflation',
+    reading: 'Ch 9: The IS-LM-PC Model (~22p)',
+    practice: 'Tutorial 4: Labor Market & Inflation (Ch 7–8)',
   },
   17: {
-    reading: 'Ch 17–18: Openness & Goods Market in Open Economy (~42p)',
+    reading: 'Ch 17: Goods Market in Open Economy (~20p)',
   },
   18: {
-    reading: 'Ch 19: Output, Interest Rate & Exchange Rate (~20p)',
-    practice: 'Tutorial 5: IS-LM-PC Model',
+    reading: 'Ch 18.1, 19.2: International Macroeconomics (~12p)',
+    practice: 'Tutorial 5: IS-LM-PC Model (Ch 9)',
   },
   19: {
-    reading: 'Ch 10–11: Facts of Growth & Saving/Capital (~42p)',
-    practice: 'Tutorial 6: Open Economy & Intl Macro',
+    reading: 'Ch 10–11, 19.5, 20.2, 20.4: Growth (~54p)',
+    practice: 'Tutorial 6: Open Economy (Ch 17, 18.1, 19.2)',
   },
   20: {
-    reading: 'Ch 12: Technological Progress + Ch 20.2, 20.4 (~32p)',
-    practice: 'Tutorial 7: Growth & Innovation',
+    reading: 'Ch 12: Technological Progress (~20p)',
+    practice: 'Tutorial 7: Growth & Innovation (Ch 10–12, 19.5, 20.2, 20.4)',
   },
   21: {
     reading: 'Exam prep — review',
@@ -183,17 +185,17 @@ export interface ScheduleEntry {
 
 const macroFullSchedule: ScheduleEntry[] = [
   { kw: 8, topic: 'Introduction & National Accounts', reading: 'Ch 1–2' },
-  { kw: 9, topic: 'The Goods Market', reading: 'Ch 3', practice: 'Tutorial 1' },
-  { kw: 10, topic: 'Financial Markets', reading: 'Ch 4 + Ch 14.1–14.2' },
+  { kw: 9, topic: 'The Goods Market', reading: 'Ch 3, 5.1, 14.1–14.2', practice: 'Tutorial 1' },
+  { kw: 10, topic: 'Financial Markets', reading: 'Ch 4, 5.2' },
   { kw: 11, topic: 'The IS-LM Model', reading: 'Ch 5–6', practice: 'Tutorial 2' },
   { kw: 12, topic: 'The Labor Market', reading: 'Ch 7' },
   { kw: 13, topic: 'Inflation & Phillips Curve', reading: 'Ch 8', practice: 'Tutorial 3' },
   { kw: '14–15', topic: 'Easter Break' },
   { kw: 16, topic: 'The IS-LM-PC Model', reading: 'Ch 9', practice: 'Tutorial 4' },
-  { kw: 17, topic: 'Open Economy', reading: 'Ch 17–18' },
-  { kw: 18, topic: 'International Macro', reading: 'Ch 19', practice: 'Tutorial 5' },
-  { kw: 19, topic: 'Growth', reading: 'Ch 10–11', practice: 'Tutorial 6' },
-  { kw: 20, topic: 'Innovation', reading: 'Ch 12 + Ch 20.2, 20.4', practice: 'Tutorial 7' },
+  { kw: 17, topic: 'Goods Market in Open Economy', reading: 'Ch 17' },
+  { kw: 18, topic: 'International Macroeconomics', reading: 'Ch 18.1, 19.2', practice: 'Tutorial 5' },
+  { kw: 19, topic: 'Growth', reading: 'Ch 10–11, 19.5, 20.2, 20.4', practice: 'Tutorial 6' },
+  { kw: 20, topic: 'Innovation', reading: 'Ch 12', practice: 'Tutorial 7' },
   { kw: 21, topic: 'Q&A / Exam Prep', practice: 'Tutorial 8' },
 ]
 
@@ -388,4 +390,98 @@ export function getMathExpectedSubchapter(weekNumber: number): string | null {
 
 export function getMathSubchapterIndex(subchapterId: string): number {
   return MATH_SUBCHAPTERS.findIndex((sc) => sc.id === subchapterId)
+}
+
+// ─── Law reading progress tracking ───
+
+export interface LawExpectedPace {
+  book: 'constitutional' | 'pil'
+  page: number
+}
+
+// Expected page in the respective textbook by each KW
+// Constitutional Law: Egli, Introduction to Swiss Constitutional Law (3rd ed.) — pp. 24–180
+// Public International Law: Egli, Introduction to Public International Law (3rd ed.) — pp. 1–159
+const lawExpectedPace: Record<number, LawExpectedPace> = {
+  9:  { book: 'constitutional', page: 42 },
+  10: { book: 'constitutional', page: 69 },
+  11: { book: 'constitutional', page: 116 },
+  12: { book: 'constitutional', page: 128 },
+  13: { book: 'constitutional', page: 180 },
+  // 14-15: Easter break
+  16: { book: 'pil', page: 19 },
+  17: { book: 'pil', page: 48 },
+  18: { book: 'pil', page: 71 },
+  19: { book: 'pil', page: 111 },
+  20: { book: 'pil', page: 159 },
+  21: { book: 'pil', page: 159 },  // review
+}
+
+export const LAW_CL_TOTAL = 180  // Constitutional Law max page
+export const LAW_PIL_TOTAL = 159 // Public International Law max page
+export const LAW_TOTAL_PAGES = LAW_CL_TOTAL + LAW_PIL_TOTAL // 339
+
+export function getLawExpectedPace(weekNumber: number): LawExpectedPace | null {
+  if (weekNumber === 14 || weekNumber === 15) return lawExpectedPace[13] || null
+  return lawExpectedPace[weekNumber] || null
+}
+
+export function getLawCumulativePages(book: 'constitutional' | 'pil', page: number): number {
+  return book === 'constitutional' ? page : LAW_CL_TOTAL + page
+}
+
+// ─── Macro (Economics B) reading progress tracking ───
+
+// Cumulative pages of assigned reading by each KW
+// Blanchard, Macroeconomics (7th Global Edition) — ~317 total assigned pages
+// Includes full Ch 1–12, 17 plus sub-sections of Ch 14, 18, 19, 20
+const macroExpectedPace: Record<number, number> = {
+  8:  44,    // Ch 1–2 (~44p)
+  9:  88,    // + Ch 3 (20p) + Ch 5.1 (~9p) + Ch 14.1–14.2 (~15p)
+  10: 115,   // + Ch 4 (22p) + Ch 5.2 (~5p)
+  11: 149,   // + rest of Ch 5 (~8p) + Ch 6 (26p)
+  12: 169,   // + Ch 7 (~20p)
+  13: 189,   // + Ch 8 (~20p)
+  // 14-15: Easter break
+  16: 211,   // + Ch 9 (~22p)
+  17: 231,   // + Ch 17 (~20p)
+  18: 243,   // + Ch 18.1 (~8p) + Ch 19.2 (~4p)
+  19: 297,   // + Ch 10 (18p) + Ch 11 (24p) + Ch 19.5 (~4p) + Ch 20.2 (~4p) + Ch 20.4 (~4p)
+  20: 317,   // + Ch 12 (~20p)
+  21: 317,   // review
+}
+
+export const MACRO_TOTAL_PAGES = 317
+
+export function getMacroExpectedPages(weekNumber: number): number | null {
+  if (weekNumber === 14 || weekNumber === 15) return macroExpectedPace[13] || null
+  return macroExpectedPace[weekNumber] || null
+}
+
+// ─── Financial Management (BusAdmin) reading progress tracking ───
+
+// Schäfer, Principles of Financial Management
+// Assigned chapters: 1, 2, 3, 4, 5 (excl 5.5), 6, 10, 11, 12, 14
+// Chapters 7–9 and 13 are skipped; reading is forward with small jumps
+// FM part starts KW 11 (KW 8-10 is Business Ethics, no textbook tracking)
+const fmExpectedPace: Record<number, number> = {
+  11: 25,    // End of Ch 2 (pp. 2–25)
+  12: 125,   // End of Ch 4 (pp. 27–125)
+  13: 162,   // End of Ch 6 (pp. 126–162, excl 5.5)
+  // 14-15: Easter break
+  16: 228,   // End of Ch 10 (pp. 207–228)
+  17: 268,   // End of Ch 11 (pp. 229–268)
+  18: 290,   // End of Ch 12 (pp. 270–290)
+  // 19: St. Gallen Symposium — no lecture
+  20: 343,   // End of Ch 14 (pp. 318–343)
+  21: 343,   // review
+  22: 343,   // review
+}
+
+export const FM_TOTAL_PAGES = 343 // End of Ch 14 content
+
+export function getFmExpectedPage(weekNumber: number): number | null {
+  if (weekNumber === 14 || weekNumber === 15) return fmExpectedPace[13] || null
+  if (weekNumber === 19) return fmExpectedPace[18] || null // no lecture week
+  return fmExpectedPace[weekNumber] || null
 }
