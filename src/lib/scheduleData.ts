@@ -168,10 +168,46 @@ const busAdminSchedule: SubjectSchedule = {
   },
 }
 
+// Philosophy: Introduction to Philosophical Thinking — Capitalism or Socialism?
+// Weekly seminar: Mon 08:15-10:00
+// One text (or excerpt) per week, oral exam at end
+const philoSchedule: SubjectSchedule = {
+  9: {
+    reading: 'Smith, Marx & Engels, Fulcher, Newman (excerpts on Capitalism & Socialism)',
+  },
+  10: {
+    reading: 'Friedman – Capitalism and Freedom (1962)',
+  },
+  11: {
+    reading: 'Piketty – Capital in the Twenty-First Century (2014)',
+  },
+  12: {
+    reading: 'Nozick – Anarchy, State, and Utopia (1974)',
+  },
+  13: {
+    reading: 'Van Parijs – Why Surfers Should be Fed (1991)',
+  },
+  // KW 14-15: Easter break, KW 16: Review (no new reading)
+  17: {
+    reading: 'Scruton – The Truth in Socialism and Capitalism (2014)',
+  },
+  18: {
+    reading: 'Cohen – Why not Socialism? (2009)',
+  },
+  19: {
+    reading: 'Rand – Atlas Shrugged (1957)',
+  },
+  20: {
+    reading: 'Fisher – Capitalist Realism (2009)',
+  },
+  // KW 21: Concluding session (no new reading)
+}
+
 const scheduleData: Record<string, SubjectSchedule> = {
   Macro: macroSchedule,
   Law: lawSchedule,
   BusAdmin: busAdminSchedule,
+  Philo: philoSchedule,
 }
 
 // ─── Full semester schedule data for the Schedule Modal ───
@@ -243,10 +279,27 @@ const mathFullSchedule: ScheduleEntry[] = [
   { kw: 8, topic: 'Applications of Linear Algebra' },
 ]
 
+const philoFullSchedule: ScheduleEntry[] = [
+  { kw: 8, topic: 'Introductions & Overview' },
+  { kw: 9, topic: 'Capitalism & Socialism: Terminology', reading: 'Smith, Marx & Engels, Fulcher, Newman' },
+  { kw: 10, topic: 'Capitalism and Freedom', reading: 'Friedman (1962)' },
+  { kw: 11, topic: 'Capital in the Twenty-First Century', reading: 'Piketty (2014)' },
+  { kw: 12, topic: 'Anarchy, State, and Utopia', reading: 'Nozick (1974)' },
+  { kw: 13, topic: 'Why Surfers Should be Fed', reading: 'Van Parijs (1991)' },
+  { kw: '14–15', topic: 'Easter Break' },
+  { kw: 16, topic: 'Review First Half / Oral Exam Info' },
+  { kw: 17, topic: 'The Truth in Socialism and Capitalism', reading: 'Scruton (2014)' },
+  { kw: 18, topic: 'Why not Socialism?', reading: 'Cohen (2009)' },
+  { kw: 19, topic: 'Atlas Shrugged', reading: 'Rand (1957)' },
+  { kw: 20, topic: 'Capitalist Realism', reading: 'Fisher (2009)' },
+  { kw: 21, topic: 'Concluding Session' },
+]
+
 const fullScheduleData: Record<string, ScheduleEntry[]> = {
   Macro: macroFullSchedule,
   Law: lawFullSchedule,
   BusAdmin: busAdminFullSchedule,
+  Philo: philoFullSchedule,
   Math: mathFullSchedule,
 }
 
