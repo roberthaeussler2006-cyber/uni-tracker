@@ -482,26 +482,29 @@ export const MACRO_READING_UNITS: MacroReadingUnit[] = [
 // Cumulative pages of assigned reading by each KW
 // Blanchard, Macroeconomics (7th Global Edition) — ~317 total assigned pages
 // Includes full Ch 1–12, 17 plus sub-sections of Ch 14, 18, 19, 20
+// Expected cumulative pages by end of each week.
+// Readings done in KW N prepare for KW N+1's lecture.
 const macroExpectedPace: Record<number, number> = {
-  8:  44,    // Ch 1–2 (~44p)
-  9:  88,    // + Ch 3 (20p) + Ch 5.1 (~9p) + Ch 14.1–14.2 (~15p)
-  10: 115,   // + Ch 4 (22p) + Ch 5.2 (~5p)
-  11: 149,   // + rest of Ch 5 (~8p) + Ch 6 (26p)
-  12: 169,   // + Ch 7 (~20p)
-  13: 189,   // + Ch 8 (~20p)
-  // 14-15: Easter break
-  16: 211,   // + Ch 9 (~22p)
-  17: 231,   // + Ch 17 (~20p)
-  18: 243,   // + Ch 18.1 (~8p) + Ch 19.2 (~4p)
-  19: 297,   // + Ch 10 (18p) + Ch 11 (24p) + Ch 19.5 (~4p) + Ch 20.2 (~4p) + Ch 20.4 (~4p)
-  20: 317,   // + Ch 12 (~20p)
+  8:  88,    // Ch 1-2 (for KW 8) + Ch 3, 5.1, 14.1-14.2 (for KW 9)
+  9:  115,   // + Ch 4 (22p) + Ch 5.2 (5p) for KW 10
+  10: 149,   // + Ch 5.3+ (8p) + Ch 6 (26p) for KW 11
+  11: 169,   // + Ch 7 (20p) for KW 12
+  12: 189,   // + Ch 8 (20p) for KW 13
+  13: 189,   // no new reading (Easter ahead)
+  // 14: Easter
+  15: 211,   // + Ch 9 (22p) for KW 16
+  16: 231,   // + Ch 17 (20p) for KW 17
+  17: 243,   // + Ch 18.1 (8p) + Ch 19.2 (4p) for KW 18
+  18: 297,   // + Ch 10-11, 19.5, 20.2, 20.4 (54p) for KW 19
+  19: 317,   // + Ch 12 (20p) for KW 20
+  20: 317,   // review
   21: 317,   // review
 }
 
 export const MACRO_TOTAL_PAGES = 317
 
 export function getMacroExpectedPages(weekNumber: number): number | null {
-  if (weekNumber === 14 || weekNumber === 15) return macroExpectedPace[13] || null
+  if (weekNumber === 14) return macroExpectedPace[13] || null
   return macroExpectedPace[weekNumber] || null
 }
 
@@ -511,16 +514,20 @@ export function getMacroExpectedPages(weekNumber: number): number | null {
 // Assigned chapters: 1, 2, 3, 4, 5 (excl 5.5), 6, 10, 11, 12, 14
 // Chapters 7–9 and 13 are skipped; reading is forward with small jumps
 // FM part starts KW 11 (KW 8-10 is Business Ethics, no textbook tracking)
+// Expected cumulative pages by end of each week.
+// Readings done in KW N prepare for KW N+1's lecture.
 const fmExpectedPace: Record<number, number> = {
-  11: 25,    // End of Ch 2 (pp. 2–25)
-  12: 125,   // End of Ch 4 (pp. 27–125)
-  13: 162,   // End of Ch 6 (pp. 126–162, excl 5.5)
-  // 14-15: Easter break
-  16: 228,   // End of Ch 10 (pp. 207–228)
-  17: 268,   // End of Ch 11 (pp. 229–268)
-  18: 290,   // End of Ch 12 (pp. 270–290)
-  // 19: St. Gallen Symposium — no lecture
-  20: 343,   // End of Ch 14 (pp. 318–343)
+  10: 25,    // read Ch 1&2 for KW 11
+  11: 125,   // read Ch 3&4 for KW 12
+  12: 162,   // read Ch 5&6 for KW 13
+  13: 162,   // no new reading (Easter ahead)
+  // 14: Easter
+  15: 228,   // read Ch 10 for KW 16
+  16: 268,   // read Ch 11 for KW 17
+  17: 290,   // read Ch 12 for KW 18
+  18: 290,   // no reading (KW 19 = Symposium)
+  19: 343,   // read Ch 14 for KW 20
+  20: 343,   // review
   21: 343,   // review
   22: 343,   // review
 }
@@ -528,7 +535,6 @@ const fmExpectedPace: Record<number, number> = {
 export const FM_TOTAL_PAGES = 343 // End of Ch 14 content
 
 export function getFmExpectedPage(weekNumber: number): number | null {
-  if (weekNumber === 14 || weekNumber === 15) return fmExpectedPace[13] || null
-  if (weekNumber === 19) return fmExpectedPace[18] || null // no lecture week
+  if (weekNumber === 14) return fmExpectedPace[13] || null
   return fmExpectedPace[weekNumber] || null
 }
