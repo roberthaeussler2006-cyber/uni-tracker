@@ -256,6 +256,18 @@ export function hasSchedule(subjectShortName: string): boolean {
   return subjectShortName in fullScheduleData
 }
 
+// ─── Schedule screenshot images ───
+
+const scheduleImages: Record<string, string[]> = {
+  Macro: ['/schedules/econ.png'],
+  Law: ['/schedules/law-1.png', '/schedules/law-2.png', '/schedules/law-exercises-1.png', '/schedules/law-exercises-2.png'],
+  BusAdmin: ['/schedules/ba.png'],
+}
+
+export function getScheduleImages(subjectShortName: string): string[] | null {
+  return scheduleImages[subjectShortName] || null
+}
+
 export function getTaskSubtitle(
   subjectShortName: string,
   weekNumber: number,

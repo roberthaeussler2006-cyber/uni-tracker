@@ -9,7 +9,8 @@ import TaskItem from './TaskItem'
 import DailyTaskGrid from './DailyTaskGrid'
 import AddTaskModal from './AddTaskModal'
 import ScheduleModal from './ScheduleModal'
-import { getTaskSubtitle, getFullSchedule, hasSchedule } from '@/lib/scheduleData'
+import ScheduleImageModal from './ScheduleImageModal'
+import { getTaskSubtitle, getFullSchedule, hasSchedule, getScheduleImages } from '@/lib/scheduleData'
 
 interface Props {
   subjects: Subject[]
@@ -25,6 +26,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
   const [loading, setLoading] = useState(true)
   const [addModalSubject, setAddModalSubject] = useState<string | null>(null)
   const [scheduleSubject, setScheduleSubject] = useState<Subject | null>(null)
+  const [imageSubject, setImageSubject] = useState<Subject | null>(null)
   const generatingRef = useRef<Set<string>>(new Set())
 
   const loadTasks = useCallback(async () => {
@@ -195,6 +197,17 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                     <span className="text-base font-medium text-white">{subject.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
+                    {getScheduleImages(subject.short_name) && (
+                      <button
+                        onClick={() => setImageSubject(subject)}
+                        className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                        title="View original schedule"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+                        </svg>
+                      </button>
+                    )}
                     {hasSchedule(subject.short_name) && (
                       <button
                         onClick={() => setScheduleSubject(subject)}
@@ -270,6 +283,14 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
           entries={getFullSchedule(scheduleSubject.short_name)!}
           currentWeekNumber={currentWeek.week_number}
           onClose={() => setScheduleSubject(null)}
+        />
+      )}
+
+      {imageSubject && getScheduleImages(imageSubject.short_name) && (
+        <ScheduleImageModal
+          subjectColor={imageSubject.color}
+          images={getScheduleImages(imageSubject.short_name)!}
+          onClose={() => setImageSubject(null)}
         />
       )}
     </div>
