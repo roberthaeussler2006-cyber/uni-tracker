@@ -68,7 +68,7 @@ Exam period: May 25 - Jun 12
 | 6 | Accounting Exam | Accounting | 0 | #EAB308 (yellow) | Written, digital, 180min, closed book | Exam: March 14, 2026 |
 | 7 | Academic Training Paper (ATP/WHA) | ATP | — | #14B8A6 (teal) | Group paper + oral exam | Regular work sessions |
 | 8 | Mathematics B | Math | 3.5 | #EC4899 (pink) | Written, analog, 120min, closed book | Mon 16:15-18:00 (lecture), Thu 12:15-14:00 (exercises, biweekly) |
-| 9 | Business Administration | BusAdmin | — | #6366F1 (indigo) | — | Mon 14:15-16:00 (lecture), Fri (exercises) |
+| 9 | Business Administration B | BusAdmin | 5.5 | #6366F1 (indigo) | Written, digital, 180min, closed book (180pts: 45 Ethics + 135 FM) | Mon 14:15-16:00 (lecture), Fri (exercises) |
 
 ## Task Templates (13 total)
 
@@ -224,6 +224,59 @@ Exercises: biweekly Fridays, Group 6, 10:15-12:00
 | 11 | 18 | 01/05 | pp. 49–71 | Law on the Use of Force |
 | 13 | 20 | 15/05 | pp. 143–159 | State Responsibility & ICJ |
 
+## Business Administration B (2,102) — Full Schedule
+
+5.5 ECTS | Exam: Written, digital, 180min, closed book | 180pts (45 Ethics + 135 FM)
+Supplementary aids: Private laptop (compulsory, no tablets), mains adapter, LockDown Browser
+English Track: Mon 14:15-16:00 | Exercises: Fridays
+
+### Part 1: Business Ethics (Prof. Dr. Michael Festl) — KW 8-10
+
+| KW | # | Topic | Reading (before lecture) |
+|----|---|-------|------------------------|
+| 8 | 1 | Basics: Virtue Ethics, Deontology, Utilitarianism | — |
+| 9 | 2 | Sustainability | Club of Rome: Limits to Growth (Intro) + Williams: Green Giants |
+| 10 | 3 | Responsibility | Friedman: Capitalism & Freedom + Stout: Shareholder Value Myth |
+
+### Part 2: Financial Management (Dr. Simon Pfister) — KW 11-21
+
+Textbook: Schäfer, Principles of Financial Management: A Practice-oriented Introduction
+
+| KW | # | Topic | Reading (before lecture) |
+|----|---|-------|------------------------|
+| 11 | 4 | Introduction | Schäfer Ch 1 & 2 |
+| 12 | 5 | Statement of financial position | Schäfer Ch 3 & 4 |
+| 13 | 6 | Statement of profit or loss & cash flows | Schäfer Ch 5 (excl. 5.5) & 6 |
+| 14-15 | — | **BREAK** | — |
+| 16 | 7 | Management accounting | Schäfer Ch 10 |
+| 17 | 8 | Performance Measurement | Schäfer Ch 11 |
+| 18 | 9 | Financing | Schäfer Ch 12 |
+| 19 | — | St. Gallen Symposium & Dies academicus | — |
+| 20 | 10 | Mergers & Acquisitions + Guest Lecture | Schäfer Ch 14 |
+| 21 | — | — | — |
+| 22 | — | Optional Repetition | — |
+
+### Exercises (Fridays)
+
+**Business Ethics:**
+
+| KW | Exercise |
+|----|----------|
+| 8 | Coaching for Academic Term Paper |
+| 9 | Exercise 1: Case Study South Pole |
+| 10 | Exercise 2: Case Study Responsibility |
+
+**Financial Management:**
+
+| KW | Exercise |
+|----|----------|
+| 12 | Exercise 1: Intro & Statement of financial position |
+| 13 | Exercise 2: Statement of profit or loss |
+| 17 | Exercise 3: Management accounting |
+| 18 | Exercise 4: Performance measurement |
+| 20 | Exercise 5: Financing & statement of cash flows |
+| 21 | Exercise 6: M&A and wrap up |
+
 ## Context Files
 
 Reference documents are stored in the parent directory (`../`):
@@ -243,6 +296,7 @@ Reference documents are stored in the parent directory (`../`):
 - `Chinesisch_A1_Pinyin_Trainer.html` — Chinese pinyin trainer app
 - `international law.pdf` — International law textbook
 - `Macroeconomics 7th.pdf` — Blanchard textbook
-- `Introduction to financial management.pdf` — Finance textbook
+- `Introduction to financial management.pdf` — Schäfer FM textbook
+- `2,102_CourseandExaminationFactSheet.pdf` — Business Administration B fact sheet
 - `HSGCalendar (2).ics` — HSG calendar
 - `ble.ics` — Additional calendar

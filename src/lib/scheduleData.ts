@@ -109,9 +109,67 @@ const lawSchedule: SubjectSchedule = {
   },
 }
 
+// Business Administration B (2,102)
+// Part 1: Business Ethics (Prof. Dr. Michael Festl) — KW 8-10
+// Part 2: Financial Management (Dr. Simon Pfister) — KW 11-21
+// Textbook (FM): Schäfer, Principles of Financial Management
+// English Track: Mon 14:15-16:00
+// Exercises: Fridays
+// Exam: Written, digital, 180min, closed book. 180pts (45 Ethics + 135 FM)
+const busAdminSchedule: SubjectSchedule = {
+  // --- Business Ethics (KW 8-10) ---
+  8: {
+    practice: 'Coaching for Academic Term Paper',
+  },
+  9: {
+    reading: 'Club of Rome: Limits to Growth (Intro) + Williams: Green Giants',
+    practice: 'Exercise 1: Case Study South Pole',
+  },
+  10: {
+    reading: 'Friedman: Capitalism & Freedom + Stout: Shareholder Value Myth (Preface, Intro, Ch 4 & 8)',
+    practice: 'Exercise 2: Case Study Responsibility',
+  },
+  // --- Financial Management (KW 11-21) ---
+  11: {
+    reading: 'Schäfer Ch 1 & 2: Introduction',
+  },
+  12: {
+    reading: 'Schäfer Ch 3 & 4: Statement of Financial Position',
+    practice: 'Exercise 1: Intro & Statement of financial position',
+  },
+  13: {
+    reading: 'Schäfer Ch 5 (excl. 5.5) & 6: Profit/Loss & Cash Flows',
+    practice: 'Exercise 2: Statement of profit or loss',
+  },
+  // KW 14-15: Easter break
+  16: {
+    reading: 'Schäfer Ch 10: Management Accounting',
+  },
+  17: {
+    reading: 'Schäfer Ch 11: Performance Measurement',
+    practice: 'Exercise 3: Management accounting',
+  },
+  18: {
+    reading: 'Schäfer Ch 12: Financing',
+    practice: 'Exercise 4: Performance measurement',
+  },
+  // KW 19: St. Gallen Symposium & Dies academicus — no lecture
+  20: {
+    reading: 'Schäfer Ch 14: Mergers & Acquisitions + Guest Lecture',
+    practice: 'Exercise 5: Financing & statement of cash flows',
+  },
+  21: {
+    practice: 'Exercise 6: M&A and wrap up',
+  },
+  22: {
+    reading: 'Optional repetition — review',
+  },
+}
+
 const scheduleData: Record<string, SubjectSchedule> = {
   Macro: macroSchedule,
   Law: lawSchedule,
+  BusAdmin: busAdminSchedule,
 }
 
 export function getTaskSubtitle(
