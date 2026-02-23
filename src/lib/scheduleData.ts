@@ -172,6 +172,90 @@ const scheduleData: Record<string, SubjectSchedule> = {
   BusAdmin: busAdminSchedule,
 }
 
+// ─── Full semester schedule data for the Schedule Modal ───
+
+export interface ScheduleEntry {
+  kw: number | string
+  topic: string
+  reading?: string
+  practice?: string
+}
+
+const macroFullSchedule: ScheduleEntry[] = [
+  { kw: 8, topic: 'Introduction & National Accounts', reading: 'Ch 1–2' },
+  { kw: 9, topic: 'The Goods Market', reading: 'Ch 3', practice: 'Tutorial 1' },
+  { kw: 10, topic: 'Financial Markets', reading: 'Ch 4 + Ch 14.1–14.2' },
+  { kw: 11, topic: 'The IS-LM Model', reading: 'Ch 5–6', practice: 'Tutorial 2' },
+  { kw: 12, topic: 'The Labor Market', reading: 'Ch 7' },
+  { kw: 13, topic: 'Inflation & Phillips Curve', reading: 'Ch 8', practice: 'Tutorial 3' },
+  { kw: '14–15', topic: 'Easter Break' },
+  { kw: 16, topic: 'The IS-LM-PC Model', reading: 'Ch 9', practice: 'Tutorial 4' },
+  { kw: 17, topic: 'Open Economy', reading: 'Ch 17–18' },
+  { kw: 18, topic: 'International Macro', reading: 'Ch 19', practice: 'Tutorial 5' },
+  { kw: 19, topic: 'Growth', reading: 'Ch 10–11', practice: 'Tutorial 6' },
+  { kw: 20, topic: 'Innovation', reading: 'Ch 12 + Ch 20.2, 20.4', practice: 'Tutorial 7' },
+  { kw: 21, topic: 'Q&A / Exam Prep', practice: 'Tutorial 8' },
+]
+
+const lawFullSchedule: ScheduleEntry[] = [
+  { kw: 8, topic: 'Introduction & Structural Principles', reading: 'pp. 1–23' },
+  { kw: 9, topic: 'Rechtsstaat', reading: 'pp. 24–42' },
+  { kw: 10, topic: 'Federalism', reading: 'pp. 43–69', practice: 'Exercise: Competencies' },
+  { kw: 11, topic: 'Democracy & Political Rights', reading: 'pp. 70–116' },
+  { kw: 12, topic: 'Fundamental Rights', reading: 'pp. 117–128', practice: 'Exercise: Human Rights' },
+  { kw: 13, topic: 'Civil Liberties & Property', reading: 'pp. 129–180' },
+  { kw: '14–15', topic: 'Easter Break' },
+  { kw: 16, topic: 'Intl Legal System & Treaties', reading: 'PIL pp. 1–19', practice: 'Exercise: Treaties' },
+  { kw: 17, topic: 'Customary Intl Law', reading: 'PIL pp. 20–48' },
+  { kw: 18, topic: 'UN Charter & Use of Force', reading: 'PIL pp. 49–71', practice: 'Exercise: Use of Force' },
+  { kw: 19, topic: 'Human Rights & Humanitarian Law', reading: 'PIL pp. 73–111' },
+  { kw: 20, topic: 'Economic Law & State Responsibility', reading: 'PIL pp. 113–159', practice: 'Exercise: State Responsibility' },
+  { kw: 21, topic: 'Q&A Session' },
+]
+
+const busAdminFullSchedule: ScheduleEntry[] = [
+  { kw: 8, topic: 'Virtue Ethics, Deontology, Utilitarianism', practice: 'Coaching: Term Paper' },
+  { kw: 9, topic: 'Sustainability', reading: 'Club of Rome + Green Giants', practice: 'Ex 1: South Pole' },
+  { kw: 10, topic: 'Responsibility', reading: 'Friedman + Stout', practice: 'Ex 2: Responsibility' },
+  { kw: 11, topic: 'FM: Introduction', reading: 'Schäfer Ch 1 & 2' },
+  { kw: 12, topic: 'FM: Financial Position', reading: 'Schäfer Ch 3 & 4', practice: 'Ex 1: Financial Position' },
+  { kw: 13, topic: 'FM: Profit/Loss & Cash Flows', reading: 'Schäfer Ch 5 (excl 5.5) & 6', practice: 'Ex 2: Profit or Loss' },
+  { kw: '14–15', topic: 'Easter Break' },
+  { kw: 16, topic: 'FM: Management Accounting', reading: 'Schäfer Ch 10' },
+  { kw: 17, topic: 'FM: Performance Measurement', reading: 'Schäfer Ch 11', practice: 'Ex 3: Mgmt Accounting' },
+  { kw: 18, topic: 'FM: Financing', reading: 'Schäfer Ch 12', practice: 'Ex 4: Performance' },
+  { kw: 19, topic: 'St. Gallen Symposium (no lecture)' },
+  { kw: 20, topic: 'FM: M&A + Guest Lecture', reading: 'Schäfer Ch 14', practice: 'Ex 5: Financing & Cash Flows' },
+  { kw: 21, topic: '—', practice: 'Ex 6: M&A and Wrap Up' },
+  { kw: 22, topic: 'Optional Repetition' },
+]
+
+const mathFullSchedule: ScheduleEntry[] = [
+  { kw: 1, topic: 'Integrals' },
+  { kw: 2, topic: 'Applications of Integral Calculus' },
+  { kw: 3, topic: 'Matrices and Determinants' },
+  { kw: 4, topic: 'Vectors' },
+  { kw: 5, topic: 'Systems of Linear Equations' },
+  { kw: 6, topic: 'Eigenvalues and Eigenvectors' },
+  { kw: 7, topic: 'Difference Equations' },
+  { kw: 8, topic: 'Applications of Linear Algebra' },
+]
+
+const fullScheduleData: Record<string, ScheduleEntry[]> = {
+  Macro: macroFullSchedule,
+  Law: lawFullSchedule,
+  BusAdmin: busAdminFullSchedule,
+  Math: mathFullSchedule,
+}
+
+export function getFullSchedule(subjectShortName: string): ScheduleEntry[] | null {
+  return fullScheduleData[subjectShortName] || null
+}
+
+export function hasSchedule(subjectShortName: string): boolean {
+  return subjectShortName in fullScheduleData
+}
+
 export function getTaskSubtitle(
   subjectShortName: string,
   weekNumber: number,

@@ -8,7 +8,8 @@ import ProgressRing from './ProgressRing'
 import TaskItem from './TaskItem'
 import DailyTaskGrid from './DailyTaskGrid'
 import AddTaskModal from './AddTaskModal'
-import { getTaskSubtitle } from '@/lib/scheduleData'
+import ScheduleModal from './ScheduleModal'
+import { getTaskSubtitle, getFullSchedule, hasSchedule } from '@/lib/scheduleData'
 
 interface Props {
   subjects: Subject[]
@@ -23,6 +24,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
   const [reflectionNotes, setReflectionNotes] = useState(currentWeek.reflection_notes || '')
   const [loading, setLoading] = useState(true)
   const [addModalSubject, setAddModalSubject] = useState<string | null>(null)
+  const [scheduleSubject, setScheduleSubject] = useState<Subject | null>(null)
   const generatingRef = useRef<Set<string>>(new Set())
 
   const loadTasks = useCallback(async () => {
@@ -192,12 +194,25 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                     <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: subject.color }} />
                     <span className="text-base font-medium text-white">{subject.name}</span>
                   </div>
-                  <button
-                    onClick={() => setAddModalSubject(subject.id)}
-                    className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-                  >
-                    + add
-                  </button>
+                  <div className="flex items-center gap-2">
+                    {hasSchedule(subject.short_name) && (
+                      <button
+                        onClick={() => setScheduleSubject(subject)}
+                        className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                        title="View schedule"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                      </button>
+                    )}
+                    <button
+                      onClick={() => setAddModalSubject(subject.id)}
+                      className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                    >
+                      + add
+                    </button>
+                  </div>
                 </div>
 
                 {regularTasks.map((task) => (
@@ -244,6 +259,17 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
           defaultSubjectId={addModalSubject}
           onAdd={handleAddTask}
           onClose={() => setAddModalSubject(null)}
+        />
+      )}
+
+      {scheduleSubject && getFullSchedule(scheduleSubject.short_name) && (
+        <ScheduleModal
+          subjectName={scheduleSubject.name}
+          subjectShortName={scheduleSubject.short_name}
+          subjectColor={scheduleSubject.color}
+          entries={getFullSchedule(scheduleSubject.short_name)!}
+          currentWeekNumber={currentWeek.week_number}
+          onClose={() => setScheduleSubject(null)}
         />
       )}
     </div>
