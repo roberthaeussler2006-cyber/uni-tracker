@@ -122,15 +122,18 @@ export function getTaskSubtitle(
   const schedule = scheduleData[subjectShortName]
   if (!schedule) return null
 
-  const weekInfo = schedule[weekNumber]
-  if (!weekInfo) return null
-
   const titleLower = taskTitle.toLowerCase()
+
+  // Readings are done this week for NEXT week's lecture
   if (titleLower.includes('reading')) {
-    return weekInfo.reading || null
+    const nextWeekInfo = schedule[weekNumber + 1]
+    return nextWeekInfo?.reading || null
   }
+
+  // Practice/exercises are for THIS week's tutorial/exercise
   if (titleLower.includes('practice') || titleLower.includes('exercise')) {
-    return weekInfo.practice || null
+    const weekInfo = schedule[weekNumber]
+    return weekInfo?.practice || null
   }
 
   return null
