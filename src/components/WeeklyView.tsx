@@ -12,6 +12,7 @@ import ScheduleModal from './ScheduleModal'
 import ScheduleImageModal from './ScheduleImageModal'
 import MathProgressTracker from './MathProgressTracker'
 import ReadingProgressTracker from './ReadingProgressTracker'
+import MacroReadingTracker from './MacroReadingTracker'
 import { getTaskSubtitle, getFullSchedule, hasSchedule, getScheduleImages } from '@/lib/scheduleData'
 import { getCurrentWeekNumber } from '@/lib/weeks'
 
@@ -286,9 +287,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                   />
                 )}
                 {subject.short_name === 'Macro' && (
-                  <ReadingProgressTracker
-                    subject="Macro"
-                    currentWeek={currentWeek}
+                  <MacroReadingTracker
                     selectedWeekNumber={selectedWeekNumber}
                   />
                 )}

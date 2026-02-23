@@ -432,6 +432,49 @@ export function getLawCumulativePages(book: 'constitutional' | 'pil', page: numb
 
 // ─── Macro (Economics B) reading progress tracking ───
 
+// All assigned reading units with page counts — for chapter checklist tracker
+export interface MacroReadingUnit {
+  id: string       // unique identifier e.g. "ch3", "ch5.1"
+  label: string    // display label
+  pages: number    // estimated page count
+  kw: number       // lecture week this is assigned for
+}
+
+export const MACRO_READING_UNITS: MacroReadingUnit[] = [
+  // KW 8: Introduction & National Accounts
+  { id: 'ch1', label: 'Ch 1', pages: 18, kw: 8 },
+  { id: 'ch2', label: 'Ch 2', pages: 26, kw: 8 },
+  // KW 9: The Goods Market
+  { id: 'ch3', label: 'Ch 3', pages: 20, kw: 9 },
+  { id: 'ch5.1', label: 'Ch 5.1', pages: 9, kw: 9 },
+  { id: 'ch14.1-2', label: 'Ch 14.1–14.2', pages: 15, kw: 9 },
+  // KW 10: Financial Markets
+  { id: 'ch4', label: 'Ch 4', pages: 22, kw: 10 },
+  { id: 'ch5.2', label: 'Ch 5.2', pages: 5, kw: 10 },
+  // KW 11: The IS-LM Model
+  { id: 'ch5.3+', label: 'Ch 5.3+', pages: 8, kw: 11 },
+  { id: 'ch6', label: 'Ch 6', pages: 26, kw: 11 },
+  // KW 12: The Labor Market
+  { id: 'ch7', label: 'Ch 7', pages: 20, kw: 12 },
+  // KW 13: Inflation & Phillips Curve
+  { id: 'ch8', label: 'Ch 8', pages: 20, kw: 13 },
+  // KW 16: The IS-LM-PC Model
+  { id: 'ch9', label: 'Ch 9', pages: 22, kw: 16 },
+  // KW 17: Open Economy
+  { id: 'ch17', label: 'Ch 17', pages: 20, kw: 17 },
+  // KW 18: International Macroeconomics
+  { id: 'ch18.1', label: 'Ch 18.1', pages: 8, kw: 18 },
+  { id: 'ch19.2', label: 'Ch 19.2', pages: 4, kw: 18 },
+  // KW 19: Growth
+  { id: 'ch10', label: 'Ch 10', pages: 18, kw: 19 },
+  { id: 'ch11', label: 'Ch 11', pages: 24, kw: 19 },
+  { id: 'ch19.5', label: 'Ch 19.5', pages: 4, kw: 19 },
+  { id: 'ch20.2', label: 'Ch 20.2', pages: 4, kw: 19 },
+  { id: 'ch20.4', label: 'Ch 20.4', pages: 4, kw: 19 },
+  // KW 20: Innovation
+  { id: 'ch12', label: 'Ch 12', pages: 20, kw: 20 },
+]
+
 // Cumulative pages of assigned reading by each KW
 // Blanchard, Macroeconomics (7th Global Edition) — ~317 total assigned pages
 // Includes full Ch 1–12, 17 plus sub-sections of Ch 14, 18, 19, 20
