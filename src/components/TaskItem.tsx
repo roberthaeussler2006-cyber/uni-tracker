@@ -43,7 +43,7 @@ export default function TaskItem({ task, subjectColor, subtitle, onToggle, onDel
           {task.title}
         </span>
         {subtitle && (
-          <p className={`text-xs mt-0.5 ${task.is_completed ? 'text-gray-600' : 'text-gray-500'}`}>
+          <p className={`text-sm mt-0.5 ${task.is_completed ? 'text-gray-600' : 'text-gray-400'}`}>
             {subtitle}
           </p>
         )}
