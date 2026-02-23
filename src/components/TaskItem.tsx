@@ -6,11 +6,12 @@ import { supabase } from '@/lib/supabase'
 interface Props {
   task: Task
   subjectColor: string
+  subtitle?: string | null
   onToggle: (taskId: string, completed: boolean) => void
   onDelete?: (taskId: string) => void
 }
 
-export default function TaskItem({ task, subjectColor, onToggle, onDelete }: Props) {
+export default function TaskItem({ task, subjectColor, subtitle, onToggle, onDelete }: Props) {
   async function handleToggle() {
     const newVal = !task.is_completed
     onToggle(task.id, newVal)
@@ -37,9 +38,16 @@ export default function TaskItem({ task, subjectColor, onToggle, onDelete }: Pro
         )}
       </button>
 
-      <span className={`text-base flex-1 ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
-        {task.title}
-      </span>
+      <div className="flex-1 min-w-0">
+        <span className={`text-base ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
+          {task.title}
+        </span>
+        {subtitle && (
+          <p className={`text-xs mt-0.5 ${task.is_completed ? 'text-gray-600' : 'text-gray-500'}`}>
+            {subtitle}
+          </p>
+        )}
+      </div>
 
       {task.is_custom && onDelete && (
         <button

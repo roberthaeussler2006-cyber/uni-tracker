@@ -8,6 +8,7 @@ import ProgressRing from './ProgressRing'
 import TaskItem from './TaskItem'
 import DailyTaskGrid from './DailyTaskGrid'
 import AddTaskModal from './AddTaskModal'
+import { getTaskSubtitle } from '@/lib/scheduleData'
 
 interface Props {
   subjects: Subject[]
@@ -204,6 +205,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                     key={task.id}
                     task={task}
                     subjectColor={subject.color}
+                    subtitle={getTaskSubtitle(subject.short_name, currentWeek.week_number, task.title)}
                     onToggle={handleToggle}
                     onDelete={task.is_custom ? handleDeleteTask : undefined}
                   />

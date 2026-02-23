@@ -136,18 +136,93 @@ Exam period: May 25 - Jun 12
 7. Difference Equations
 8. Applications of Linear Algebra
 
-## Macroeconomics Lecture Topics
+## Economics B (Macroeconomics) — Full Schedule
 
-Introduction & National-Income Accounts, The Goods Market, Financial Markets, The IS-LM Model, The Labour Market, Inflation, Economies in the Medium Run, Openness in Goods and Financial Markets, Economic Policy in the Open Economy, Long-term Growth, Innovation, Summary
+Textbook: Olivier Blanchard, Macroeconomics (7th Global Edition), Pearson — 581 pages
+Lectures: Monday 12:15-14:00 | Tutorials: biweekly
 
-Textbook: Olivier Blanchard, Macroeconomics (global edition), Pearson, 7th/8th/9th edition
+Reading approach: full chapters (no sub-section jumping). Extensions (Ch 14, 20) folded into lighter weeks.
+Total course reading: ~297 pages | Average: ~30p/week
 
-## Law Course Structure
+### Weekly Reading Plan
 
-- Part 1 (before break): Constitutional Law (Prof. Patricia Egli) — Rechtsstaat, federalism, democracy, social justice, fundamental rights
-- Part 2 (after break): Public International Law (Prof. Leena Grover) — UN system, human rights, humanitarian law, criminal law, environmental law, economic law
-- Exercises: group 6, every other week
-- Independent studies: every other week on Canvas
+| KW | Lecture Topic | Reading (before Mon lecture) | ~Pages |
+|----|-------------|----------------------------|--------|
+| 8 | Introduction & National Accounts | Ch 1, 2 | 46p |
+| 9 | The Goods Market | Ch 3 | 20p |
+| 10 | Financial Markets | Ch 4 + Ch 14.1–14.2 (Expectations) | 37p |
+| 11 | The IS-LM Model | Ch 5 + 6 | 45p |
+| 12 | The Labor Market | Ch 7 | 20p |
+| 13 | Inflation | Ch 8 | 20p |
+| 14-15 | **BREAK** | — | — |
+| 16 | The IS-LM-PC Model | Ch 9 | 19p |
+| 17 | Open Economy | Ch 17 + 18 | 42p |
+| 18 | International Macroeconomics | Ch 19 | 20p |
+| 19 | Growth | Ch 10 + 11 | 42p |
+| 20 | Innovation | Ch 12 + Ch 20.2, 20.4 | 32p |
+| 21 | Q&A | Review | — |
+
+### Tutorials
+
+| KW | # | Topics Covered |
+|----|---|----------------|
+| 9 | 1 | Intro & National Accounts |
+| 11 | 2 | Goods Market & Financial Markets |
+| 13 | 3 | The IS-LM Model |
+| 16 | 4 | Labor Market & Inflation |
+| 18 | 5 | IS-LM-PC Model |
+| 19 | 6 | Open Economy & Intl Macro |
+| 20 | 7 | Growth & Innovation |
+| 21 | 8 | Q&A & Exam Discussion |
+
+## Law — Full Agenda (Swiss Constitutional Law & Public International Law)
+
+Lectures: Tuesday 16:15-18:00, Room 09-010
+Exercises: biweekly Fridays, Group 6, 10:15-12:00
+
+### Part 1: Constitutional Law (Prof. Dr. Patricia Egli)
+
+| Law Wk | KW | Date | Reading (Egli, Swiss Constitutional Law, 3rd ed.) | Topics |
+|--------|-----|------|-----|--------|
+| 1 | 8 | 17/02 | pp. 1–23 | Introduction, Sources of Constitutional Law, Structural Principles |
+| 2 | 9 | 24/02 | pp. 24–42 | Rechtsstaat, Formal & Substantive Elements, Legal Enactments |
+| 3 | 10 | 03/03 | pp. 43–69 | Federalism, Three Levels of Government, Distribution of Competences |
+| 4 | 11 | 10/03 | pp. 70–116 | Democracy, Political Rights, Popular Initiative & Referendum |
+| 5 | 12 | 17/03 | pp. 117–128 | Fundamental Rights, Categories, Restrictions |
+| 6 | 13 | 24/03 | pp. 129–180 | Civil Liberties, Freedom of Expression, Property, Economic Freedom |
+
+**Guest Lecture (Week 5):** Wed 18/03/2026, 16:15-19:00, Room 02-001
+- Dr. Martin Kayser (Judge, ret.) & Prof. Yossi Nehushtan (Keele University, UK)
+- "Government by Consent: The Swiss Political System in Comparative Perspective"
+
+### Part 2: Public International Law (Prof. Dr. Leena Grover)
+
+| Law Wk | KW | Date | Reading (Egli, Public Intl Law, 3rd ed.) | Topics |
+|--------|-----|------|-----|--------|
+| 9 | 16 | 14/04 | pp. 1–19 | Intl Legal System, Sources: Treaties |
+| 10 | 17 | 21/04 | pp. 20–48 | Customary Intl Law, Monism/Dualism, Subjects of PIL |
+| 11 | 18 | 28/04 | pp. 49–71 | UN Charter & Organs, Use of Force |
+| 12 | 19 | 05/05 | pp. 73–111 | Human Rights Law, Humanitarian Law, Criminal Law |
+| 13 | 20 | 12/05 | pp. 113–159 | Economic Law, Environmental Law, State Responsibility |
+| 14 | 21 | 19/05 | — | Q&A Session |
+
+### Exercises (Fridays, biweekly)
+
+**Part 1: Constitutional Law**
+
+| Law Wk | KW | Date | Reading | Topic |
+|--------|-----|------|---------|-------|
+| 1 | 8 | 20/02 | pp. 1–23 | Sources & Interpretation of Constitutional Law |
+| 3 | 10 | 06/03 | pp. 43–69 | Distribution of Competencies |
+| 5 | 12 | 20/03 | pp. 117–180 | Human Rights |
+
+**Part 2: Public International Law**
+
+| Law Wk | KW | Date | Reading (PIL) | Topic |
+|--------|-----|------|---------------|-------|
+| 9 | 16 | 17/04 | pp. 8–19 | Law of Treaties |
+| 11 | 18 | 01/05 | pp. 49–71 | Law on the Use of Force |
+| 13 | 20 | 15/05 | pp. 143–159 | State Responsibility & ICJ |
 
 ## Context Files
 
