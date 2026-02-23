@@ -54,6 +54,6 @@ export interface Deadline {
   is_milestone: boolean
 }
 
-export type TabType = 'weekly' | 'subjects' | 'analytics' | 'deadlines'
+export type TabType = 'weekly' | 'subjects' | 'analytics' | 'deadlines' | 'accounting'
 
 export const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const

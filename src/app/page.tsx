@@ -8,6 +8,7 @@ import WeeklyView from '@/components/WeeklyView'
 import SubjectsView from '@/components/SubjectsView'
 import AnalyticsView from '@/components/AnalyticsView'
 import DeadlinesView from '@/components/DeadlinesView'
+import AccountingView from '@/components/AccountingView'
 import Chatbot from '@/components/Chatbot'
 
 const TABS: { key: TabType; label: string }[] = [
@@ -15,6 +16,7 @@ const TABS: { key: TabType; label: string }[] = [
   { key: 'subjects', label: 'Subjects' },
   { key: 'analytics', label: 'Analytics' },
   { key: 'deadlines', label: 'Deadlines' },
+  { key: 'accounting', label: 'Accounting' },
 ]
 
 export default function Dashboard() {
@@ -99,6 +101,9 @@ export default function Dashboard() {
         )}
         {activeTab === 'deadlines' && (
           <DeadlinesView subjects={subjects} />
+        )}
+        {activeTab === 'accounting' && (
+          <AccountingView />
         )}
       </main>
 
