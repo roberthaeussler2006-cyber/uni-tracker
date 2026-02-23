@@ -26,10 +26,11 @@ interface Props {
 export default function ReadingProgressTracker({ subject, currentWeek, selectedWeekNumber }: Props) {
   const [currentPage, setCurrentPage] = useState(0)
   const [inputValue, setInputValue] = useState('')
-  const [book, setBook] = useState<'constitutional' | 'pil'>('constitutional')
   const [saving, setSaving] = useState(false)
   const isLaw = subject === 'Law'
   const isFm = subject === 'BusAdmin'
+  // Constitutional Law before KW 15, PIL from KW 15+
+  const book: 'constitutional' | 'pil' = isLaw && selectedWeekNumber >= 15 ? 'pil' : 'constitutional'
 
   const loadProgress = useCallback(async () => {
     const { data } = await supabase
@@ -39,15 +40,14 @@ export default function ReadingProgressTracker({ subject, currentWeek, selectedW
       .eq('subject', subject)
       .single()
 
-    if (data) {
+    if (data && (!isLaw || data.book === book)) {
       setCurrentPage(data.current_page)
       setInputValue(data.current_page > 0 ? String(data.current_page) : '')
-      if (isLaw && data.book) setBook(data.book as 'constitutional' | 'pil')
     } else {
       setCurrentPage(0)
       setInputValue('')
     }
-  }, [currentWeek.id, subject, isLaw])
+  }, [currentWeek.id, subject, isLaw, book])
 
   useEffect(() => {
     loadProgress()
@@ -83,14 +83,6 @@ export default function ReadingProgressTracker({ subject, currentWeek, selectedW
     const clamped = Math.min(Math.max(0, page), getMaxPage())
     setCurrentPage(clamped)
     save(clamped, book)
-  }
-
-  function handleBookChange(newBook: 'constitutional' | 'pil') {
-    if (newBook === book) return
-    setBook(newBook)
-    setCurrentPage(0)
-    setInputValue('')
-    save(0, newBook)
   }
 
   // Calculate progress
@@ -162,32 +154,6 @@ export default function ReadingProgressTracker({ subject, currentWeek, selectedW
         <span className="text-sm font-medium text-gray-300">{label}</span>
         {saving && <span className="text-xs text-gray-500">Saving...</span>}
       </div>
-
-      {/* Law book toggle — only show PIL tab from KW 15+ (PIL reading starts KW 16) */}
-      {isLaw && selectedWeekNumber >= 15 && (
-        <div className="flex gap-1 mb-2">
-          <button
-            onClick={() => handleBookChange('constitutional')}
-            className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              book === 'constitutional'
-                ? 'bg-blue-600/30 text-blue-300 border border-blue-500/50'
-                : 'bg-gray-800 text-gray-500 border border-gray-700 hover:text-gray-400'
-            }`}
-          >
-            Constitutional Law
-          </button>
-          <button
-            onClick={() => handleBookChange('pil')}
-            className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              book === 'pil'
-                ? 'bg-blue-600/30 text-blue-300 border border-blue-500/50'
-                : 'bg-gray-800 text-gray-500 border border-gray-700 hover:text-gray-400'
-            }`}
-          >
-            Public Intl Law
-          </button>
-        </div>
-      )}
 
       {/* Page input */}
       <div className="flex items-center gap-2 mb-2">

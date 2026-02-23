@@ -402,19 +402,23 @@ export interface LawExpectedPace {
 // Expected page in the respective textbook by each KW
 // Constitutional Law: Egli, Introduction to Swiss Constitutional Law (3rd ed.) — pp. 24–180
 // Public International Law: Egli, Introduction to Public International Law (3rd ed.) — pp. 1–159
+// Expected cumulative page by end of each week.
+// Readings done in KW N prepare for KW N+1's lecture,
+// so by end of KW N you should have finished schedule[N+1]'s reading.
 const lawExpectedPace: Record<number, LawExpectedPace> = {
-  9:  { book: 'constitutional', page: 42 },
-  10: { book: 'constitutional', page: 69 },
-  11: { book: 'constitutional', page: 116 },
-  12: { book: 'constitutional', page: 128 },
-  13: { book: 'constitutional', page: 180 },
+  9:  { book: 'constitutional', page: 69 },   // read pp.43-69 for KW 10
+  10: { book: 'constitutional', page: 116 },  // read pp.70-116 for KW 11
+  11: { book: 'constitutional', page: 128 },  // read pp.117-128 for KW 12
+  12: { book: 'constitutional', page: 180 },  // read pp.129-180 for KW 13
+  13: { book: 'constitutional', page: 180 },  // no new CL reading (Easter ahead)
   // 14-15: Easter break
-  16: { book: 'pil', page: 19 },
-  17: { book: 'pil', page: 48 },
-  18: { book: 'pil', page: 71 },
-  19: { book: 'pil', page: 111 },
-  20: { book: 'pil', page: 159 },
-  21: { book: 'pil', page: 159 },  // review
+  15: { book: 'pil', page: 19 },              // read PIL pp.1-19 for KW 16
+  16: { book: 'pil', page: 48 },              // read PIL pp.20-48 for KW 17
+  17: { book: 'pil', page: 71 },              // read PIL pp.49-71 for KW 18
+  18: { book: 'pil', page: 111 },             // read PIL pp.73-111 for KW 19
+  19: { book: 'pil', page: 159 },             // read PIL pp.113-159 for KW 20
+  20: { book: 'pil', page: 159 },             // review
+  21: { book: 'pil', page: 159 },             // review
 }
 
 export const LAW_CL_TOTAL = 180  // Constitutional Law max page
@@ -422,7 +426,7 @@ export const LAW_PIL_TOTAL = 159 // Public International Law max page
 export const LAW_TOTAL_PAGES = LAW_CL_TOTAL + LAW_PIL_TOTAL // 339
 
 export function getLawExpectedPace(weekNumber: number): LawExpectedPace | null {
-  if (weekNumber === 14 || weekNumber === 15) return lawExpectedPace[13] || null
+  if (weekNumber === 14) return lawExpectedPace[13] || null
   return lawExpectedPace[weekNumber] || null
 }
 
