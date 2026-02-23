@@ -11,6 +11,7 @@ import AddTaskModal from './AddTaskModal'
 import ScheduleModal from './ScheduleModal'
 import ScheduleImageModal from './ScheduleImageModal'
 import { getTaskSubtitle, getFullSchedule, hasSchedule, getScheduleImages } from '@/lib/scheduleData'
+import { getCurrentWeekNumber } from '@/lib/weeks'
 
 interface Props {
   subjects: Subject[]
@@ -160,6 +161,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       <WeekSelector
         weeks={weeks}
         selectedWeekNumber={selectedWeekNumber}
+        currentWeekNumber={getCurrentWeekNumber()}
         onWeekChange={onWeekChange}
       />
 
