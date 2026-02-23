@@ -164,10 +164,10 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       />
 
       {/* Weekly Score */}
-      <div className="flex items-center gap-3 mb-3 p-3 bg-gray-900 rounded-xl border border-gray-800">
-        <ProgressRing completed={completedCount} total={totalCount} size={52} />
+      <div className="flex items-center gap-4 mb-3 p-4 bg-gray-900 rounded-xl border border-gray-800">
+        <ProgressRing completed={completedCount} total={totalCount} size={56} />
         <div>
-          <div className="text-sm font-medium text-white">
+          <div className="text-base font-medium text-white">
             {completedCount}/{totalCount} tasks · {totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0}%
           </div>
         </div>
@@ -176,7 +176,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       {loading ? (
         <div className="text-center text-gray-400 py-12">Generating tasks...</div>
       ) : (
-        <div className="md:columns-2 gap-3 space-y-3">
+        <div className="md:columns-2 gap-4 space-y-4">
           {tasksBySubject.map(({ subject, tasks: subjectTasks }) => {
             const regularTasks = subjectTasks.filter((t) => t.day_of_week === null)
             const dailyTasks = subjectTasks.filter((t) => t.day_of_week !== null)
@@ -190,20 +190,20 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
             })
 
             return (
-              <div key={subject.id} className="bg-gray-900 rounded-xl border border-gray-800 p-3 break-inside-avoid">
+              <div key={subject.id} className="bg-gray-900 rounded-xl border border-gray-800 p-4 break-inside-avoid">
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: subject.color }} />
-                    <span className="text-base font-medium text-white">{subject.name}</span>
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: subject.color }} />
+                    <span className="text-lg font-medium text-white">{subject.name}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     {getScheduleImages(subject.short_name) && (
                       <button
                         onClick={() => setImageSubject(subject)}
-                        className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                        className="text-gray-500 hover:text-gray-300 transition-colors"
                         title="View original schedule"
                       >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
                         </svg>
                       </button>
@@ -211,17 +211,17 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                     {hasSchedule(subject.short_name) && (
                       <button
                         onClick={() => setScheduleSubject(subject)}
-                        className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                        className="text-gray-500 hover:text-gray-300 transition-colors"
                         title="View schedule"
                       >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                         </svg>
                       </button>
                     )}
                     <button
                       onClick={() => setAddModalSubject(subject.id)}
-                      className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                      className="text-base text-gray-500 hover:text-gray-300 transition-colors"
                     >
                       + add
                     </button>
@@ -255,14 +255,14 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
       )}
 
       {/* Weekly Reflection */}
-      <div className="mt-3">
+      <div className="mt-4">
         <textarea
           value={reflectionNotes}
           onChange={(e) => setReflectionNotes(e.target.value)}
           onBlur={() => saveReflection(reflectionNotes)}
           placeholder="Weekly reflection notes..."
           rows={2}
-          className="w-full px-3 py-2 bg-gray-900 border border-gray-800 rounded-xl text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gray-700 resize-none"
+          className="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl text-base text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gray-700 resize-none"
         />
       </div>
 

@@ -22,25 +22,25 @@ export default function TaskItem({ task, subjectColor, subtitle, onToggle, onDel
   }
 
   return (
-    <div className="py-1.5 group">
+    <div className="py-2 group">
       <div className="flex items-center gap-3">
         <button
           onClick={handleToggle}
-          className="flex-shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center transition-colors"
+          className="flex-shrink-0 w-7 h-7 rounded border-2 flex items-center justify-center transition-colors"
           style={{
             borderColor: task.is_completed ? subjectColor : '#4b5563',
             backgroundColor: task.is_completed ? subjectColor : 'transparent',
           }}
         >
           {task.is_completed && (
-            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
           )}
         </button>
 
         <div className="flex-1 min-w-0">
-          <span className={`text-base ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
+          <span className={`text-lg ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
             {task.title}
           </span>
         </div>
@@ -65,7 +65,7 @@ export default function TaskItem({ task, subjectColor, subtitle, onToggle, onDel
             borderLeftColor: subjectColor,
           }}
         >
-          <span className={`text-sm ${task.is_completed ? 'text-gray-400' : 'text-gray-200'}`}>
+          <span className={`text-base ${task.is_completed ? 'text-gray-400' : 'text-gray-200'}`}>
             {subtitle}
           </span>
         </div>
