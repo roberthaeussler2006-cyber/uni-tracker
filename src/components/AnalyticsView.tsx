@@ -84,7 +84,7 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
             style={{ width: `${overallPct}%` }}
           />
         </div>
-        <p className="text-sm text-gray-500 mt-1">{completedTasks} of {totalTasks} tasks completed</p>
+        <p className="text-sm text-gray-500 mt-1">{Math.round(completedTasks)} of {Math.round(totalTasks)} tasks completed</p>
       </div>
 
       {/* Heatmap */}
@@ -111,7 +111,7 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
                   style={{ backgroundColor: getCellColor(pct, subject.color) }}
                 >
                   {total > 0 && (
-                    <span className="text-[11px] text-white/60">{completed}/{total}</span>
+                    <span className="text-[11px] text-white/60">{Math.round(completed)}/{Math.round(total)}</span>
                   )}
                 </div>
               ))}
@@ -131,7 +131,7 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
                   <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: subject.color }} />
                   <span className="text-sm text-gray-300">{subject.name}</span>
                 </div>
-                <span className="text-sm text-gray-500">{completed}/{total}</span>
+                <span className="text-sm text-gray-500">{Math.round(completed)}/{Math.round(total)}</span>
               </div>
               <div className="w-full h-1.5 bg-gray-800 rounded-full">
                 <div
