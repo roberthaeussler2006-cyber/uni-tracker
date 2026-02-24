@@ -59,15 +59,27 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
     return { subject, total, completed, pct: total > 0 ? Math.round((completed / total) * 100) : 0 }
   })
 
-  function getCellColor(pct: number, color: string): string {
+  function getCellColor(pct: number): string {
     if (pct < 0) return '#111827' // no tasks
-    if (pct === 0) return '#1f2937'
-    // Convert hex to RGB and interpolate opacity
-    const r = parseInt(color.slice(1, 3), 16)
-    const g = parseInt(color.slice(3, 5), 16)
-    const b = parseInt(color.slice(5, 7), 16)
-    const opacity = 0.2 + pct * 0.8
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`
+    if (pct === 0) return 'rgba(239, 68, 68, 0.35)' // red-ish for 0%
+    if (pct >= 1) return 'rgba(34, 197, 94, 0.8)' // green for 100%
+    // Interpolate red → yellow → green
+    let r: number, g: number, b: number
+    if (pct < 0.5) {
+      // Red (239,68,68) → Yellow (234,179,8)
+      const t = pct / 0.5
+      r = 239 + (234 - 239) * t
+      g = 68 + (179 - 68) * t
+      b = 68 + (8 - 68) * t
+    } else {
+      // Yellow (234,179,8) → Green (34,197,94)
+      const t = (pct - 0.5) / 0.5
+      r = 234 + (34 - 234) * t
+      g = 179 + (197 - 179) * t
+      b = 8 + (94 - 8) * t
+    }
+    const opacity = 0.35 + pct * 0.45
+    return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${opacity})`
   }
 
   return (
@@ -108,7 +120,7 @@ export default function AnalyticsView({ subjects, weeks }: Props) {
                 <div
                   key={subject.id}
                   className="w-12 h-8 rounded-sm flex items-center justify-center group relative"
-                  style={{ backgroundColor: getCellColor(pct, subject.color) }}
+                  style={{ backgroundColor: getCellColor(pct) }}
                 >
                   {total > 0 && (
                     <span className="text-[11px] text-white/60">{Math.round(completed)}/{Math.round(total)}</span>
