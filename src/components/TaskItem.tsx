@@ -45,12 +45,12 @@ export default function TaskItem({ task, subjectColor, subtitle, countdown, onTo
             {task.title}
           </span>
           {countdown && !task.is_completed && (
-            <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${
+            <span className={`text-sm font-semibold tabular-nums px-2 py-0.5 rounded-md border ${
               countdown.urgency === 'urgent'
-                ? 'bg-red-900/40 text-red-400'
+                ? 'bg-red-900/50 text-red-300 border-red-700/60'
                 : countdown.urgency === 'warning'
-                  ? 'bg-yellow-900/40 text-yellow-400'
-                  : 'bg-gray-800 text-gray-400'
+                  ? 'bg-yellow-900/50 text-yellow-300 border-yellow-700/60'
+                  : 'bg-gray-800/80 text-gray-300 border-gray-700/60'
             }`}>
               {countdown.text}
             </span>
