@@ -600,7 +600,7 @@ export function getFmExpectedPage(weekNumber: number): number | null {
 // Lecture/seminar times (dayOfWeek: 0=Sun, 1=Mon, ..., 5=Fri)
 const MACRO_LECTURE = { day: 1, hour: 12, minute: 15 } // Monday 12:15
 const LAW_LECTURE = { day: 2, hour: 16, minute: 15 }   // Tuesday 16:15
-const PHILO_SEMINAR = { day: 1, hour: 8, minute: 15 }  // Monday 08:15
+const PHILO_SEMINAR = { day: 2, hour: 8, minute: 15 }  // Tuesday 08:15
 
 // Extract week numbers that have exercise/practice sessions
 function getExerciseWeekNumbers(subjectShortName: string): number[] {
