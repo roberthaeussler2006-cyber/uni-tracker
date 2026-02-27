@@ -41,9 +41,9 @@ export function getNextWeekday(dayOfWeek: number, hour: number, minute: number):
   return target
 }
 
-// Get the Friday (day 5) date for a given week start date (Monday)
+// Get the Friday (day 5) date for a given week start date (Monday), end of day
 export function getFridayOfWeek(weekStartDate: string): Date {
-  const monday = new Date(weekStartDate + 'T10:00:00') // use 10:00 as default exercise time
+  const monday = new Date(weekStartDate + 'T23:59:00') // end of day
   monday.setDate(monday.getDate() + 4) // Monday + 4 = Friday
   return monday
 }
