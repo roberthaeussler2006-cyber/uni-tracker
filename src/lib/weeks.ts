@@ -41,6 +41,19 @@ export function getNextWeekday(dayOfWeek: number, hour: number, minute: number):
   return target
 }
 
+// Get this week's occurrence of a weekday+time (may be past or future)
+// Used for overdue detection: if it's Friday, this week's Monday lecture is in the past → overdue
+export function getCurrentCycleWeekday(dayOfWeek: number, hour: number, minute: number): Date {
+  const now = new Date()
+  const target = new Date()
+  target.setHours(hour, minute, 0, 0)
+
+  const diff = dayOfWeek - now.getDay()
+  target.setDate(now.getDate() + diff)
+
+  return target
+}
+
 // Get the Friday (day 5) date for a given week start date (Monday), end of day
 export function getFridayOfWeek(weekStartDate: string): Date {
   const monday = new Date(weekStartDate + 'T23:59:00') // end of day
@@ -49,11 +62,30 @@ export function getFridayOfWeek(weekStartDate: string): Date {
 }
 
 // Format a countdown from now to a target date
-export function formatCountdown(target: Date): { text: string; urgency: 'normal' | 'warning' | 'urgent' } | null {
+export function formatCountdown(target: Date): { text: string; urgency: 'normal' | 'warning' | 'urgent' | 'overdue' } | null {
   const now = new Date()
   const diffMs = target.getTime() - now.getTime()
 
-  if (diffMs <= 0) return null // past
+  if (diffMs <= 0) {
+    // Overdue — target has passed
+    const absDiffMs = Math.abs(diffMs)
+    const totalMinutes = Math.floor(absDiffMs / 60000)
+    const totalHours = Math.floor(totalMinutes / 60)
+    const days = Math.floor(totalHours / 24)
+    const hours = totalHours % 24
+
+    let text: string
+    if (days > 7) {
+      text = `-${days}d`
+    } else if (days >= 1) {
+      text = `-${days}d ${hours}h`
+    } else {
+      const mins = totalMinutes % 60
+      text = `-${hours}h ${mins}m`
+    }
+
+    return { text, urgency: 'overdue' }
+  }
 
   const totalMinutes = Math.floor(diffMs / 60000)
   const totalHours = Math.floor(totalMinutes / 60)

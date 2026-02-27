@@ -7,7 +7,7 @@ interface Props {
   task: Task
   subjectColor: string
   subtitle?: string | null
-  countdown?: { text: string; urgency: 'normal' | 'warning' | 'urgent' } | null
+  countdown?: { text: string; urgency: 'normal' | 'warning' | 'urgent' | 'overdue' } | null
   onToggle: (taskId: string, completed: boolean) => void
   onDelete?: (taskId: string) => void
 }
@@ -46,11 +46,13 @@ export default function TaskItem({ task, subjectColor, subtitle, countdown, onTo
           </span>
           {countdown && !task.is_completed && (
             <span className={`text-sm font-semibold tabular-nums px-2 py-0.5 rounded-md border ${
-              countdown.urgency === 'urgent'
-                ? 'bg-red-900/50 text-red-300 border-red-700/60'
-                : countdown.urgency === 'warning'
-                  ? 'bg-yellow-900/50 text-yellow-300 border-yellow-700/60'
-                  : 'bg-blue-900/50 text-blue-300 border-blue-700/60'
+              countdown.urgency === 'overdue'
+                ? 'bg-red-900/70 text-red-200 border-red-500/70 animate-pulse'
+                : countdown.urgency === 'urgent'
+                  ? 'bg-red-900/50 text-red-300 border-red-700/60'
+                  : countdown.urgency === 'warning'
+                    ? 'bg-yellow-900/50 text-yellow-300 border-yellow-700/60'
+                    : 'bg-blue-900/50 text-blue-300 border-blue-700/60'
             }`}>
               {countdown.text}
             </span>

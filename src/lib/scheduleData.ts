@@ -3,7 +3,7 @@
 // Week numbers correspond to Kalenderwoche (KW)
 
 import { Week } from './types'
-import { getNextWeekday, getFridayOfWeek, formatCountdown } from './weeks'
+import { getCurrentCycleWeekday, getFridayOfWeek, formatCountdown } from './weeks'
 
 interface WeekReading {
   reading?: string
@@ -610,30 +610,40 @@ function getExerciseWeekNumbers(subjectShortName: string): number[] {
     .map(([kw]) => Number(kw))
 }
 
-// Get the next exercise date from now, given the subject's exercise weeks and week date data
-function getNextExerciseDate(subjectShortName: string, weeks: Week[]): Date | null {
+// Get the closest exercise date (past or future) from now
+// This enables overdue detection: if the closest exercise is in the past, it's overdue
+function getClosestExerciseDate(subjectShortName: string, weeks: Week[]): Date | null {
   const exerciseKWs = getExerciseWeekNumbers(subjectShortName)
   const now = new Date()
 
-  // Map exercise KWs to Friday dates, find the next one from now
-  const futureDates = exerciseKWs
+  const allDates = exerciseKWs
     .map((kw) => {
       const week = weeks.find((w) => w.week_number === kw)
       if (!week) return null
       return getFridayOfWeek(week.start_date)
     })
-    .filter((d): d is Date => d !== null && d > now)
-    .sort((a, b) => a.getTime() - b.getTime())
+    .filter((d): d is Date => d !== null)
 
-  return futureDates[0] || null
+  if (allDates.length === 0) return null
+
+  // Sort by absolute distance from now, preferring future dates on ties
+  allDates.sort((a, b) => {
+    const distA = Math.abs(a.getTime() - now.getTime())
+    const distB = Math.abs(b.getTime() - now.getTime())
+    if (distA !== distB) return distA - distB
+    // Prefer future date on tie
+    return (b.getTime() - now.getTime()) - (a.getTime() - now.getTime())
+  })
+
+  return allDates[0]
 }
 
-// Get countdown info for a task
+// Get countdown info for a task (supports both countdown and overdue)
 export function getTaskCountdown(
   subjectShortName: string,
   taskTitle: string,
   weeks: Week[]
-): { text: string; urgency: 'normal' | 'warning' | 'urgent' } | null {
+): { text: string; urgency: 'normal' | 'warning' | 'urgent' | 'overdue' } | null {
   if (subjectShortName !== 'Macro' && subjectShortName !== 'Law') return null
 
   const titleLower = taskTitle.toLowerCase()
@@ -645,12 +655,12 @@ export function getTaskCountdown(
   let target: Date | null = null
 
   if (isReading) {
-    // Countdown to next lecture
+    // Use current cycle's lecture (may be past → overdue, or future → countdown)
     const lecture = subjectShortName === 'Macro' ? MACRO_LECTURE : LAW_LECTURE
-    target = getNextWeekday(lecture.day, lecture.hour, lecture.minute)
+    target = getCurrentCycleWeekday(lecture.day, lecture.hour, lecture.minute)
   } else {
-    // Countdown to next exercise group Friday
-    target = getNextExerciseDate(subjectShortName, weeks)
+    // Use closest exercise date (past → overdue, future → countdown)
+    target = getClosestExerciseDate(subjectShortName, weeks)
   }
 
   if (!target) return null
