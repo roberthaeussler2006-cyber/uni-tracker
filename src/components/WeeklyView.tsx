@@ -13,7 +13,7 @@ import ScheduleImageModal from './ScheduleImageModal'
 import MathProgressTracker from './MathProgressTracker'
 import ReadingProgressTracker from './ReadingProgressTracker'
 import MacroReadingTracker from './MacroReadingTracker'
-import { getTaskSubtitle, getFullSchedule, hasSchedule, getScheduleImages } from '@/lib/scheduleData'
+import { getTaskSubtitle, getTaskCountdown, getFullSchedule, hasSchedule, getScheduleImages } from '@/lib/scheduleData'
 import { getCurrentWeekNumber } from '@/lib/weeks'
 
 interface Props {
@@ -255,6 +255,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                     task={task}
                     subjectColor={subject.color}
                     subtitle={getTaskSubtitle(subject.short_name, currentWeek.week_number, task.title)}
+                    countdown={getTaskCountdown(subject.short_name, task.title, weeks)}
                     onToggle={handleToggle}
                     onDelete={task.is_custom ? handleDeleteTask : undefined}
                   />

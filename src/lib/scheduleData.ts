@@ -2,6 +2,9 @@
 // Used to display contextual subtitles on Reading and Practice questions tasks
 // Week numbers correspond to Kalenderwoche (KW)
 
+import { Week } from './types'
+import { getNextWeekday, getFridayOfWeek, formatCountdown } from './weeks'
+
 interface WeekReading {
   reading?: string
   practice?: string
@@ -590,4 +593,66 @@ export const FM_TOTAL_PAGES = 343 // End of Ch 14 content
 export function getFmExpectedPage(weekNumber: number): number | null {
   if (weekNumber === 14) return fmExpectedPace[13] || null
   return fmExpectedPace[weekNumber] || null
+}
+
+// ─── Countdown target logic ───
+
+// Lecture times (dayOfWeek: 0=Sun, 1=Mon, ..., 5=Fri)
+const MACRO_LECTURE = { day: 1, hour: 12, minute: 15 } // Monday 12:15
+const LAW_LECTURE = { day: 2, hour: 16, minute: 15 }   // Tuesday 16:15
+
+// Extract week numbers that have exercise/practice sessions
+function getExerciseWeekNumbers(subjectShortName: string): number[] {
+  const schedule = scheduleData[subjectShortName]
+  if (!schedule) return []
+  return Object.entries(schedule)
+    .filter(([, info]) => info.practice)
+    .map(([kw]) => Number(kw))
+}
+
+// Get the next exercise date from now, given the subject's exercise weeks and week date data
+function getNextExerciseDate(subjectShortName: string, weeks: Week[]): Date | null {
+  const exerciseKWs = getExerciseWeekNumbers(subjectShortName)
+  const now = new Date()
+
+  // Map exercise KWs to Friday dates, find the next one from now
+  const futureDates = exerciseKWs
+    .map((kw) => {
+      const week = weeks.find((w) => w.week_number === kw)
+      if (!week) return null
+      return getFridayOfWeek(week.start_date)
+    })
+    .filter((d): d is Date => d !== null && d > now)
+    .sort((a, b) => a.getTime() - b.getTime())
+
+  return futureDates[0] || null
+}
+
+// Get countdown info for a task
+export function getTaskCountdown(
+  subjectShortName: string,
+  taskTitle: string,
+  weeks: Week[]
+): { text: string; urgency: 'normal' | 'warning' | 'urgent' } | null {
+  if (subjectShortName !== 'Macro' && subjectShortName !== 'Law') return null
+
+  const titleLower = taskTitle.toLowerCase()
+  const isReading = titleLower.includes('reading')
+  const isExercise = titleLower.includes('practice') || titleLower.includes('exercise group') || titleLower.includes('notes sheet') || titleLower.includes('notes based')
+
+  if (!isReading && !isExercise) return null
+
+  let target: Date | null = null
+
+  if (isReading) {
+    // Countdown to next lecture
+    const lecture = subjectShortName === 'Macro' ? MACRO_LECTURE : LAW_LECTURE
+    target = getNextWeekday(lecture.day, lecture.hour, lecture.minute)
+  } else {
+    // Countdown to next exercise group Friday
+    target = getNextExerciseDate(subjectShortName, weeks)
+  }
+
+  if (!target) return null
+  return formatCountdown(target)
 }

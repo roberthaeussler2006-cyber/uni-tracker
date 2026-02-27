@@ -7,11 +7,12 @@ interface Props {
   task: Task
   subjectColor: string
   subtitle?: string | null
+  countdown?: { text: string; urgency: 'normal' | 'warning' | 'urgent' } | null
   onToggle: (taskId: string, completed: boolean) => void
   onDelete?: (taskId: string) => void
 }
 
-export default function TaskItem({ task, subjectColor, subtitle, onToggle, onDelete }: Props) {
+export default function TaskItem({ task, subjectColor, subtitle, countdown, onToggle, onDelete }: Props) {
   async function handleToggle() {
     const newVal = !task.is_completed
     onToggle(task.id, newVal)
@@ -39,10 +40,21 @@ export default function TaskItem({ task, subjectColor, subtitle, onToggle, onDel
           )}
         </button>
 
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 flex items-center gap-2">
           <span className={`text-lg ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
             {task.title}
           </span>
+          {countdown && !task.is_completed && (
+            <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${
+              countdown.urgency === 'urgent'
+                ? 'bg-red-900/40 text-red-400'
+                : countdown.urgency === 'warning'
+                  ? 'bg-yellow-900/40 text-yellow-400'
+                  : 'bg-gray-800 text-gray-400'
+            }`}>
+              {countdown.text}
+            </span>
+          )}
         </div>
 
         {task.is_custom && onDelete && (
