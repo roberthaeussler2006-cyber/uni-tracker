@@ -45,7 +45,7 @@ export default function TaskItem({ task, subjectColor, subtitle, countdown, onTo
             {task.title}
           </span>
           {countdown && !task.is_completed && (
-            <span className={`text-sm font-semibold tabular-nums px-2 py-0.5 rounded-md border ${
+            <span className={`text-sm font-semibold tabular-nums px-2 py-0.5 rounded-md border whitespace-nowrap ${
               countdown.urgency === 'overdue'
                 ? 'bg-red-900/70 text-red-200 border-red-500/70 animate-pulse'
                 : countdown.urgency === 'urgent'
