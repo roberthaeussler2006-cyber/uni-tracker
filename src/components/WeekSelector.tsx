@@ -8,21 +8,31 @@ interface Props {
   selectedWeekNumber: number
   currentWeekNumber: number
   onWeekChange: (weekNumber: number) => void
+  previousWeekNumber: number | null
 }
 
-export default function WeekSelector({ weeks, selectedWeekNumber, currentWeekNumber, onWeekChange }: Props) {
+export default function WeekSelector({ weeks, selectedWeekNumber, currentWeekNumber, onWeekChange, previousWeekNumber }: Props) {
   const currentWeek = weeks.find((w) => w.week_number === selectedWeekNumber)
+  const prevWeek = previousWeekNumber ? weeks.find((w) => w.week_number === previousWeekNumber) : null
   const minWeek = Math.min(...weeks.map((w) => w.week_number))
   const maxWeek = Math.max(...weeks.map((w) => w.week_number))
-  const isOnCurrentWeek = selectedWeekNumber === currentWeekNumber
-  const isEasterBreak = selectedWeekNumber === 14 || selectedWeekNumber === 15
+
+  // The "pair" view shows previousWeekNumber & selectedWeekNumber
+  // Navigation moves both by 1
+  // The actual minimum for the pair: previousWeekNumber must be >= minWeek
+  // So selectedWeekNumber must be >= minWeek + 1 (to have a previous)
+  const canGoBack = previousWeekNumber ? previousWeekNumber > minWeek : selectedWeekNumber > minWeek
+  const canGoForward = selectedWeekNumber < maxWeek
+
+  // Check if we're viewing the current week pair
+  const isOnCurrentWeek = selectedWeekNumber === currentWeekNumber || (previousWeekNumber === currentWeekNumber)
 
   return (
     <div className="mb-3">
       <div className="flex items-center justify-between">
         <button
-          onClick={() => onWeekChange(Math.max(minWeek, selectedWeekNumber - 1))}
-          disabled={selectedWeekNumber <= minWeek}
+          onClick={() => onWeekChange(selectedWeekNumber - 1)}
+          disabled={!canGoBack}
           className="p-2 text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,27 +41,34 @@ export default function WeekSelector({ weeks, selectedWeekNumber, currentWeekNum
         </button>
 
         <div className="text-center">
-          <div className="text-xl font-semibold text-white leading-tight">
-            KW {selectedWeekNumber}
-            {isEasterBreak && (
-              <span className="text-base text-amber-300 font-normal ml-2">🐣 Easter Break</span>
+          <div className="flex items-center justify-center gap-2 text-xl font-semibold leading-tight">
+            {previousWeekNumber && prevWeek && (
+              <>
+                <span className={previousWeekNumber === currentWeekNumber ? 'text-blue-400' : 'text-gray-400'}>
+                  KW {previousWeekNumber}
+                </span>
+                <span className="text-gray-600">&</span>
+              </>
             )}
-            {!isEasterBreak && currentWeek && (
-              <span className="text-base text-gray-400 font-normal ml-2">
-                {formatDateRange(currentWeek.start_date, currentWeek.end_date)}
-              </span>
-            )}
+            <span className={selectedWeekNumber === currentWeekNumber ? 'text-blue-400' : 'text-white'}>
+              KW {selectedWeekNumber}
+            </span>
           </div>
-          {!isEasterBreak && (
-            <div className="text-base text-gray-500">
-              Readings for KW {selectedWeekNumber + 1} · Exercises for KW {selectedWeekNumber}
+          {currentWeek && prevWeek && (
+            <div className="text-sm text-gray-500 mt-0.5">
+              {formatDateRange(prevWeek.start_date, currentWeek.end_date)}
+            </div>
+          )}
+          {currentWeek && !prevWeek && (
+            <div className="text-sm text-gray-500 mt-0.5">
+              {formatDateRange(currentWeek.start_date, currentWeek.end_date)}
             </div>
           )}
         </div>
 
         <button
-          onClick={() => onWeekChange(Math.min(maxWeek, selectedWeekNumber + 1))}
-          disabled={selectedWeekNumber >= maxWeek}
+          onClick={() => onWeekChange(selectedWeekNumber + 1)}
+          disabled={!canGoForward}
           className="p-2 text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

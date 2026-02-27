@@ -22,6 +22,7 @@ export default function Dashboard() {
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [weeks, setWeeks] = useState<Week[]>([])
   const [currentWeek, setCurrentWeek] = useState<Week | null>(null)
+  const [previousWeek, setPreviousWeek] = useState<Week | null>(null)
   const [selectedWeekNumber, setSelectedWeekNumber] = useState(getCurrentWeekNumber())
   const [loading, setLoading] = useState(true)
 
@@ -36,6 +37,8 @@ export default function Dashboard() {
         setWeeks(weeksRes.data)
         const week = weeksRes.data.find((w: Week) => w.week_number === selectedWeekNumber)
         setCurrentWeek(week || weeksRes.data[0])
+        const prevWeek = weeksRes.data.find((w: Week) => w.week_number === selectedWeekNumber - 1)
+        setPreviousWeek(prevWeek || null)
       }
       setLoading(false)
     }
@@ -45,6 +48,8 @@ export default function Dashboard() {
   useEffect(() => {
     const week = weeks.find((w) => w.week_number === selectedWeekNumber)
     if (week) setCurrentWeek(week)
+    const prevWeek = weeks.find((w) => w.week_number === selectedWeekNumber - 1)
+    setPreviousWeek(prevWeek || null)
   }, [selectedWeekNumber, weeks])
 
   if (loading) {
@@ -58,7 +63,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-950">
       <header className="sticky top-0 z-50 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-11">
             <span className="text-base font-medium text-gray-400">HSG Tracker</span>
             <span className="text-sm text-gray-500">KW {selectedWeekNumber}</span>
@@ -81,12 +86,13 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-3">
+      <main className="max-w-7xl mx-auto px-4 py-3">
         {activeTab === 'weekly' && currentWeek && (
           <WeeklyView
             subjects={subjects}
             weeks={weeks}
             currentWeek={currentWeek}
+            previousWeek={previousWeek}
             selectedWeekNumber={selectedWeekNumber}
             onWeekChange={setSelectedWeekNumber}
           />
