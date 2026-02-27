@@ -255,7 +255,7 @@ export default function WeeklyView({ subjects, weeks, currentWeek, selectedWeekN
                     task={task}
                     subjectColor={subject.color}
                     subtitle={getTaskSubtitle(subject.short_name, currentWeek.week_number, task.title)}
-                    countdown={getTaskCountdown(subject.short_name, task.title, weeks)}
+                    countdown={getTaskCountdown(subject.short_name, task.title, weeks, currentWeek.week_number)}
                     onToggle={handleToggle}
                     onDelete={task.is_custom ? handleDeleteTask : undefined}
                   />
