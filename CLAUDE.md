@@ -303,11 +303,48 @@ Reference documents are stored in the parent directory (`../`):
 
 ## PDF Notes Generation
 
-When generating PDF study notes:
+### Notes Directory Structure
+
+```
+notes/
+  econ/
+    generate_pdfs.py                          — Econ PDF generation script
+    Lecture slides (reference for notes creation)/
+      2026-Economics-B_Folien-01.pdf          — Lecture 1 slides
+      2026-Economics-B_Folien-02.pdf          — Lecture 2 slides
+      ...
+    KW8_Intro_and_National_Accounts.pdf       — Generated notes
+    KW9_The_Goods_Market.pdf
+    KW10_Financial_Markets.pdf
+  law/
+    generate_pdfs.py                          — Law PDF generation script
+    Lecture slides (for notes generation)/
+      (lecture slide PDFs go here)
+    Lecture1_Introduction_History_Sources.pdf  — Generated notes
+    Lecture2_Rechtsstaat.pdf
+    Lecture3_Federalism.pdf
+```
+
+### Workflow: Generating/Updating Notes
+
+Notes are generated from **two sources**: the textbook AND the lecture slides. Follow this workflow:
+
+1. **Read the textbook content** for the relevant chapter(s)
+2. **Read the corresponding lecture slides** from the lecture slides folder
+3. **Present to the user** what content will be taken from the lecture slides before generating, including:
+   - Topics/sections from the slides that are NOT in the textbook (new content to add)
+   - Topics where the lecture emphasizes differently or uses different notation than the textbook
+   - Swiss/practical examples from the lecture that complement the textbook theory
+   - Any lecture-specific framing, taxonomy, or learning objectives
+4. **Wait for user confirmation** before proceeding with generation
+5. **Generate/update the Python script** incorporating both sources
+6. **Run the script** to produce the PDF
+
+### Formatting Rules
 
 - **Always use proper mathematical notation** for ALL formulas, equations, and mathematical expressions. Never leave formulas as plain text (e.g., never write `M^d = $Y * L(i)` or `1/(1-c1)` in plain text).
 - Use the `render_latex()` function and `formula_block()` method to render LaTeX formulas as images embedded in the PDF.
 - Variable definitions (e.g., M^d = demand for money) should also be rendered as formula blocks, not plain text bullets.
 - When a formula appears inline in a bullet point, split it: put the description in the bullet and the formula in a `formula_block()` call below it.
 - Use `fontsize=12` for summary/reference formulas and `fontsize=14` (default) for main content formulas.
-- The PDF generation script is at `notes/econ/generate_pdfs.py`.
+- Generation scripts: `notes/econ/generate_pdfs.py`, `notes/law/generate_pdfs.py`

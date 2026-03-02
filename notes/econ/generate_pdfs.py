@@ -839,10 +839,51 @@ def generate_kw9():
 
 
 def generate_kw10():
-    """Generate KW 10 PDF: Financial Markets (Ch 4 + Ch 5.2 + Ch 5.3)."""
-    pdf = NotesPDF("KW 10: Financial Markets", "Ch 4, Ch 5.2, Ch 5.3")
+    """Generate KW 10 PDF: Financial Markets (Ch 4 + Ch 5.2 + Ch 5.3 + Lecture 3 slides)."""
+    pdf = NotesPDF("KW 10: Financial Markets", "Ch 4, Ch 5.2, Ch 5.3 + Lecture 3")
     pdf.alias_nb_pages()
     pdf.cover_page()
+
+    # ===== LECTURE CONTEXT =====
+    pdf.add_page()
+    pdf.chapter_title("LECTURE 3 CONTEXT: FINANCIAL MARKET OVERVIEW")
+
+    pdf.body_text("The financial market plays a central role in an economy. It is complementary to the goods market (covered in Lecture 2). A financial market is a generic term for any market in which trading of financial instruments takes place.")
+
+    pdf.section_title("Financial Market Taxonomy")
+    pdf.bullet("**Money market**: Short-term money supply and demand")
+    pdf.bullet("**Bonds market** (also credit market): Financial assets and liabilities")
+    pdf.bullet("**Capital market**: Medium and long-term capital requirements and supply")
+
+    pdf.body_text("Simplifying assumption for this course: only two forms of assets exist - money and bonds. This allows us to understand how the interest rate is set and the role of the central bank.")
+    pdf.bullet("**Money**: Can be used for transactions, but does not earn interest")
+    pdf.bullet("**Bonds**: Yield an interest rate i, but cannot be used for transactions")
+    pdf.bullet("Individuals choose what fraction of their wealth to hold as money vs. bonds")
+
+    pdf.section_title("Learning Objectives (Lecture 3)")
+    pdf.bullet("The role of money in the national economy")
+    pdf.bullet("Money supply and demand")
+    pdf.bullet("Monetary policy through central banks")
+    pdf.bullet("Financial market for a model of the economy in the short run")
+    pdf.bullet("Derivation of the LM curve for the IS-LM model")
+    pdf.bullet("Literature: Blanchard, Chapters 4 and 5.2")
+
+    pdf.section_title("What Is Money?")
+    pdf.bullet("Three classical functions (from Microeconomics): medium of exchange, unit of account, means of storing value")
+    pdf.bullet("Historically many forms: stones, shells, gold, receipts, cigarettes, Bitcoin, ...")
+    pdf.bullet("Inflation affects the functioning of money (covered in Lecture 6)")
+
+    pdf.section_title("Types of Money in a Modern Economy")
+    pdf.body_text("Central banks measure money supply using monetary aggregates. Definitions used by the Swiss National Bank (SNB):")
+    pdf.bullet("**Monetary base (M0)**: Banknotes in circulation + sight deposits of domestic commercial banks held at the SNB")
+    pdf.bullet("**M1**: Currency + sight deposits in Swiss francs from residents")
+    pdf.bullet("**M2**: M1 + savings deposits held at banks (excluding pillar 2/3a) in Swiss francs")
+    pdf.bullet("**M3**: M2 + time deposits held at banks in Swiss francs")
+
+    pdf.key_concept_box("SNB Money Aggregates (1990-2025)",
+        "All three aggregates grew substantially since 1990. M3 (broadest) reached\n"
+        "~1,100B CHF by 2025. M1 spiked around 2020 (pandemic monetary expansion),\n"
+        "peaking near 800B CHF before declining. Monetary base is the smallest.")
 
     # CHAPTER 4
     pdf.add_page()
@@ -881,6 +922,15 @@ def generate_kw10():
     pdf.subsection_title("Figure 4-1: Money Demand Curve")
     pdf.bullet("Downward sloping: lower interest rate -> more money demanded")
     pdf.bullet("An increase in nominal income shifts the entire curve RIGHT (more money demanded at every interest rate)")
+    pdf.bullet("At a given interest rate i, an increase in nominal income shifts the money demand curve to the RIGHT")
+    pdf.bullet("Points along the curve: moving from low i to high i, money demand DECREASES (liquidity preference falls)")
+
+    pdf.subsection_title("Empirical Validation: Swiss Cash-Deposit Ratio (Lecture)")
+    pdf.body_text("The lecture presents Swiss empirical data (1990-2025) showing the cash-holding coefficient alongside the return on 10-year Swiss government bonds:")
+    pdf.formula_block(r"L(\hat{\imath}) = \frac{M^d}{PY} \quad \text{(cash-deposit ratio)}", fontsize=12)
+    pdf.bullet("As the 10Y bond return fell from ~6% (early 1990s) to near 0% (2015-2020), the cash-holding coefficient INCREASED from ~30% to over 100%")
+    pdf.bullet("This is consistent with the theory: lower interest rates -> higher money demand relative to income")
+    pdf.bullet("When bonds pay almost nothing, the opportunity cost of holding money vanishes")
 
     pdf.key_concept_box("Who Holds U.S. Currency?",
         "Total U.S. currency in circulation: $750 billion (2006)\n"
@@ -931,12 +981,50 @@ def generate_kw10():
     pdf.bullet("Higher bond price -> lower interest rate (and vice versa)")
     pdf.bullet("'Bond markets went up' = bond prices rose = interest rates fell")
 
+    pdf.subsection_title("Interest Rates in Practice (Lecture)")
+    pdf.body_text("Global context: Interest rates on 10-year government bonds fell worldwide for decades (USA, Germany, Japan, Switzerland). From peaks of 10-16% in the early 1980s, rates declined to near zero or even negative by 2020.")
+    pdf.bullet("**Zero lower bound**: How negative can an interest rate be?")
+    pdf.bullet("Cash pays zero interest, but holding it causes costs (storage, insurance, theft risk)", level=1)
+    pdf.bullet("In practice, rates went slightly negative in Europe and Japan (investors accepted small losses for safety)", level=1)
+
     pdf.subsection_title("Choosing Money or Choosing the Interest Rate?")
-    pdf.bullet("The two descriptions are equivalent:")
-    pdf.bullet("(1) Central bank chooses money supply, interest rate adjusts to equilibrium", level=1)
-    pdf.bullet("(2) Central bank chooses interest rate, adjusts money supply to achieve it", level=1)
-    pdf.bullet("**Modern central banks think in terms of choosing the interest rate**")
-    pdf.bullet("News says: 'The Fed decided to increase the interest rate' (not 'decrease the money supply')")
+    pdf.body_text("The lecture presents these as two distinct equilibrium regimes with equal importance:")
+
+    pdf.sub_subsection_title("Regime 1: Money Supply Control")
+    pdf.bullet("The central bank provides money supply M, so that M = M_S")
+    pdf.bullet("The interest rate is determined endogenously in equilibrium")
+    pdf.formula_block(r"M^s = M^d \quad \Longleftrightarrow \quad M^s = PY \cdot L(i)", fontsize=12)
+    pdf.bullet("Graph: vertical M_S line intersects downward-sloping M_d curve at equilibrium point A")
+
+    pdf.sub_subsection_title("Regime 2: Interest Rate Control")
+    pdf.bullet("The central bank sets the interest rate to i_0")
+    pdf.bullet("The money supply is determined endogenously: the central bank provides as much money as demanded at i_0")
+    pdf.formula_block(r"M^d(i_0) = M^s \quad \text{(money supply adjusts to demand at } i_0 \text{)}", fontsize=12)
+    pdf.bullet("Graph: horizontal line at i_0 intersects downward-sloping M_d curve at equilibrium point A")
+
+    pdf.subsection_title("Expansionary Monetary Policy: Both Regimes (Lecture)")
+    pdf.body_text("The lecture shows both regimes side by side for an expansionary policy:")
+
+    pdf.sub_subsection_title("Under Money Supply Control")
+    pdf.bullet("Central bank increases money supply from M_1 to M_2 (supply curve shifts right)")
+    pdf.bullet("Equilibrium interest rate falls from i_1 to i_2")
+    pdf.bullet("Money demand rises accordingly")
+    pdf.bullet("The interest rate is determined **endogenously**")
+
+    pdf.sub_subsection_title("Under Interest Rate Control")
+    pdf.bullet("Central bank aims for a lower interest rate: reduces i from i_1 to i_2")
+    pdf.bullet("At the lower rate, money demand increases from M_1 to M_2")
+    pdf.bullet("Central bank increases money supply to M_2 to satisfy demand")
+    pdf.bullet("The money supply is determined **endogenously**")
+
+    pdf.key_concept_box("Equivalence of the Two Descriptions",
+        "Money supply control and interest rate control produce the SAME outcome.\n"
+        "Modern central banks think in terms of choosing the interest rate.\n"
+        "News says: 'The Fed decided to increase the interest rate'\n"
+        "(not 'decrease the money supply').\n"
+        "Historically: money supply targeting (late 1970s to early 1990s),\n"
+        "then shift to interest rate targeting (since the early 1990s),\n"
+        "with QE revival of money supply operations for long-term bonds.")
 
     pdf.section_title("4-3 Determining the Interest Rate: II (With Banks)")
     pdf.body_text("In reality, money includes currency AND checkable deposits. Checkable deposits are supplied by private banks, not the central bank.")
@@ -1003,53 +1091,117 @@ def generate_kw10():
         "- Rate remained at 0.5% despite massive money expansion\n"
         "- This is exactly what liquidity trap theory predicts")
 
-    pdf.subsection_title("Appendix: Both Currency and Checkable Deposits")
-    pdf.body_text("When people hold proportion c in currency and (1-c) in checkable deposits:")
+    pdf.subsection_title("Money Creation by Commercial Banks (Lecture Detail)")
+    pdf.body_text("The lecture uses the following notation for money creation:")
+    pdf.formula_block(r"M = \text{money supply}, \quad H = \text{central bank money (high-powered money, M0)}", fontsize=11)
+    pdf.formula_block(r"CU = \text{cash in circulation}, \quad D = \text{deposits of non-banks}", fontsize=11)
+    pdf.formula_block(r"R = \text{reserves}, \quad \theta = \text{reserve ratio}, \quad b = \text{cash proportion}", fontsize=11)
+
+    pdf.body_text("In an economy with commercial banks, the central bank can only control the monetary base H directly. The money supply M is controlled indirectly.")
+
+    pdf.sub_subsection_title("Why Banks Hold Reserves")
+    pdf.bullet("Deposits and withdrawals are not equal - banks must hold cash on hand")
+    pdf.bullet("To cover debts to other banks")
+    pdf.bullet("To fulfill legal **reserve requirements**")
+    pdf.bullet("Reserve ratio: banks hold fraction theta of deposits as reserves")
+    pdf.formula_block(r"R = \theta \cdot D", fontsize=12)
+
+    pdf.sub_subsection_title("The Money Creation Multiplier (Geometric Series)")
+    pdf.body_text("The monetary base H consists of cash in circulation plus reserves:")
+    pdf.formula_block(r"H = CU + R \quad \Longleftrightarrow \quad H = CU + \theta D")
+    pdf.body_text("Cash and deposits are fixed proportions b and (1-b) of total money M:")
+    pdf.formula_block(r"CU = b \cdot M, \qquad D = (1-b) \cdot M", fontsize=12)
+    pdf.body_text("If the central bank increases H by one unit, how does this affect M?")
+    pdf.bullet("The commercial bank can lend a fraction (1-theta) of the deposit")
+    pdf.bullet("Of that loan, fraction (1-b) flows back into the banking system as new deposits")
+    pdf.bullet("This process continues indefinitely, yielding a geometric series:")
+    pdf.formula_block(r"1 + (1-\theta)(1-b) + [(1-\theta)(1-b)]^2 + \ldots = \frac{1}{1-(1-\theta)(1-b)}", fontsize=12)
+    pdf.body_text("The money creation multiplier result:")
+    pdf.formula_block(r"M = \frac{1}{b + \theta(1-b)} \cdot H")
+    pdf.bullet("The multiplier is always > 1 (since b < 1 and theta < 1)")
+
+    pdf.sub_subsection_title("Textbook Notation (Blanchard)")
+    pdf.body_text("Blanchard uses c instead of b for the cash proportion. The formulas are equivalent:")
     pdf.formula_block(r"CU^d = c \cdot M^d, \quad D^d = (1-c) \cdot M^d, \quad R^d = \theta(1-c) \cdot M^d", fontsize=12)
     pdf.body_text("Demand for central bank money:")
     pdf.formula_block(r"H^d = \left[c + \theta(1-c)\right] \cdot \$Y \cdot L(i)")
     pdf.body_text("Equilibrium:")
     pdf.formula_block(r"H = \left[c + \theta(1-c)\right] \cdot \$Y \cdot L(i)")
-
-    pdf.subsection_title("The Money Multiplier")
+    pdf.body_text("Money multiplier (textbook):")
     pdf.formula_block(r"M = \frac{H}{c + \theta(1-c)} = \text{Money Multiplier} \times H")
-    pdf.bullet("Money multiplier is always > 1:")
     pdf.formula_block(r"\text{Money multiplier} = \frac{1}{c + \theta(1-c)} > 1", fontsize=12)
     pdf.bullet("Example:")
     pdf.formula_block(r"c = 0.4, \;\; \theta = 0.1 \quad \Longrightarrow \quad \text{multiplier} = \frac{1}{0.46} = 2.2", fontsize=11)
     pdf.bullet("Each dollar of central bank money leads to $2.20 of total money")
 
+    pdf.subsection_title("Central Bank Control Channels (Lecture)")
+    pdf.body_text("With commercial banks, the central bank controls money supply through three channels:")
+    pdf.bullet("**Policy rate** (0.00% in Jan 2026): The price at which commercial banks can obtain central bank money")
+    pdf.bullet("**Deposit rate** (0.00% in Jan 2026): Interest on deposits by commercial banks with the central bank")
+    pdf.bullet("**Minimum reserve rate** (4.00% in Jan 2026): Compulsory reserve balances of commercial banks with the central bank")
+    pdf.body_text("The central bank indirectly influences the volume of lending by commercial banks and thus the amount of their deposits and the money supply M.")
+
+    pdf.key_concept_box("SNB Monetary Policy in Practice (Lecture)",
+        "In October 2022, the SNB had to intervene directly in the market\n"
+        "because the SARON (Swiss Average Rate Overnight) differed from\n"
+        "the SNB policy rate. The SARON is the actual market rate at which\n"
+        "banks lend to each other overnight. When SARON diverges from the\n"
+        "policy rate, the central bank must act to restore the transmission\n"
+        "mechanism of monetary policy.")
+
     # CHAPTER 5.2
     pdf.add_page()
     pdf.chapter_title("CHAPTER 5, SECTION 5-2: Financial Markets and the LM Relation")
 
+    pdf.section_title("Why the IS-LM Model? (Lecture)")
+    pdf.body_text("Repetition from Lecture 2: the goal is a simple model of the economy in the short run.")
+    pdf.bullet("In the last lecture: balance on the goods market (implicit IS curve)")
+    pdf.formula_block(r"Y = c_0 + c_1(Y - T) + I(Y, i) + G", fontsize=12)
+    pdf.bullet("On the basis of today's lecture we can add i as an equilibrium result from the financial market")
+    pdf.bullet("IS-LM model in the diagram with i and Y on the axes")
+    pdf.bullet("Equilibrium in the financial market in the diagram: the **LM curve**")
+    pdf.bullet("'LM' stands for **liquidity** and **money supply**")
+
     pdf.section_title("The LM Relation")
     pdf.body_text("From Chapter 4, the interest rate is determined by money market equilibrium:")
-    pdf.formula_block(r"M = \$Y \cdot L(i)")
+    pdf.formula_block(r"M = PY \cdot L(i)")
     pdf.body_text("Dividing both sides by the price level P to get real terms:")
     pdf.formula_block(r"\frac{M}{P} = Y \cdot L(i)")
     pdf.bullet("**Real money supply** = money stock in terms of goods:")
     pdf.formula_block(r"\text{Real money supply} = \frac{M}{P}", fontsize=12)
     pdf.bullet("**Real money demand** depends on real income Y and interest rate i")
+    pdf.bullet("Note: in the short term, the price level P is fixed")
+    pdf.bullet("If the money market is in equilibrium, the bonds market will be as well (Walras' law)")
 
-    pdf.subsection_title("Deriving the LM Curve")
-    pdf.body_text("Two approaches:")
+    pdf.subsection_title("Deriving the LM Curve: Two Regimes")
+    pdf.body_text("The lecture derives the LM curve under both regimes with equal emphasis:")
 
-    pdf.sub_subsection_title("Traditional Approach (choosing M)")
-    pdf.bullet("Central bank chooses M, price level P is fixed in short run -> M/P is given")
-    pdf.bullet("If real income increases -> money demand increases -> interest rate must rise")
-    pdf.bullet("Result: upward-sloping LM curve (traditional)")
+    pdf.sub_subsection_title("Regime 1: Interest Rate Control (Modern, Horizontal LM)")
+    pdf.bullet("Central bank sets the interest rate to i_0")
+    pdf.bullet("The central bank endogenously adjusts the supply of money to the demand for money at that rate")
+    pdf.bullet("If income rises from Y_1 to Y_2, money demand increases")
+    pdf.bullet("The central bank increases money supply from M_1 to M_2 to maintain i_0")
+    pdf.bullet("Result: the LM curve is a **horizontal line** at i_0")
+    pdf.formula_block(r"\text{LM curve (interest rate control):} \quad i = \bar{\imath}_0", fontsize=12)
+    pdf.bullet("Graph: left panel shows money market (M_S shifts right to match higher M_d), right panel shows flat LM line with points A (Y_1) and B (Y_2) both at i_0")
 
-    pdf.sub_subsection_title("Modern Approach (choosing i)")
-    pdf.bullet("Modern central banks directly choose the interest rate i-bar")
-    pdf.bullet("They adjust M to achieve whatever money demand arises at that rate")
-    pdf.bullet("Result: **LM curve is a horizontal line at i-bar**")
+    pdf.sub_subsection_title("Regime 2: Money Supply Control (Traditional, Upward-Sloping LM)")
+    pdf.bullet("Central bank keeps money supply M_S constant")
+    pdf.bullet("If income rises from Y to Y', money demand increases (curve shifts right)")
+    pdf.bullet("With constant M_S, the interest rate must INCREASE from i_A to i_B to restore equilibrium")
+    pdf.bullet("Result: the LM curve is **upward-sloping** - higher income requires higher interest rate")
+    pdf.formula_block(r"\text{LM curve (money supply control):} \quad \frac{M}{P} = Y \cdot L(i)", fontsize=12)
+    pdf.bullet("Graph: left panel shows money market (M_d shifts right along fixed M_S), right panel shows upward-sloping LM curve with points A (Y, i_A) and B (Y', i_B)")
 
-    pdf.key_concept_box("Figure 5-4: The LM Curve",
-        "The LM curve is a HORIZONTAL LINE at the interest rate i-bar\n"
-        "chosen by the central bank.\n"
-        "The central bank adjusts money supply to maintain i-bar\n"
-        "regardless of the level of output.")
+    pdf.key_concept_box("The LM Curve: Summary (Lecture Slide 30)",
+        "The textbook (usually) assumes the central bank controls interest rates,\n"
+        "and therefore uses a flat LM curve.\n\n"
+        "Summary of positions relative to the LM curve:\n"
+        "- ABOVE the LM curve: excess supply on the money market\n"
+        "- BELOW the LM curve: excess demand on the money market\n"
+        "- ON the LM curve: equilibrium on the money market\n\n"
+        "The bonds market is the mirror image of the money market.\n"
+        "The LM curve also describes the balance on the bonds market.")
 
     # CHAPTER 5.3
     pdf.add_page()
@@ -1101,44 +1253,62 @@ def generate_kw10():
     pdf.add_page()
     pdf.chapter_title("SUMMARY OF KEY EQUATIONS AND TERMS")
 
-    pdf.formula_block(r"\text{(4.1)} \quad M^d = \$Y \cdot L(i) \quad \text{Money demand}", fontsize=12)
-    pdf.formula_block(r"\text{(4.2)} \quad M = \$Y \cdot L(i) \quad \text{Money market equilibrium}", fontsize=12)
-    pdf.formula_block(r"\text{(4.4)} \quad H^d = \theta \cdot \$Y \cdot L(i) \quad \text{Reserves demand (no currency)}", fontsize=12)
-    pdf.formula_block(r"\text{(4.6)} \quad H = \theta \cdot \$Y \cdot L(i) \quad \text{Central bank money equilibrium}", fontsize=12)
+    pdf.section_title("Core Equations")
+    pdf.formula_block(r"\text{(4.1)} \quad M^d = PY \cdot L(i) \quad \text{Money demand}", fontsize=12)
+    pdf.formula_block(r"\text{(4.2)} \quad M = PY \cdot L(i) \quad \text{Money market equilibrium}", fontsize=12)
+    pdf.formula_block(r"\text{(4.4)} \quad H^d = \theta \cdot PY \cdot L(i) \quad \text{Reserves demand (no currency)}", fontsize=12)
+    pdf.formula_block(r"\text{(4.6)} \quad H = \theta \cdot PY \cdot L(i) \quad \text{Central bank money equilibrium}", fontsize=12)
     pdf.formula_block(r"i = \frac{100 - P_B}{P_B} \quad \text{Interest rate from bond price}", fontsize=12)
     pdf.formula_block(r"P_B = \frac{100}{1 + i} \quad \text{Bond price from interest rate}", fontsize=12)
+    pdf.formula_block(r"R = \theta \cdot D \quad \text{Reserves = reserve ratio} \times \text{deposits}", fontsize=12)
+    pdf.formula_block(r"H = CU + R \quad \text{Monetary base = cash + reserves}", fontsize=12)
+
+    pdf.section_title("Money Creation")
+    pdf.formula_block(r"\text{(Lecture)} \quad M = \frac{1}{b + \theta(1-b)} \cdot H \quad \text{Money multiplier (lecture notation)}", fontsize=12)
+    pdf.formula_block(r"\text{(Blanchard)} \quad M = \frac{H}{c + \theta(1-c)} \quad \text{Money multiplier (textbook notation)}", fontsize=12)
     pdf.formula_block(r"\text{(4.A9)} \quad H = \left[c + \theta(1-c)\right] \cdot \$Y \cdot L(i) \quad \text{General equilibrium}", fontsize=12)
-    pdf.formula_block(r"M = \frac{H}{c + \theta(1-c)} \quad \text{Money multiplier relation}", fontsize=12)
+
+    pdf.section_title("IS-LM Model")
     pdf.formula_block(r"\text{(5.2)} \quad Y = C(Y-T) + I(Y,\,i) + G \quad \text{IS relation}", fontsize=12)
     pdf.formula_block(r"\text{(5.3)} \quad \frac{M}{P} = Y \cdot L(i) \quad \text{LM relation (real terms)}", fontsize=12)
-    pdf.formula_block(r"\text{(5.4)} \quad i = \bar{\imath} \quad \text{LM curve (modern)}", fontsize=12)
+    pdf.formula_block(r"\text{(5.4)} \quad i = \bar{\imath} \quad \text{LM curve (interest rate control, horizontal)}", fontsize=12)
+    pdf.formula_block(r"\text{LM:} \quad \frac{M}{P} = Y \cdot L(i) \quad \text{(money supply control, upward-sloping)}", fontsize=12)
 
     pdf.ln(5)
     pdf.section_title("Key Terms")
     terms = [
         ("Federal Reserve (Fed)", "The U.S. central bank"),
+        ("Swiss National Bank (SNB)", "The Swiss central bank; uses SARON as key market rate"),
         ("Open Market Operation (OMO)", "Central bank buying/selling bonds to change money supply"),
         ("Expansionary OMO", "Buy bonds -> increase M -> decrease i"),
         ("Contractionary OMO", "Sell bonds -> decrease M -> increase i"),
+        ("Quantitative Easing (QE)", "OMOs for long-term bonds; revival since 2008"),
+        ("Forward guidance", "Central bank expectation management regarding future policy"),
         ("Treasury bill (T-bill)", "Government bond with maturity < 1 year"),
-        ("Central bank money", "Currency + Reserves (= Monetary Base = High-powered money)"),
-        ("Reserve ratio (theta)", "Reserves / Checkable deposits (min 10% in U.S.)"),
+        ("Central bank money (H)", "Currency + Reserves (= Monetary Base = High-powered money = M0)"),
+        ("Reserve ratio (theta)", "Reserves / Checkable deposits (min 10% in U.S., 4% SNB)"),
+        ("SARON", "Swiss Average Rate Overnight; actual interbank lending rate in Switzerland"),
         ("Federal funds rate", "Interest rate in the federal funds market; main U.S. policy indicator"),
-        ("Zero lower bound (ZLB)", "Interest rates cannot go below zero"),
+        ("Zero lower bound (ZLB)", "Interest rates cannot go (much) below zero"),
         ("Liquidity trap", "At i=0, more money has no effect on interest rate"),
         ("IS curve", "Downward-sloping: all (i,Y) pairs where goods market is in equilibrium"),
-        ("LM curve", "Horizontal line at i-bar (modern); financial market equilibrium"),
-        ("Money multiplier", "total money as multiple of central bank money"),
-        ("Real money supply", "money stock measured in terms of goods"),
+        ("LM curve (modern)", "Horizontal line at i-bar; financial market equilibrium under interest rate control"),
+        ("LM curve (traditional)", "Upward-sloping; financial market equilibrium under money supply control"),
+        ("Money multiplier", "Total money as multiple of central bank money: 1/(c + theta(1-c))"),
+        ("Real money supply", "Money stock measured in terms of goods: M/P"),
         ("Policy mix", "Combination of fiscal and monetary policy"),
+        ("Monetary aggregates", "M0 (base), M1, M2, M3 - progressively broader definitions of money"),
+        ("Money supply control", "Central bank sets M, interest rate adjusts endogenously"),
+        ("Interest rate control", "Central bank sets i, money supply adjusts endogenously"),
     ]
     for term, defn in terms:
         pdf.bullet(f"**{term}**: {defn}")
 
     pdf.ln(3)
-    pdf.body_text("Key formulas for reference:")
-    pdf.formula_block(r"\text{Money multiplier} = \frac{1}{c + \theta(1-c)}", fontsize=12)
+    pdf.body_text("Key formulas for quick reference:")
+    pdf.formula_block(r"\text{Money multiplier} = \frac{1}{c + \theta(1-c)} > 1", fontsize=12)
     pdf.formula_block(r"\text{Real money supply} = \frac{M}{P}", fontsize=12)
+    pdf.formula_block(r"\text{Bond price} \uparrow \;\Longleftrightarrow\; \text{Interest rate} \downarrow", fontsize=12)
 
     path = '/Users/roberthaeussler/Claude Coding/Apps/uni tracker/notes/econ/KW10_Financial_Markets.pdf'
     pdf.output(path)
