@@ -8,6 +8,7 @@ from fpdf import FPDF
 import re
 import os
 import tempfile
+import subprocess
 
 import matplotlib
 matplotlib.use('Agg')
@@ -16,6 +17,57 @@ import matplotlib.pyplot as plt
 # Temp directory for formula images
 _FORMULA_DIR = tempfile.mkdtemp(prefix="macro_formulas_")
 _FORMULA_COUNTER = 0
+
+# Slide extraction directory
+_SLIDE_DIR = tempfile.mkdtemp(prefix="macro_slides_")
+_SLIDE_COUNTER = 0
+
+# Base path for lecture slides
+_SLIDES_BASE = '/Users/roberthaeussler/Claude Coding/Apps/uni tracker/notes/econ/Lecture slides (reference for notes creation)'
+
+
+def extract_slide(pdf_filename, page_num, crop_sidebar=True):
+    """Extract a slide page from a lecture PDF as a cropped PNG image.
+
+    Args:
+        pdf_filename: Name of the PDF file (e.g., '2026-Economics-B_Folien-01.pdf')
+        page_num: 1-based page number to extract
+        crop_sidebar: If True, crop the right ~13% to remove green navigation sidebar
+
+    Returns:
+        Path to the extracted PNG image
+    """
+    global _SLIDE_COUNTER
+    _SLIDE_COUNTER += 1
+    pdf_path = os.path.join(_SLIDES_BASE, pdf_filename)
+    output_prefix = os.path.join(_SLIDE_DIR, f"slide_{_SLIDE_COUNTER}")
+
+    # Use pdftoppm to render the page at high resolution
+    subprocess.run([
+        'pdftoppm', '-png', '-r', '300',
+        '-f', str(page_num), '-l', str(page_num),
+        pdf_path, output_prefix
+    ], check=True, capture_output=True)
+
+    # pdftoppm names output as prefix-PAGENUMBER.png (zero-padded)
+    raw_path = None
+    for suffix in [f'-{page_num}.png', f'-{page_num:02d}.png', f'-{page_num:03d}.png']:
+        candidate = output_prefix + suffix
+        if os.path.exists(candidate):
+            raw_path = candidate
+            break
+    if raw_path is None:
+        raise FileNotFoundError(f"Could not find extracted slide image for page {page_num}")
+
+    if crop_sidebar:
+        from PIL import Image
+        img = Image.open(raw_path)
+        w, h = img.size
+        # Crop right 13% (green sidebar) and bottom 3% (page number)
+        cropped = img.crop((0, 0, int(w * 0.87), int(h * 0.97)))
+        cropped.save(raw_path)
+
+    return raw_path
 
 
 def render_latex(latex_str, fontsize=14):
@@ -154,6 +206,45 @@ class NotesPDF(FPDF):
         self.set_y(self.get_y() + h_mm + 2)
         self.set_font("Helvetica", "", 10)
 
+    def slide_figure(self, pdf_filename, page_num, caption, width_pct=0.85):
+        """Embed a lecture slide as a captioned figure.
+
+        Args:
+            pdf_filename: Lecture PDF filename
+            page_num: 1-based page number
+            caption: Caption text below the figure
+            width_pct: Figure width as fraction of page width (0.0-1.0)
+        """
+        img_path = extract_slide(pdf_filename, page_num)
+        from PIL import Image
+        with Image.open(img_path) as img:
+            w_px, h_px = img.size
+
+        # Scale to desired width
+        avail_w = (self.w - self.l_margin - self.r_margin) * width_pct
+        w_mm = avail_w
+        h_mm = (h_px / w_px) * w_mm
+
+        # Check if we need a new page (image + caption + padding)
+        needed = h_mm + 14
+        if self.get_y() + needed > self.h - self.b_margin:
+            self.add_page()
+
+        self.ln(4)
+        # Center the image
+        x = self.l_margin + (self.w - self.l_margin - self.r_margin - w_mm) / 2
+        self.image(img_path, x=x, y=self.get_y(), w=w_mm, h=h_mm)
+        self.set_y(self.get_y() + h_mm + 2)
+
+        # Caption (sanitize unicode for Helvetica)
+        safe_caption = caption.replace('\u2014', '-').replace('\u2013', '-').replace('\u2019', "'")
+        self.set_font("Helvetica", "I", 8)
+        self.set_text_color(100, 100, 100)
+        self.multi_cell(0, 4, safe_caption, align="C")
+        self.set_text_color(0, 0, 0)
+        self.set_font("Helvetica", "", 10)
+        self.ln(3)
+
     def key_concept_box(self, title, text):
         self.ln(3)
         self.set_fill_color(255, 248, 230)
@@ -204,10 +295,78 @@ class NotesPDF(FPDF):
 
 
 def generate_kw8():
-    """Generate KW 8 PDF: Introduction & National Accounts (Ch 1 + Ch 2)."""
-    pdf = NotesPDF("KW 8: Introduction & National Accounts", "Chapters 1 & 2")
+    """Generate KW 8 PDF: Introduction & National Accounts (Ch 1 + Ch 2 + Lecture 1)."""
+    pdf = NotesPDF("KW 8: Introduction & National Accounts", "Chapters 1 & 2 + Lecture 1")
     pdf.alias_nb_pages()
     pdf.cover_page()
+
+    # ===== LECTURE 1 CONTEXT =====
+    pdf.add_page()
+    pdf.chapter_title("LECTURE 1 CONTEXT: INTRODUCTION TO MACROECONOMICS")
+
+    pdf.section_title("Course Overview and Learning Objectives")
+    pdf.body_text("Economics studies the allocation of scarce resources. While microeconomics examines allocation at the individual level (persons, firms), macroeconomics discusses this at the aggregated level.")
+    pdf.bullet("Learning objectives of this course:")
+    pdf.bullet("Introductory understanding of macroeconomics", level=1)
+    pdf.bullet("Economic models: benefits, applications, and limitations", level=1)
+    pdf.bullet("Analysis and contextualization of current economic policy problems", level=1)
+    pdf.bullet("Main goal: Ability to analyze current macroeconomic topics in a structured manner using suitable model frameworks")
+
+    pdf.subsection_title("Importance of Macroeconomics for Managers")
+    pdf.bullet("A company's success depends critically on **external** factors")
+    pdf.bullet("Economic developments and economic policy decisions must be correctly interpreted by managers")
+    pdf.bullet("Example: In which countries should a company produce? In which markets will demand increase?")
+
+    pdf.subsection_title("Course Structure")
+    pdf.bullet("12 lectures (90 min) + 8 tutorials (90 min) + 3 self-study units")
+    pdf.bullet("Mock exam in the middle of the semester")
+    pdf.bullet("Thematic structure: short term -> medium term -> long term")
+    pdf.bullet("Perspective: demand-side -> supply-side")
+
+    pdf.section_title("From Micro to Macro: The Linking of Markets")
+    pdf.body_text("Economics distinguishes three levels of investigation:")
+    pdf.bullet("**Individual economic level**: Behavior of individual economic entities; above all households (maximization of utility) and companies (maximization of profits)")
+    pdf.bullet("**Level of interaction (markets)**: Relations and cooperation between economic entities")
+    pdf.bullet("**Macroeconomic level**: Overall result of individual economic actions and the environment in which individual economic decisions are made")
+    pdf.bullet("Modern macroeconomics is microeconomically sound, i.e., it is based on decisions of individual households and enterprises")
+
+    pdf.subsection_title("Example 1: Immigration to Switzerland and Wages")
+    pdf.bullet("Simple model with labor supply and demand: additional labor supply -> lower wages")
+    pdf.bullet("Advanced model: immigrants bring new ideas, companies invest more, structural change occurs")
+    pdf.bullet("From research: David Card (1990) 'Mariel boatlift' - natural experiment showing minimal wage effects from immigration")
+
+    pdf.subsection_title("Example 2: European Real Estate Boom and Crash")
+    pdf.bullet("Ireland, Latvia, and Spain experienced interconnected crises:")
+    pdf.bullet("Housing prices doubled then crashed after 2008", level=1)
+    pdf.bullet("Unemployment surged (above 15% in all three countries)", level=1)
+    pdf.bullet("Public debt exploded as governments bailed out banks and funded stimulus", level=1)
+    pdf.bullet("Key question: What connects these three charts? -> The macroeconomic perspective")
+
+    pdf.slide_figure('2026-Economics-B_Folien-01.pdf', 19,
+        'Figure: European Real Estate Crisis - Housing Prices, Unemployment, and Public Debt (Ireland, Latvia, Spain)')
+
+    pdf.section_title("(Macro-)Economic Markets")
+    pdf.body_text("Several markets are of central importance at the macroeconomic level:")
+    pdf.bullet("**Goods market**")
+    pdf.bullet("**Financial market** (including money and capital market)")
+    pdf.bullet("**Labor market**")
+    pdf.bullet("We are interested in the **general equilibrium** on all markets, as well as the interdependence of markets")
+    pdf.bullet("Using suitable models, we want to analyze macroeconomic developments and possible political interventions")
+
+    pdf.section_title("Central Economic Variables")
+    pdf.body_text("A key learning objective is understanding the definition, determinants, and measurement of these variables:")
+    pdf.bullet("(1) **The total production and its growth rate** -> GDP")
+    pdf.bullet("(2) **The unemployment rate**")
+    pdf.bullet("(3) **The rate of inflation**")
+
+    pdf.section_title("Long-Term Trend and Short-Term Fluctuations")
+    pdf.body_text("Swiss real GDP (in billion CHF, source: SECO) shows a long-term trend of approximately 1.5% growth per year, with short-term fluctuations around this trend.")
+    pdf.bullet("What explains the short-term fluctuations and the return to the trend line?")
+    pdf.bullet("What explains the long-term path of GDP?")
+    pdf.bullet("These are the central questions of this course")
+
+    pdf.slide_figure('2026-Economics-B_Folien-01.pdf', 7,
+        'Figure: Swiss Real GDP (2000-2024) with 1.5% trend line (Source: SECO)')
 
     # CHAPTER 1
     pdf.add_page()
@@ -520,6 +679,117 @@ def generate_kw8():
     pdf.bullet("The BEA uses 2009 as the reference year (where real GDP = nominal GDP)")
     pdf.bullet("For any other year, the growth rate of real GDP is computed by averaging growth rates calculated using prices from two consecutive years")
 
+    # ===== LECTURE 1 ADDITIONS TO CHAPTER 2 =====
+    pdf.add_page()
+    pdf.chapter_title("NATIONAL ACCOUNTS: LECTURE PERSPECTIVES")
+
+    pdf.section_title("The Gross Domestic Product (Lecture Framing)")
+    pdf.bullet("Since the mid-20th century, GDP has been the most commonly used measure of economic performance")
+    pdf.bullet("**Nominal GDP** measures the value of all final goods and services, expressed in current prices, produced in a country during a given period")
+    pdf.bullet("Geographic focus, flow size, value added (no double counting)", level=1)
+    pdf.bullet("**Real GDP** uses constant prices (base year), i.e., it corrects for inflation")
+    pdf.bullet("If the (seasonally adjusted) real GDP falls for two consecutive quarters, economists speak of a **recession**")
+
+    pdf.subsection_title("Nominal vs Real (Lecture Emphasis)")
+    pdf.body_text("Separation of real and nominal quantities:")
+    pdf.bullet("**Nominal values** are expressed in monetary units -> nominal wages, nominal interest rates")
+    pdf.bullet("**Real values** are measured in physical goods (purchasing power) -> relative prices, real wages, real interest rates")
+    pdf.bullet("Increase of the nominal GDP: production increases AND/OR prices increase")
+
+    pdf.section_title("Economic Cycle as a Framework for Macroeconomics")
+    pdf.body_text("The simple economic cycle: Households are suppliers of production factors and buyers of goods. They own factors of production that are traded on the financial market and labor market.")
+    pdf.bullet("**Circular flow** links three markets: Goods Markets, Firms, Factor Markets, Households")
+    pdf.bullet("Three equivalent measures of GDP in the circular flow:")
+    pdf.bullet("Sales revenue (firms) = GDP (production approach)", level=1)
+    pdf.bullet("Expenditure (households) = GDP (expenditure approach)", level=1)
+    pdf.bullet("Factor compensation / Income = GDP (income approach)", level=1)
+
+    pdf.slide_figure('2026-Economics-B_Folien-01.pdf', 26,
+        'Figure: The Circular Flow - Goods Markets, Firms, Factor Markets, and Households')
+
+    pdf.section_title("The Three Types of GDP Measurement")
+    pdf.bullet("**Production approach**: GDP equals the value of final goods and services produced in the economy during a given period")
+    pdf.bullet("**Income approach**: GDP is the sum of all payments to factors of production (labor, capital, land) in a given period")
+    pdf.bullet("**Expenditure approach**: GDP is the sum of all spending on final goods produced within a country for private or public consumption, investment, or net exports")
+    pdf.body_text("Example (production approach, value added):")
+    pdf.bullet("Aluminum factory: sales revenue = 100, wages = 80, profit = 20")
+    pdf.bullet("Car manufacturer: sales revenue = 210, intermediate consumption (aluminum) = 100, wages = 70, profit = 40")
+    pdf.bullet("Total value added = 20 + (210 - 100) = 130 = total wages + total profits = 150 + (-20)... -> all three approaches yield the same GDP")
+
+    pdf.section_title("Total Demand and Total Supply")
+    pdf.body_text("Total supply and total demand in an open economy:")
+    pdf.bullet("Total supply: domestic production (Y) + imports (M)")
+    pdf.bullet("Total demand (Z): household consumption (C) + private sector investment (I) + government expenditure (G) + exports (X)")
+    pdf.formula_block(r"Y + M = Z = C + I + G + X")
+    pdf.body_text("Rearranging:")
+    pdf.formula_block(r"Y = C + I + G + (X - M)")
+    pdf.bullet("For the economy in the **short run**, demand is decisive, which is why we examine this equation in detail (-> Lecture 2)")
+
+    pdf.section_title("Swiss GDP Data 2024")
+    pdf.body_text("How large were Y, C, I, G, X, M in Switzerland in 2024? (Data at current prices, trade incl. gold; Source: Federal Statistical Office)")
+    widths_ch = [55, 15, 25]
+    pdf.table_header(["Component", "Symbol", "bn CHF"], widths_ch)
+    pdf.table_row(["Private consumption", "C", "421"], widths_ch, True)
+    pdf.table_row(["Private investment", "I", "228"], widths_ch)
+    pdf.table_row(["Government consumption", "G", "102"], widths_ch, True)
+    pdf.table_row(["Exports", "X", "608"], widths_ch)
+    pdf.table_row(["Imports", "M", "505"], widths_ch, True)
+    pdf.table_row(["GDP", "Y", "854"], widths_ch)
+    pdf.ln(3)
+
+    pdf.section_title("Value Added by Economic Sector (Switzerland)")
+    pdf.body_text("Gross value added (GVA) by sector, nominal share in %, seasonally adjusted (Source: SECO):")
+    pdf.bullet("**Primary sector** (agricultural): ~1% of GVA")
+    pdf.bullet("**Secondary sector** (industry): ~27% of GVA")
+    pdf.bullet("**Tertiary sector** (services): ~73% of GVA")
+    pdf.bullet("These shares have been remarkably stable since 1990")
+
+    pdf.section_title("GDP as a Welfare Measure (Lecture Discussion)")
+    pdf.body_text("GDP measures overall economic performance. But is it also a useful measure of well-being (welfare)?")
+
+    pdf.subsection_title("Limitations of GDP")
+    pdf.bullet("Unpaid, non-market-based work (housework, bringing up children) is NOT captured")
+    pdf.bullet("Black market and illegal activities are only partly included")
+    pdf.bullet("Quality improvements are often hard to capture")
+    pdf.bullet("New forms of economic activity are often captured with a delay")
+    pdf.bullet("Free access to unprecedented amount of information due to new technologies is not captured (Hulten & Nakamura, NBER 2021)")
+
+    pdf.subsection_title("Advantages of GDP")
+    pdf.bullet("Comparability over time and between countries")
+    pdf.bullet("Cannot be corrupted by politics (corrective by international institutions)")
+    pdf.bullet("Relatively easy to measure, clear international standards")
+
+    pdf.subsection_title("The Myth of the Broken Window")
+    pdf.bullet("With fully utilized capacities: destruction does NOT increase GDP")
+    pdf.bullet("With underutilized capacities: GDP increases but NOT net national income")
+
+    pdf.subsection_title("GDP Per Capita vs GDP Per Hour Worked")
+    pdf.bullet("Is maximization of GDP per capita the goal at all?")
+    pdf.bullet("Germany has a higher per capita income than France, but GDP per hour worked is almost identical")
+    pdf.bullet("Real GDP is theoretically grounded as a welfare measure")
+
+    pdf.subsection_title("GDP and Complementary Indicators")
+    pdf.bullet("High correlation between GDP per capita and complementary indicators: median income, Human Development Index (HDI)")
+    pdf.bullet("GDP per capita vs life expectancy: strong positive relationship, but diminishing returns at higher income levels")
+    pdf.bullet("GDP per capita vs HDI: strong positive relationship, concave shape")
+
+    pdf.slide_figure('2026-Economics-B_Folien-01.pdf', 34,
+        'Figure: GDP Per Capita vs. Life Expectancy — Strong positive relationship with diminishing returns')
+
+    pdf.subsection_title("Excursion: GDP Measurement from Space")
+    pdf.bullet("No GDP data available for many poorer countries; at regional level, reliable data often hardly exist")
+    pdf.bullet("New approach since 2012: **satellite data on nighttime light intensity**")
+    pdf.bullet("Example: North Korea vs South Korea - dramatic difference in light intensity reflects economic disparity")
+    pdf.bullet("Source: Jiaxiong Yao, Illuminating Economic Growth, IMF F&D, September 2019")
+
+    pdf.section_title("GDP Per Capita: International Comparison (2024)")
+    pdf.body_text("GDP per capita in 1000 USD PPP (Source: World Bank, 2024 data):")
+    pdf.bullet("Uganda: 3.3 | China: 27.1 | Russia: 47.4 | Japan: 51.7 | Italy: 60.9 | France: 61.3 | Austria: 71.6 | Germany: 72.3 | USA: 85.8 | Switzerland: 94.1")
+    pdf.bullet("World average: approximately 27 (shown by red dashed line)")
+
+    pdf.slide_figure('2026-Economics-B_Folien-01.pdf', 4,
+        'Figure: GDP Per Capita in 1000 USD PPP (Source: World Bank, 2024) — World average shown by red dashed line')
+
     # Save
     path = '/Users/roberthaeussler/Claude Coding/Apps/uni tracker/notes/econ/KW8_Intro_and_National_Accounts.pdf'
     pdf.output(path)
@@ -527,10 +797,84 @@ def generate_kw8():
 
 
 def generate_kw9():
-    """Generate KW 9 PDF: The Goods Market (Ch 3 + Ch 5.1 + Ch 14.1-14.2)."""
-    pdf = NotesPDF("KW 9: The Goods Market", "Ch 3, Ch 5.1, Ch 14.1-14.2")
+    """Generate KW 9 PDF: The Goods Market (Ch 3 + Ch 5.1 + Ch 14.1-14.2 + Lecture 2)."""
+    pdf = NotesPDF("KW 9: The Goods Market", "Ch 3, Ch 5.1, Ch 14.1-14.2 + Lecture 2")
     pdf.alias_nb_pages()
     pdf.cover_page()
+
+    # ===== LECTURE 2 CONTEXT =====
+    pdf.add_page()
+    pdf.chapter_title("LECTURE 2 CONTEXT: THE GOODS MARKET")
+
+    pdf.section_title("Motivation: The Corona Crisis")
+    pdf.body_text("Using the years 2020-2023, marked by the Corona crisis, we can illustrate many macroeconomic issues with real-world examples.")
+    pdf.bullet("Private consumption and GDP fell sharply in 2020")
+    pdf.bullet("At the same time, government spending increased")
+    pdf.bullet("Swiss data (real index, 2020 = 100): GDP and private consumption dropped ~3-4%, while government consumption rose")
+    pdf.bullet("Recovery was uneven: GDP recovered faster than private consumption")
+
+    pdf.slide_figure('2026-Economics-B_Folien-02.pdf', 2,
+        'Figure: Corona Crisis — Swiss GDP, Private Consumption, and Government Consumption (real index, 2015-2025)')
+
+    pdf.section_title("How Economists Analyze Economic Policy Problems")
+    pdf.body_text("Using (mathematical) models:")
+    pdf.bullet("Precision of the problem, transparent assumptions, consistent analysis")
+    pdf.bullet("Clear indication of model assumptions and causal relationships")
+    pdf.bullet("Basic concept of an economic model:")
+    pdf.bullet("Mathematical functions describe causal relationships", level=1)
+    pdf.bullet("Model assumptions influence both causality and dynamics", level=1)
+    pdf.bullet("**Exogenous** (independent) and **endogenous** (dependent) variables", level=1)
+    pdf.bullet("Model parameters", level=1)
+    pdf.bullet("The model shows dynamics and is suitable for **comparative statics**")
+    pdf.bullet("Comparison of model statements with empirical analysis")
+
+    pdf.section_title("Empirical Macroeconomics")
+    pdf.bullet("Empirical analyses require experiences and real events")
+    pdf.bullet("In macroeconomics there are no artificial laboratory data to test hypotheses - one must use available data based on past real situations")
+    pdf.bullet("Important econometric insights are based on:")
+    pdf.bullet("Time series data", level=1)
+    pdf.bullet("'Natural experiments' (e.g. German reunification)", level=1)
+    pdf.bullet("Comparisons between countries (or states, cantons)", level=1)
+    pdf.bullet("Example: Did the Hartz reforms reduce German unemployment?")
+
+    pdf.section_title("Learning Objectives (Lecture 2)")
+    pdf.bullet("The economy in the short-run")
+    pdf.bullet("Idea and construction of a macroeconomic model")
+    pdf.bullet("Components of gross domestic product (GDP) and their determinants")
+    pdf.bullet("Consumption theories according to Keynes and Friedman")
+    pdf.bullet("Derivation of the IS curve for the IS-LM model")
+    pdf.bullet("Literature: Blanchard Chapter 3, 5.1, 14.1 & 14.2")
+
+    pdf.section_title("GDP Over Time and Course Structure")
+    pdf.body_text("In the long run GDP follows a (hopefully rising) path. At any given time there is a GDP value on the trend line:")
+    pdf.formula_block(r"Y_{n,t} \quad \text{(natural/trend GDP at time } t \text{)}")
+    pdf.bullet("We first examine **short-term fluctuations** (-> Lectures 2 to 4)")
+    pdf.formula_block(r"\text{Then we determine } Y_{n,t} \text{ at a given time } t \text{ (-> Lectures 5 to 7)}", fontsize=11)
+    pdf.formula_block(r"\text{Finally we analyze the trend of } Y_{n,t} \text{ (-> Lectures 10 to 11)}", fontsize=11)
+
+    pdf.section_title("The Economy in the Short-Run")
+    pdf.bullet("In lectures 2, 3, and 4 we focus on the **short-run**:")
+    pdf.bullet("Short-run (< 5 years), medium-run (5-10 years), long-run (> 10 years)", level=1)
+    pdf.bullet("The subdivision is based on how quickly economic processes unfold", level=1)
+    pdf.bullet("Each requires a different perspective and economic analysis tools", level=1)
+    pdf.bullet("Economic variables behave differently in the short-run than in the long-run")
+    pdf.bullet("Example: Government spending is increased. Short-term GDP increase; the long-term effect is much less clear.")
+    pdf.bullet("In the short-run, we ignore resource constraints and analyze economic fluctuations. Prices and wages are rigid in the short run.")
+
+    pdf.section_title("The IS-LM Model Preview")
+    pdf.body_text("We use the well-known IS-LM model for short-run analysis:")
+    pdf.bullet("As simple as possible, but not too simple")
+    pdf.bullet("We essentially need: **goods market** + **financial market**")
+    pdf.bullet("We leave out for now: labor market, stocks, foreign countries, ...")
+    pdf.bullet("Goods market in equilibrium (IS curve): supply and demand")
+    pdf.bullet("Financial market in equilibrium (LM curve): supply and demand")
+    pdf.bullet("Goal: Understanding model, applying model, questioning model")
+
+    pdf.subsection_title("Example: Japan VAT Increase (2019)")
+    pdf.bullet("Japan raised the value added tax from 8% to 10% as of October 1, 2019")
+    pdf.bullet("Bigger than expected hit from the sales tax rise; drop in spending")
+    pdf.bullet("Japan's government increased VAT knowing the short-term negative effects - the goal was to reduce the public deficit")
+    pdf.bullet("How is the measure to be assessed in the medium-term? -> This is what our models help answer")
 
     # CHAPTER 3
     pdf.add_page()
@@ -538,8 +882,23 @@ def generate_kw9():
 
     pdf.body_text("Year-to-year movements in economic activity are driven by the interactions among production, income, and demand. Changes in demand lead to changes in production, which lead to changes in income, which in turn lead to changes in demand.")
 
+    pdf.subsection_title("The Economy in the Short-Term (Lecture)")
+    pdf.body_text("With annual fluctuations in economic activity, the interrelation between production, income, and demand is central to macroeconomic understanding:")
+    pdf.bullet("Changes in demand lead to adjustments in production")
+    pdf.bullet("Adjustments in production trigger changes in income")
+    pdf.bullet("Changes in income cause changes in demand")
+    pdf.bullet("In the analysis of the goods market we therefore focus on demand for goods, production, and income - as seen in Lecture 1, all three correspond to GDP")
+
+    pdf.subsection_title("Swiss GDP Growth Over Time (Lecture)")
+    pdf.body_text("Expenditure-side growth contributions to nominal GDP (Source: SECO, 2000-2024): Private consumption, public consumption, investment, net exports all contribute to GDP growth. Key observation:")
+    pdf.bullet("**Consumption fluctuates much less than GDP** (consumption smoothing)")
+    pdf.bullet("Investment and net exports are the main sources of volatility")
+
     pdf.section_title("3-1 The Composition of GDP")
     pdf.body_text("GDP can be decomposed from the point of view of different buyers for goods. The terms 'output' and 'production' are synonymous.")
+    pdf.body_text("The GDP can be determined in three ways: production approach, income approach, expenditure approach (see Lecture 1). Here we use the expenditure approach:")
+    pdf.formula_block(r"\text{GDP} = Y = C + I + G + NX", fontsize=12)
+    pdf.body_text("where NX = X - IM (net exports). Assumption for a closed economy: X = IM = 0.")
 
     pdf.subsection_title("The Five Components of GDP")
     widths = [55, 15, 25, 25]
@@ -587,14 +946,71 @@ def generate_kw9():
     pdf.formula_block(r"c_0 > 0", fontsize=12)
     pdf.bullet("Changes in c0 reflect changes in consumer confidence, ease of borrowing, etc.")
 
+    pdf.slide_figure('2026-Economics-B_Folien-02.pdf', 17,
+        'Figure: The Linear Consumption Function — C = c0 + c1 * Y_D (slope = c1, intercept = c0)')
+
+    pdf.sub_subsection_title("Consumption Theories (Lecture)")
+    pdf.body_text("Two main theories of consumption:")
+    pdf.bullet("**Keynesian consumption function** (used in this model): Consumption is based only on current disposable income. The propensity to save/consume is postulated from aggregated data (no micro-foundation).")
+    pdf.bullet("**Permanent income hypothesis** (Friedman): Households with a longer-term planning horizon choose consumption to maximize an intertemporal utility function (-> consumption smoothing)")
+    pdf.bullet("Elements of the permanent income model:", level=1)
+    pdf.bullet("Lifetime income: all present and future income", level=1)
+    pdf.bullet("Utility function: consumption and leisure generate utility", level=1)
+    pdf.bullet("Intertemporal budget constraint: households cannot spend more than they earn", level=1)
+    pdf.bullet("Optimization within the constraints (-> tutorials)", level=1)
+    pdf.bullet("We focus on the Keynesian approach in this chapter")
+
+    pdf.sub_subsection_title("Keynesian Consumption: Swiss Empirical Data (Lecture)")
+    pdf.body_text("Based on Swiss data for disposable income (Y_D) and consumption (C), the estimated function is:")
+    pdf.formula_block(r"\hat{C} = \hat{c}_0 + \hat{c}_1 \, Y_D = 68 + 0.8 \, Y_D", fontsize=12)
+    pdf.bullet("The estimated marginal propensity to consume is approximately 0.8")
+    pdf.bullet("Source: Federal Statistical Office, data 1990-2024 in billion CHF")
+
+    pdf.slide_figure('2026-Economics-B_Folien-02.pdf', 18,
+        'Figure: Swiss Empirical Consumption Function — C = 68 + 0.8 * Y_D (scatter + regression, 1990-2024)')
+
+    pdf.sub_subsection_title("Critique of Keynesian Consumption (Lecture)")
+    pdf.bullet("Every economic model requires simplifying assumptions - it is important to critically examine them")
+    pdf.bullet("Fundamental critique: the function is postulated and not derived (not micro-founded)")
+    pdf.bullet("Important factors NOT considered: income shifts over the life cycle, consideration of future income (and taxes), savings and interest rate, wealth")
+
     pdf.subsection_title("Investment (I)")
-    pdf.bullet("Treated as exogenous (taken as given) in this chapter:")
+    pdf.bullet("Treated as **exogenous** (taken as given) in this chapter:")
     pdf.formula_block(r"I = \bar{I}")
     pdf.bullet("This simplification is relaxed in Chapter 5 where investment depends on output and the interest rate")
 
-    pdf.subsection_title("Government Spending (G)")
-    pdf.bullet("G and T together describe **fiscal policy**")
-    pdf.bullet("Both treated as exogenous: (1) governments don't behave with simple regularity, (2) we want to analyze policy scenarios")
+    pdf.sub_subsection_title("Investment: Lecture Detail (Preview of Ch 5)")
+    pdf.body_text("Three components of private investment: investment in equipment by firms, investment in construction, changes in inventories.")
+    pdf.bullet("Private investment is important for two reasons:")
+    pdf.bullet("(1) Part of GDP: investment explains the level and (short-term) fluctuations in output", level=1)
+    pdf.bullet("Investment is much more volatile than consumption (-> household consumption smoothing)", level=1)
+    pdf.bullet("(2) Increase the stock of productive capital:")
+    pdf.formula_block(r"K_{\text{tomorrow}} = K_{\text{today}} + I - \text{Depreciation}", fontsize=12)
+    pdf.bullet("Investment central to long-term economic growth (-> Lecture 10)")
+
+    pdf.bullet("What determines the level of private investment?")
+    pdf.bullet("**(1) The interest rate**: Companies have many potential investment projects with different returns-on-investment (RoI). Every project has a **net present value**:")
+    pdf.formula_block(r"NPV = CF_0 + \frac{CF_1}{1+i} + \frac{CF_2}{(1+i)^2} + \frac{CF_3}{(1+i)^3} + \ldots")
+    pdf.formula_block(r"CF_0 = \text{investment today (negative cash flow)}", fontsize=11)
+    pdf.formula_block(r"CF_1, CF_2, CF_3, \ldots = \text{future earnings (expected)}", fontsize=11)
+    pdf.bullet("A lower interest rate makes more projects profitable (-> lower opportunity costs)")
+
+    pdf.bullet("**(2) The level of production**: To produce more, additional machines are necessary")
+    pdf.body_text("Summarizing both aspects mathematically:")
+    pdf.formula_block(r"I = I(\underset{(+)}{Y},\; \underset{(-)}{i})")
+    pdf.bullet("In contrast to Blanchard, who often writes just I(i), the lecture emphasizes I(Y, i)")
+    pdf.bullet("The model could be supplemented by other factors: expectations about the future (-> PMI), risk preferences")
+    pdf.bullet("**Endogenous variables**: depend on other variables in the model")
+    pdf.bullet("**Exogenous variables**: not explained in the model (taken as given)")
+
+    pdf.subsection_title("Government Spending (G) - The State")
+    pdf.formula_block(r"\text{GDP:} \quad Y = C + I + G + NX", fontsize=12)
+    pdf.body_text("How can the state act to influence GDP?")
+    pdf.bullet("Direct and indirect taxes -> T")
+    pdf.bullet("Transfer payments (e.g., unemployment benefit) -> T")
+    pdf.bullet("Government spending on goods and services -> G")
+    pdf.bullet("Decisions on government spending G, and the amount of taxes and transfers T, are called **fiscal policy**")
+    pdf.bullet("Both G and T treated as exogenous: (1) governments don't behave with simple regularity, (2) we want to analyze policy scenarios")
 
     pdf.section_title("3-3 The Determination of Equilibrium Output")
     pdf.body_text("Combining all components:")
@@ -622,11 +1038,48 @@ def generate_kw9():
     pdf.formula_block(r"\text{if } c_1 = 0.6, \quad \text{multiplier} = \frac{1}{0.4} = 2.5", fontsize=12)
     pdf.bullet("A $1 billion increase in autonomous spending increases output by $2.5 billion")
 
-    pdf.subsection_title("Using a Graph (Figure 3-2)")
-    pdf.bullet("Plot demand (ZZ line) and the 45-degree line (Y = Y)")
-    pdf.bullet("ZZ line: intercept = autonomous spending, slope = c1 (< 1, so flatter than 45-degree line)")
-    pdf.bullet("Equilibrium at point A where ZZ crosses the 45-degree line")
-    pdf.bullet("Left of A: demand > production. Right of A: production > demand.")
+    pdf.subsection_title("Using a Graph: The Keynesian Cross (Figure 3-2)")
+    pdf.body_text("The Keynesian cross diagram (lecture version):")
+    pdf.bullet("Y-axis: Demand Z, Production Y")
+    pdf.bullet("X-axis: Income Y")
+    pdf.bullet("**45-degree line** (Production: Y = Y, slope = 1)")
+    pdf.bullet("**ZZ curve** (demand): intercept = autonomous spending, slope = c1 (< 1, flatter than 45-degree line)")
+    pdf.body_text("The ZZ curve equation:")
+    pdf.formula_block(r"ZZ: \quad Z = (c_0 + \bar{I} + G - c_1 T) + c_1 Y")
+    pdf.bullet("Equilibrium at point A where ZZ crosses the 45-degree line (Y = Z)")
+    pdf.bullet("Left of A: demand > production -> firms increase output")
+    pdf.bullet("Right of A: production > demand -> firms decrease output")
+    pdf.bullet("Note: the ZZ curve is drawn for a given interest rate")
+
+    pdf.slide_figure('2026-Economics-B_Folien-02.pdf', 26,
+        'Figure: The Keynesian Cross — ZZ demand curve (slope c1), 45-degree line, equilibrium at point A')
+
+    pdf.subsection_title("Comparative Statics: Increase in G (Lecture)")
+    pdf.body_text("How does the equilibrium change if government spending G increases?")
+    pdf.bullet("The demand for goods Z increases if: autonomous consumption (c0) rises, government spending (G) rises, taxes (T) are reduced, interest rate (i) is lowered")
+    pdf.body_text("In equilibrium, solving for Y:")
+    pdf.formula_block(r"Y = \frac{1}{1-c_1}\left[c_0 + \bar{I} + G - c_1 T\right]")
+    pdf.formula_block(r"\Longrightarrow \quad \frac{1}{1-c_1} = \text{multiplier}", fontsize=12)
+    pdf.bullet("If G increases by 1, Y increases by 1/(1-c1) > 1")
+    pdf.body_text("Graphically (step by step): ZZ shifts up to ZZ'. Starting at A, demand rises to B, then production adjusts to C, then demand rises to D, then to E, converging to the new equilibrium A'.")
+    pdf.formula_block(r"\Delta Y = \frac{1}{1-c_1} \cdot \Delta G > \Delta G", fontsize=12)
+
+    pdf.slide_figure('2026-Economics-B_Folien-02.pdf', 28,
+        'Figure: Comparative Statics — Increase in G shifts ZZ up; multiplier mechanism (A -> B -> C -> D -> E -> A\')')
+
+    pdf.subsection_title("How Large Is the Multiplier? (Lecture)")
+    pdf.bullet("Valid only for **unutilized capacities**; hence the amount is often overestimated")
+    pdf.bullet("Real-world examples: HSG expansion, EU Green Deal, Juncker Plan")
+
+    pdf.subsection_title("The Multiplier Effect: Numerical Example (Lecture)")
+    pdf.body_text("The state pays 100 CHF for road repair (with c1 = 0.8):")
+    pdf.bullet("Road builder spends 80 CHF in a shop and saves 20 CHF")
+    pdf.bullet("Retailers spend 80 x 0.8 = 64 CHF and save 16 CHF")
+    pdf.bullet("After 2 rounds: cumulative increase = 100 + 80 + 64 = 244 CHF")
+    pdf.bullet("After all rounds: increase in GDP by 500 CHF")
+    pdf.formula_block(r"\text{Multiplier} = \frac{1}{1-c_1} = \frac{1}{1-0.8} = \frac{1}{0.2} = 5", fontsize=12)
+    pdf.body_text("The geometric series:")
+    pdf.formula_block(r"1 + c_1 + c_1^2 + \ldots + c_1^n = \frac{1}{1 - c_1} \quad (n \to \infty)")
 
     pdf.subsection_title("The Multiplier Effect (Figure 3-3)")
     pdf.body_text("If c0 increases by $1 billion:")
@@ -711,6 +1164,49 @@ def generate_kw9():
         "- Represents all (i, Y) combinations where goods market is in equilibrium\n"
         "- Shifts RIGHT with: increase in G, decrease in T, increase in consumer confidence\n"
         "- Shifts LEFT with: decrease in G, increase in T, decrease in confidence")
+
+    pdf.subsection_title("IS Curve Derivation: Two-Panel Graph (Lecture)")
+    pdf.body_text("The IS curve is derived from the goods market equilibrium using a two-panel approach:")
+    pdf.bullet("**Left panel** (Keynesian cross): As i rises from i0 to i1 > i0, investment falls, ZZ shifts down from ZZ(i0) to ZZ(i1), equilibrium output falls from Y0 to Y1")
+    pdf.bullet("**Right panel** (IS curve): Plot the pairs (Y0, i0) as point A and (Y1, i1) as point B, connect to get the downward-sloping IS curve")
+    pdf.bullet("**Above** the IS curve: Excess supply on the goods market (production > demand)")
+    pdf.bullet("**Below** the IS curve: Excess demand on the goods market (demand > production)")
+    pdf.bullet("**On** the IS curve: Equilibrium on the goods market")
+
+    pdf.slide_figure('2026-Economics-B_Folien-02.pdf', 32,
+        'Figure: IS Curve Derivation — Two-panel: Keynesian cross (left) and downward-sloping IS curve (right)')
+
+    pdf.subsection_title("IS Curve: Investments and Savings (Lecture)")
+    pdf.body_text("The name 'IS' stands for Investment = Savings. An alternative approach to the goods market equilibrium:")
+    pdf.bullet("Private consumer savings:")
+    pdf.formula_block(r"S = Y - T - C", fontsize=12)
+    pdf.body_text("GDP equation (excluding exports and imports):")
+    pdf.formula_block(r"Y = C + I + G", fontsize=12)
+    pdf.body_text("Rearranging:")
+    pdf.formula_block(r"S + T + C = C + I + G \quad \Longrightarrow \quad I = S + (T - G)")
+    pdf.bullet("With trade:")
+    pdf.formula_block(r"I = S + (T - G) + (IM - X)", fontsize=12)
+    pdf.bullet("The goods market is only in equilibrium if investment equals savings (the sum of private and state savings)")
+    pdf.bullet("Is S or I the driver? Theory of effective demand (Keynes) vs supply-oriented theories (Say's law, (neo-)classical)")
+
+    pdf.subsection_title("The IS Curve: Discussion (Lecture)")
+    pdf.body_text("The implicit IS curve:")
+    pdf.formula_block(r"Y = C(Y - T) + I(Y,\, i) + G \quad \text{(assumption: } X = IM = 0 \text{)}")
+    pdf.bullet("The IS curve depends negatively on the interest rate: with increasing interest rates, investment demand and total production decrease")
+    pdf.bullet("Where does the interest rate come from? -> Financial Market, LM curve, Lecture 3")
+    pdf.bullet("**Movement along the IS curve**: Interest rate change -> endogenous adjustment of production volume")
+    pdf.bullet("**Shifts in the IS curve**: Factors that trigger a decrease (increase) in the demand for goods at a given interest rate shift the IS curve to the left (right). Example: increased government spending shifts IS right.")
+
+    pdf.subsection_title("The Savings Paradox: Discussion (Lecture)")
+    pdf.bullet("Y **decreases** with increasing propensity to save (i.e., with smaller c0 or c1)")
+    pdf.bullet("The higher c1, the higher the multiplier")
+    pdf.bullet("Is saving bad? In the short run, more saving -> less consumption -> less demand -> less output")
+    pdf.bullet("In the medium/long run, higher saving can lead to higher investment and income")
+
+    pdf.subsection_title("Application: Swiss Consumer Sentiment (Lecture)")
+    pdf.body_text("Consumer sentiment in Switzerland, calculated by SECO, has continued to recover in 2025. What does this mean for the Swiss economy?")
+    pdf.bullet("Higher consumer sentiment -> higher c0 (autonomous consumption) -> ZZ shifts up -> Y increases")
+    pdf.bullet("This is a real-world application of the multiplier mechanism")
 
     # CHAPTER 14.1-14.2
     pdf.add_page()
@@ -925,6 +1421,12 @@ def generate_kw10():
     pdf.bullet("At a given interest rate i, an increase in nominal income shifts the money demand curve to the RIGHT")
     pdf.bullet("Points along the curve: moving from low i to high i, money demand DECREASES (liquidity preference falls)")
 
+    pdf.slide_figure('2026-Economics-B_Folien-03.pdf', 11,
+        'Figure: Money Demand Curve — Downward-sloping M^d(PY) with points a, b, c at different interest rates')
+
+    pdf.slide_figure('2026-Economics-B_Folien-03.pdf', 12,
+        'Figure: Money Demand Shift — Increase in nominal income (PY\' > PY) shifts M^d curve to the right')
+
     pdf.subsection_title("Empirical Validation: Swiss Cash-Deposit Ratio (Lecture)")
     pdf.body_text("The lecture presents Swiss empirical data (1990-2025) showing the cash-holding coefficient alongside the return on 10-year Swiss government bonds:")
     pdf.formula_block(r"L(\hat{\imath}) = \frac{M^d}{PY} \quad \text{(cash-deposit ratio)}", fontsize=12)
@@ -996,11 +1498,17 @@ def generate_kw10():
     pdf.formula_block(r"M^s = M^d \quad \Longleftrightarrow \quad M^s = PY \cdot L(i)", fontsize=12)
     pdf.bullet("Graph: vertical M_S line intersects downward-sloping M_d curve at equilibrium point A")
 
+    pdf.slide_figure('2026-Economics-B_Folien-03.pdf', 17,
+        'Figure: Money Market Equilibrium — Money Supply Control (vertical M^s intersects M^d at point A)')
+
     pdf.sub_subsection_title("Regime 2: Interest Rate Control")
     pdf.bullet("The central bank sets the interest rate to i_0")
     pdf.bullet("The money supply is determined endogenously: the central bank provides as much money as demanded at i_0")
     pdf.formula_block(r"M^d(i_0) = M^s \quad \text{(money supply adjusts to demand at } i_0 \text{)}", fontsize=12)
     pdf.bullet("Graph: horizontal line at i_0 intersects downward-sloping M_d curve at equilibrium point A")
+
+    pdf.slide_figure('2026-Economics-B_Folien-03.pdf', 18,
+        'Figure: Money Market Equilibrium — Interest Rate Control (horizontal i_0 intersects M^d at point A)')
 
     pdf.subsection_title("Expansionary Monetary Policy: Both Regimes (Lecture)")
     pdf.body_text("The lecture shows both regimes side by side for an expansionary policy:")
@@ -1016,6 +1524,9 @@ def generate_kw10():
     pdf.bullet("At the lower rate, money demand increases from M_1 to M_2")
     pdf.bullet("Central bank increases money supply to M_2 to satisfy demand")
     pdf.bullet("The money supply is determined **endogenously**")
+
+    pdf.slide_figure('2026-Economics-B_Folien-03.pdf', 20,
+        'Figure: Expansionary Monetary Policy — Money supply control (left) vs. Interest rate control (right), A1 -> A2')
 
     pdf.key_concept_box("Equivalence of the Two Descriptions",
         "Money supply control and interest rate control produce the SAME outcome.\n"
@@ -1185,6 +1696,9 @@ def generate_kw10():
     pdf.formula_block(r"\text{LM curve (interest rate control):} \quad i = \bar{\imath}_0", fontsize=12)
     pdf.bullet("Graph: left panel shows money market (M_S shifts right to match higher M_d), right panel shows flat LM line with points A (Y_1) and B (Y_2) both at i_0")
 
+    pdf.slide_figure('2026-Economics-B_Folien-03.pdf', 28,
+        'Figure: LM Curve Derivation — Interest Rate Control: money market (left) and horizontal LM(i_0) curve (right)')
+
     pdf.sub_subsection_title("Regime 2: Money Supply Control (Traditional, Upward-Sloping LM)")
     pdf.bullet("Central bank keeps money supply M_S constant")
     pdf.bullet("If income rises from Y to Y', money demand increases (curve shifts right)")
@@ -1192,6 +1706,9 @@ def generate_kw10():
     pdf.bullet("Result: the LM curve is **upward-sloping** - higher income requires higher interest rate")
     pdf.formula_block(r"\text{LM curve (money supply control):} \quad \frac{M}{P} = Y \cdot L(i)", fontsize=12)
     pdf.bullet("Graph: left panel shows money market (M_d shifts right along fixed M_S), right panel shows upward-sloping LM curve with points A (Y, i_A) and B (Y', i_B)")
+
+    pdf.slide_figure('2026-Economics-B_Folien-03.pdf', 29,
+        'Figure: LM Curve Derivation — Money Supply Control: money market (left) and upward-sloping LM(M/P) curve (right)')
 
     pdf.key_concept_box("The LM Curve: Summary (Lecture Slide 30)",
         "The textbook (usually) assumes the central bank controls interest rates,\n"
