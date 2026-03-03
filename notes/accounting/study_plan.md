@@ -401,4 +401,28 @@ Quick review checklist:
 - **Past exam**: `reference/accounting/2023 June.pdf` + solution
 - **42 past paper solutions**: `reference/accounting/past paper solutions/` (2017-2026)
 - **Fact sheet**: `reference/accounting.pdf`
-- **Practice questions**: `notes/accounting/trading_company_practice.md` (12 exams' worth)
+
+## Practice Question Files
+
+Each of the 16 exam sections has a dedicated practice file with questions + hidden solutions extracted from past papers:
+
+| File | Sections | Source Exams |
+|---|---|---|
+| `trading_company_practice.md` | Section 1 (Trading Company) | 2018-2026 (12 exams) |
+| `section02_sole_proprietorship.md` | Section 2 | 2023-2026 (8 exams) |
+| `section03_depreciation_receivables.md` | Section 3 | 2023-2026 (6 exams) |
+| `section04_interpretation.md` | Section 4 | 2024-2026 (5 exams) |
+| `section05_payment_production.md` | Section 5 | 2024-2026 (5 exams) |
+| `section06_inventories.md` | Section 6 | 2024-2026 (5 exams) |
+| `section07_profit_cash_effect.md` | Section 7 | 2024-2026 (5 exams) |
+| `section08_accruals_provisions.md` | Section 8 | 2024-2026 (5 exams) |
+| `section09_land_building.md` | Section 9 | 2024-2026 (5 exams) |
+| `section10_valuation_reserves.md` | Section 10 | 2024-2025 (4 exams) |
+| `section11_marketable_securities.md` | Section 11 | 2024-2026 (5 exams) |
+| `section12_joint_stock_company.md` | Section 12 | 2024-2026 (5 exams) |
+| `section13_financial_ratios.md` | Section 13 | 2024-2026 (5 exams) |
+| `section14_pnl_reporting.md` | Section 14 | 2024-2026 (5 exams) |
+| `section15_miscellaneous.md` | Section 15 | 2024-2026 (5 exams) |
+| `section16_board_decisions.md` | Section 16 | 2025-2026 (3 exams) |
+
+> **TODO — Expand with older exams:** Sections 2-16 currently only use the 5 most recent exams (Jan 2026, Mar 2025, Jan 2025, Mar 2024, Jun 2024). There are **42 past paper solutions** available from 2017-2026. Future sessions should extract questions from the remaining ~37 older exams (2017-2023) to significantly increase the practice question pool for each section. Section 1 already uses 12 exams as a reference for how thorough the others should be.
