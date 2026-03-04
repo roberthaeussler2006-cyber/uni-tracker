@@ -598,9 +598,10 @@ export function getFmExpectedPage(weekNumber: number): number | null {
 // ─── Countdown target logic ───
 
 // Lecture/seminar times (dayOfWeek: 0=Sun, 1=Mon, ..., 5=Fri)
-const MACRO_LECTURE = { day: 1, hour: 12, minute: 15 } // Monday 12:15
-const LAW_LECTURE = { day: 2, hour: 16, minute: 15 }   // Tuesday 16:15
-const PHILO_SEMINAR = { day: 2, hour: 8, minute: 15 }  // Tuesday 08:15
+const MACRO_LECTURE = { day: 1, hour: 12, minute: 15 }    // Monday 12:15
+const BUSADMIN_LECTURE = { day: 1, hour: 14, minute: 15 } // Monday 14:15
+const LAW_LECTURE = { day: 2, hour: 16, minute: 15 }      // Tuesday 16:15
+const PHILO_SEMINAR = { day: 2, hour: 8, minute: 15 }     // Tuesday 08:15
 
 // Extract week numbers that have exercise/practice sessions
 function getExerciseWeekNumbers(subjectShortName: string): number[] {
@@ -657,7 +658,7 @@ export function getTaskCountdown(
   weeks: Week[],
   weekNumber: number
 ): { text: string; urgency: 'normal' | 'warning' | 'urgent' | 'overdue' } | null {
-  if (subjectShortName !== 'Macro' && subjectShortName !== 'Law' && subjectShortName !== 'Philo') return null
+  if (subjectShortName !== 'Macro' && subjectShortName !== 'Law' && subjectShortName !== 'Philo' && subjectShortName !== 'BusAdmin') return null
 
   const titleLower = taskTitle.toLowerCase()
   const isReading = titleLower.includes('reading')
@@ -672,12 +673,13 @@ export function getTaskCountdown(
     const targetWeek = weeks.find((w) => w.week_number === weekNumber + 1)
     if (!targetWeek) return null
     const lecture = subjectShortName === 'Macro' ? MACRO_LECTURE
+      : subjectShortName === 'BusAdmin' ? BUSADMIN_LECTURE
       : subjectShortName === 'Philo' ? PHILO_SEMINAR
       : LAW_LECTURE
     target = getLectureDateForWeek(targetWeek.start_date, lecture)
   } else {
-    // Exercise: find the exercise for this week or the next one (Philo has no exercises)
-    if (subjectShortName === 'Philo') return null
+    // Exercise: find the exercise for this week or the next one (Philo/BusAdmin have no exercise countdown)
+    if (subjectShortName === 'Philo' || subjectShortName === 'BusAdmin') return null
     target = getExerciseDateForWeek(subjectShortName, weekNumber, weeks)
   }
 
