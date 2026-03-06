@@ -386,23 +386,61 @@ def generate_lecture1():
     pdf.subsection_title("2.1 Public International Law")
     pdf.bullet("Main sources (Art. 38 ICJ Statute): international treaties, customs, general principles of law")
     pdf.bullet("Key treaties of constitutional dimension: **ECHR**, **ICCPR**, ICESCR, Convention against Torture, Convention on the Rights of the Child")
+    pdf.bullet("International conventions and treaties become **applicable and binding after states' ratification**")
     pdf.bullet("Switzerland follows a **monistic approach**: international law is part of the domestic legal order without need for incorporation")
     pdf.bullet("Contrast: **Dualist approach** (UK, Germany) requires domestic legislation to incorporate international law")
     pdf.bullet("Only **self-executing provisions** can be directly relied on by individuals in courts (must directly regulate rights/duties and be sufficiently clear)")
 
+    pdf.sub_subsection_title("Customary International Law vs. Ius Cogens")
+    pdf.bullet("**Customary international law**: unwritten principles requiring (1) continuous and coherent practice, (2) **opinio iuris** (belief practice is a legal obligation), (3) a lacuna in written law")
+    pdf.bullet("**Chain**: vital rules of customary international law + opinio iuris => **ius cogens** => **erga omnes/inter omnes effect**")
+    pdf.bullet("**General principles of law** recognized by civilized nations (fairness, justice, good faith, impartiality of judges) also serve as PIL sources")
+    pdf.bullet("**Judicial decisions and legal scholarship** serve as subsidiary means for determining rules of law")
+
+    pdf.sub_subsection_title("Examples: Customary International Law")
+    pdf.bullet("Prohibition of execution of offenders under the age of 18 at the time of their crime")
+    pdf.bullet("Immunity of visiting foreign heads of state")
+
+    pdf.sub_subsection_title("Examples: Ius Cogens (Peremptory Norms)")
+    pdf.bullet("Prohibition of torture")
+    pdf.bullet("Prohibition of crimes against humanity")
+    pdf.bullet("Prohibition of genocide")
+    pdf.bullet("Prohibition of human trafficking")
+    pdf.bullet("Prohibition of slavery")
+    pdf.bullet("**Non-refoulement principle**: prohibition of returning persons to a state where they face persecution or torture")
+
+    pdf.key_concept_box("Exercise Case: Tamil Asylum Seeker (2013)",
+        "In 2013, Switzerland deported a Tamil asylum seeker to Sri Lanka where he was arrested and severely mistreated. "
+        "An international court found TWO principles of ius cogens violated: (1) the non-refoulement principle (by Switzerland) "
+        "and (2) the prohibition of torture (by Sri Lanka).")
+
     pdf.subsection_title("2.2 Federal Statutes")
     pdf.bullet("Federal statutes covering matters of constitutional importance belong to the substantive constitution")
-    pdf.bullet("Key statutes: Swiss Citizenship Act (SCA), Political Rights Act (PRA), Parliament Act (ParlA), Federal Supreme Court Act (FSCA)")
+    pdf.bullet("Cover matters such as **citizenship, political rights, activities of federal authorities**")
+    pdf.bullet("Key statutes:")
+    pdf.bullet("Federal Act of 20 June 2014 on Swiss Citizenship (**SCA**)", level=1)
+    pdf.bullet("Federal Act of 17 December 1976 on Political Rights (**PRA**)", level=1)
+    pdf.bullet("Federal Act of 13 December 2002 on the Federal Assembly (**ParlA**)", level=1)
+    pdf.bullet("Organization of the Government and the Administration (**GAOA**)", level=1)
+    pdf.bullet("Federal Act of 17 June 2005 on the Federal Supreme Court (**FSCA**), SR 173.110", level=1)
 
     pdf.subsection_title("2.3 Customary Law")
+    pdf.bullet("Unwritten principles such as **good faith** are examples of customary law")
     pdf.bullet("Three conditions: (1) continuous, uninterrupted practice; (2) **opinio iuris** (belief practice is legally required); (3) a **lacuna** (gap) in written law")
     pdf.bullet("Since 1999 Constitution encompasses most unwritten principles, customary law plays a **negligible role**")
 
     pdf.subsection_title("2.4 Case Law")
-    pdf.bullet("Swiss judicial decisions are **only binding on the parties** involved (not binding precedent like common law)")
+    pdf.bullet("Case law of the Federal Supreme Court plays a **significant role**, although it is **not a formal source** of constitutional law")
+    pdf.bullet("Swiss judicial decisions are **only binding on the court whose decision has been overruled**; not binding upon other courts (even other panels of the Federal Supreme Court)")
+    pdf.bullet("This is **different from the Common Law system** where precedent is binding (stare decisis)")
     pdf.bullet("However, Federal Supreme Court precedents play a **very significant role** due to textual indeterminacy of constitutional provisions")
+
+    pdf.sub_subsection_title("Role in Developing Constitutional Law")
+    pdf.bullet("The court may first **acknowledge unwritten fundamental rights**; if it does so regularly, these rights may later be **introduced into the Constitution**")
+    pdf.bullet("Examples: personal liberty, freedom of opinion, freedom of assembly", level=1)
+    pdf.bullet("The court may **derive other rights from constitutional provisions**, e.g., guarantee of equality before the law => fundamental procedural rights")
+    pdf.bullet("Example: right to legal assistance for people who lack the necessary means", level=1)
     pdf.bullet("Under the 1874 Constitution, the Court derived fundamental procedural rights from equality (right to be heard, legal assistance, protection against arbitrariness)")
-    pdf.bullet("The Court acknowledged unwritten rights: personal liberty, freedom of opinion, freedom of language, freedom of assembly, right to assistance")
     pdf.bullet("These unwritten rights were later codified in the 1999 Constitution")
 
     # ---- CHAPTER D: CONSTITUTIONAL INTERPRETATION (intro) ----
@@ -426,9 +464,15 @@ def generate_lecture1():
     pdf.bullet("**4. Teleological**: purpose ('telos') of the norm; values and goals the provision aims to achieve")
 
     pdf.subsection_title("Additional Interpretation Principles")
-    pdf.bullet("**Pluralism of methods**: no hierarchy; the court considers all approaches and combines them")
-    pdf.bullet("**Interpretation in conformity with the Constitution**: among possible interpretations, prefer the one consistent with constitutional values (Art. 49 para. 1 Cst)")
-    pdf.bullet("**Interpretation in conformity with international law**: interpret domestic law to conform with international obligations (especially ECHR)")
+    pdf.bullet("**Pluralism of methods** ('Methodenpluralismus'): no hierarchy; the court considers all approaches and combines them")
+    pdf.bullet("**Interpretation in conformity with the Constitution** ('verfassungskonforme Auslegung'): among possible interpretations, prefer the one consistent with constitutional values (Art. 49 para. 1 Cst)")
+    pdf.bullet("**Interpretation in conformity with international law** ('volkerrechtskonforme Auslegung'): interpret domestic law to conform with international obligations (especially ECHR)")
+
+    pdf.key_concept_box("Exercise: Applying Interpretation Methods",
+        "Practice applying all four methods to the following constitutional articles:\n"
+        "- Art. 10a Cst (Prohibition of face-veiling)\n"
+        "- Art. 18 Cst (Freedom of language)\n"
+        "- Art. 36 Cst (Restrictions of fundamental rights)")
 
     # Key abbreviations
     pdf.add_page()
@@ -708,6 +752,9 @@ def generate_lecture3():
     pdf.subsection_title("b) Subsidiarity")
     pdf.bullet("**Art. 5a Cst**: principle of subsidiarity in allocation of state tasks")
     pdf.bullet("**Art. 43a para. 1 Cst**: Federation only undertakes tasks cantons cannot perform or requiring uniform regulation")
+    pdf.bullet("**Default rule**: the smaller unit should be autonomous and responsible for its own rule, **unless**:")
+    pdf.bullet("The smaller unit has no capacity/resources to act autonomously", level=1)
+    pdf.bullet("The matter requires uniform regulation", level=1)
     pdf.bullet("Hard to derive a directly applicable, binding rule from this principle")
 
     pdf.subsection_title("c) Federal State vs. Unitary State vs. Confederation")
@@ -740,8 +787,10 @@ def generate_lecture3():
     pdf.bullet("**Permanent population** (Art. 1 Cst)", level=1)
     pdf.bullet("**Defined territory** (sum of 26 cantons; no exclusively federal territory)", level=1)
     pdf.bullet("**State authority** (expressed in federal executive, legislative, judiciary)", level=1)
+    pdf.bullet("Designation of tasks defined in **Art. 42 Cst** and **Art. 3 Cst**")
     pdf.bullet("Federation assumes **only tasks explicitly transferred** by the Constitution (Art. 42 Cst)")
     pdf.bullet("Tasks not expressly federal are the **cantons' responsibility** (Art. 3 Cst)")
+    pdf.bullet("Key federal powers: **foreign and security policy**, **customs and financial matters**, **national defense**")
 
     pdf.subsection_title("b) The Cantons")
     pdf.bullet("**26 cantons**, each a self-organizing governmental unit (not merely administrative)")
@@ -811,38 +860,40 @@ def generate_lecture3():
     pdf.subsection_title("b) Extent of the Competency")
 
     pdf.sub_subsection_title("1. Comprehensive Competency")
-    pdf.bullet("Federation may regulate **any matter** in a field")
-    pdf.bullet("Language: 'shall legislate', 'shall ensure', 'has the exclusive right'")
-    pdf.bullet("Examples: monetary policy (Art. 99), economic policy (Art. 100), road transport (Art. 82)")
+    pdf.bullet("Federation may regulate **any matter** in a field ('federal matter')")
+    pdf.bullet("Language: 'shall legislate', 'shall ensure legislation', 'shall take measures', 'has exclusive right'")
+    pdf.bullet("Examples: monetary policy (Art. 99 Cst), economic policy (Art. 100 Cst), road transport (Art. 82 Cst)")
 
     pdf.sub_subsection_title("2. Fragmentary Competency")
-    pdf.bullet("Federation authorized to regulate only a **limited part** of a subject")
-    pdf.bullet("Examples: direct taxes with maximums (Art. 128), VAT with maximum rates (Art. 130)")
+    pdf.bullet("Federation authorized to regulate only a **limited part or aspect** of a particular subject matter")
+    pdf.bullet("Examples: health protection (Art. 118 para. 2 Cst), direct taxes (Art. 128 Cst), VAT (Art. 130 Cst), special consumption taxes (Art. 131 Cst)")
 
     pdf.sub_subsection_title("3. Framework Competency")
-    pdf.bullet("Federation lays down **basic principles only**; cantons fill in details")
-    pdf.bullet("Language: 'shall lay down principles'")
-    pdf.bullet("Example: tax harmonization (Art. 129)")
+    pdf.bullet("Federal competencies restricted to passing a **skeletal law or basic principles**, leaving cantons leeway for detailed regulation tailored to their special needs")
+    pdf.bullet("Language: 'shall lay down principles...'")
+    pdf.bullet("Examples: spatial planning (Art. 75 Cst), tax harmonization (Art. 129 Cst)")
 
     pdf.sub_subsection_title("4. Promotion Competency")
-    pdf.bullet("Federation may **support and encourage** cantonal efforts")
-    pdf.bullet("Example: protection of natural/cultural heritage (Art. 78 para. 3)")
+    pdf.bullet("Federation '**supports**' and '**encourages**' efforts in areas for which cantons are primarily responsible")
+    pdf.bullet("Example: protection of natural and cultural heritage (Art. 78 Cst)")
 
     pdf.subsection_title("c) Effect on Cantonal Jurisdiction")
 
     pdf.sub_subsection_title("1. Subsequently Derogating Effect (General Rule)")
-    pdf.bullet("Cantons may legislate **as long and as far as** the Federation does not use its competency")
-    pdf.bullet("If Federation refrains or only partially legislates, cantons remain competent")
-    pdf.bullet("Example: civil law (Art. 122)")
+    pdf.bullet("Cantons have authority to legislate **as long and as far as** the Federation does not make use of its competency")
+    pdf.bullet("Cantonal laws remain applicable in areas not covered by federal rules")
+    pdf.bullet("Cantonal competency is **cancelled** once the Federation makes use of its competency")
+    pdf.bullet("This is the **general rule** in Swiss constitutional law")
+    pdf.bullet("Examples: fishing and hunting (Art. 79 Cst), civil law (Art. 122 Cst)")
 
     pdf.sub_subsection_title("2. Originally Derogating Effect (Rare)")
-    pdf.bullet("From the moment the competency is established, cantons have **no jurisdiction** anymore")
+    pdf.bullet("From the moment a federal competency is established in the Cst, cantons have **no jurisdiction** in this area -- there is no room for cantonal legislation")
     pdf.bullet("Rare because it risks legal uncertainty when Federation hasn't legislated yet")
-    pdf.bullet("Example: postal and telecommunications (Art. 92)")
+    pdf.bullet("Examples: armed forces organization, training and equipment (Art. 60 Cst), postal and telecommunications (Art. 92 Cst)")
 
     pdf.sub_subsection_title("3. Parallel Effect")
-    pdf.bullet("Federation and cantons act **simultaneously and independently**")
-    pdf.bullet("Example: universities -- Federation operates ETH (Art. 63a), cantons run cantonal universities")
+    pdf.bullet("Federation and cantons act **simultaneously and independently** from each other in a particular area")
+    pdf.bullet("Examples: universities (Art. 63a Cst -- Federation operates ETH, cantons run cantonal universities), cinema (Art. 71 Cst)")
 
     pdf.subsection_title("d) Implementation of Federal Law")
     pdf.bullet("Switzerland generally entrusts **cantons** with implementing federal law (Art. 46 para. 1 Cst)")
@@ -885,6 +936,27 @@ def generate_lecture3():
     pdf.bullet("**International developments**: international cooperation (especially EU) limits sovereign powers at all levels")
     pdf.bullet("**Tension between federalism and democracy**: equal cantonal representation vs. equal individual representation")
     pdf.bullet("Example: 2020 initiative 'For responsible businesses' -- approved by 50.7% of voters but **rejected by majority of cantons** (11.5 smallest cantons can form a blocking majority)")
+
+    # ---- EXERCISE CASE STUDIES ----
+    pdf.add_page()
+    pdf.section_title("EXERCISE: PRACTICE CASES")
+
+    pdf.key_concept_box("Case 1: Child Allowances (Distribution of Competencies)",
+        "Ms. X and Mr. Y live in the Canton of Fribourg with three children. Ms. X works part-time as a teacher in Fribourg; "
+        "Mr. Y works part-time as a teacher in Solothurn. When Ms. X applied for child allowances in Fribourg, the cantonal "
+        "authorities rejected her application based on a cantonal law stating only the father receives the allowance.\n\n"
+        "Questions to consider:\n"
+        "1. Give two examples of federal competencies in social matters.\n"
+        "2. Is there a federal competency to regulate child allowances? If so, describe and explain the EXTENT "
+        "and EFFECT of the federal competency on cantonal jurisdiction, with reference to relevant provisions.")
+
+    pdf.key_concept_box("Case 2: Single-Use Plastic Ban (Federal Competency Analysis)",
+        "Members of the Federal Assembly want to declare a total ban on single-use plastic in Switzerland "
+        "to reduce plastic production by at least 50%.\n\n"
+        "Questions to consider:\n"
+        "1. Does the Federation have the competency to enact such a ban?\n"
+        "2. What is the extent (scope) of any relevant federal competency?\n"
+        "3. What is the effect on cantonal jurisdiction?")
 
     out = os.path.join(os.path.dirname(__file__), "Lecture3_Federalism.pdf")
     pdf.output(out)
