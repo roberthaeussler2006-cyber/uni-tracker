@@ -5,7 +5,7 @@ Personal academic progress tracker for HSG (University of St.Gallen) Assessment 
 ## How to Run
 
 ```bash
-cd "/Users/roberthaeussler/Claude Coding/uni tracker/uni-tracker"
+cd "/Users/roberthaeussler/Claude Coding/Apps/uni tracker/uni-tracker"
 npm run dev        # Start dev server at http://localhost:3000
 npm run build      # Production build
 npm run lint       # ESLint
@@ -27,28 +27,31 @@ npm run lint       # ESLint
 ## Project Structure
 
 ```
-src/
-  app/
-    layout.tsx          — Root layout (dark mode, Geist font)
-    page.tsx            — Main dashboard with 4 tabs
-    login/page.tsx      — PIN entry
-    api/auth/route.ts   — PIN verification endpoint
-  components/
-    WeeklyView.tsx      — Weekly task view (default tab)
-    SubjectsView.tsx    — Subject cards with completion stats
-    AnalyticsView.tsx   — Heatmap + completion analytics
-    DeadlinesView.tsx   — Deadline list with countdowns
-    AddTaskModal.tsx    — Modal for adding custom tasks
-    TaskItem.tsx        — Single task checkbox
-    DailyTaskGrid.tsx   — Chinese daily checkboxes (Mon-Sun)
-    WeekSelector.tsx    — Week navigation (< KW 9 >)
-    ProgressRing.tsx    — Circular progress indicator
-  lib/
-    supabase.ts         — Supabase client
-    types.ts            — TypeScript interfaces
-    weeks.ts            — Week calculation utils
-    auth.ts             — Cookie/session utils
-  middleware.ts          — Auth check on all routes
+uni-tracker/                    — Next.js app
+  src/
+    app/
+      layout.tsx                — Root layout (dark mode, Geist font)
+      page.tsx                  — Main dashboard with 4 tabs
+      login/page.tsx            — PIN entry
+      api/auth/route.ts         — PIN verification endpoint
+    components/
+      WeeklyView.tsx            — Weekly task view (default tab)
+      SubjectsView.tsx          — Subject cards with completion stats
+      AnalyticsView.tsx         — Heatmap + completion analytics
+      DeadlinesView.tsx         — Deadline list with countdowns
+      AddTaskModal.tsx          — Modal for adding custom tasks
+      TaskItem.tsx              — Single task checkbox
+      DailyTaskGrid.tsx         — Chinese daily checkboxes (Mon-Sun)
+      WeekSelector.tsx          — Week navigation (< KW 9 >)
+      ProgressRing.tsx          — Circular progress indicator
+    lib/
+      supabase.ts               — Supabase client
+      types.ts                  — TypeScript interfaces
+      weeks.ts                  — Week calculation utils
+      auth.ts                   — Cookie/session utils
+    middleware.ts               — Auth check on all routes
+notes/                          — Study notes and PDF generation
+reference/                      — Textbooks, fact sheets, past papers
 ```
 
 ## Semester: Spring 2026 (KW 9-22, Feb 24 - May 31)
@@ -277,29 +280,49 @@ Textbook: Schäfer, Principles of Financial Management: A Practice-oriented Intr
 | 20 | Exercise 5: Financing & statement of cash flows |
 | 21 | Exercise 6: M&A and wrap up |
 
-## Context Files
+## Reference Files
 
-Reference documents are stored in the parent directory (`../`):
-- `philo.pdf` — Philosophy fact sheet
-- `law.pdf` — Law fact sheet (same as `Course fact sheet.pdf`)
-- `macro.pdf` — Macroeconomics fact sheet
-- `math.pdf` — Mathematics B fact sheet
-- `ip.pdf` — Integrative Project course fact sheet
-- `accounting.pdf` — Accounting fact sheet
-- `Fact sheet Integrative Project SpS26 (3).pdf` — Detailed IP exam rules (9 pages)
-- `IP26_Schedule (1).pdf` — IP semester schedule
-- `Case Study Flughafen Zurich AG (1).pdf` — IP case study
-- `Integrative Project Lecture Slides.pdf` — IP lecture slides
-- `Chinesisch A1 Schriftzeichenliste (1).pdf` — Chinese character list
-- `Chinesisch A1 Vokabeln (3).xlsx` — Chinese vocabulary
-- `Chinesisch_A1_Lernkarten.html` — Chinese flashcards app
-- `Chinesisch_A1_Pinyin_Trainer.html` — Chinese pinyin trainer app
-- `international law.pdf` — International law textbook
-- `Macroeconomics 7th.pdf` — Blanchard textbook
-- `Introduction to financial management.pdf` — Schäfer FM textbook
-- `2,102_CourseandExaminationFactSheet.pdf` — Business Administration B fact sheet
-- `HSGCalendar (2).ics` — HSG calendar
-- `ble.ics` — Additional calendar
+Reference documents are organized by subject in `reference/`:
+
+```
+reference/
+  econ/
+    Macroeconomics 7th.pdf          — Blanchard textbook
+    macro.pdf                       — Macroeconomics fact sheet
+  law/
+    constitutional law.pdf          — Constitutional law textbook
+    international law.pdf           — International law textbook
+    law.pdf                         — Law fact sheet
+    Course fact sheet.pdf           — Law course fact sheet
+  math/
+    math.pdf                        — Mathematics B fact sheet
+  philo/
+    philo.pdf                       — Philosophy fact sheet
+  busadmin/
+    Introduction to financial management.pdf — Schäfer FM textbook
+    2,102_CourseandExaminationFactSheet.pdf  — BusAdmin fact sheet
+  ip/
+    ip.pdf                          — IP course fact sheet
+    Fact sheet Integrative Project SpS26 (3).pdf — Detailed IP exam rules
+    IP26_Schedule (1).pdf           — IP semester schedule
+    Case Study Flughafen Zürich AG (1).pdf   — IP case study
+    Integrative Project Lecture Slides.pdf    — IP lecture slides
+  chinese/
+    Chinesisch A1 Schriftzeichenliste (1).pdf — Character list
+    Chinesisch A1 Vokabeln (3).xlsx          — Vocabulary
+    Chinesisch_A1_Lernkarten.html            — Flashcards app
+    Chinesisch_A1_Pinyin_Trainer.html        — Pinyin trainer app
+  accounting/
+    accounting.pdf                  — Accounting fact sheet
+    FinancialAccounting_Book_2025_partsAll.pdf — Textbook
+    past papers/                    — 21 past exam papers (2017-2024)
+    past paper solutions/           — 30 solution PDFs
+  calendars/
+    HSGCalendar (2).ics             — HSG calendar
+    ble.ics                         — Additional calendar
+  screenshots/
+    Bildschirmfoto_*.png            — Course schedule screenshots
+```
 
 ## PDF Notes Generation
 

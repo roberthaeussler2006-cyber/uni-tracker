@@ -1832,8 +1832,491 @@ def generate_kw10():
     print(f"Generated: {path}")
 
 
+def generate_kw11():
+    """Generate KW 11 PDF: The IS-LM Model (Ch 5 + Ch 6 + Lecture 4)."""
+    pdf = NotesPDF("KW 11: The IS-LM Model", "Chapters 5 & 6 + Lecture 4")
+    pdf.alias_nb_pages()
+    pdf.cover_page()
+
+    # ===== LECTURE 4 CONTEXT =====
+    pdf.add_page()
+    pdf.chapter_title("LECTURE 4 CONTEXT: THE IS-LM MODEL")
+
+    pdf.section_title("Learning Objectives")
+    pdf.bullet("The economy in the short term")
+    pdf.bullet("The IS-LM model: combining goods and financial markets")
+    pdf.bullet("Shocks and economic policy (fiscal and monetary)")
+    pdf.bullet("The limitations of the IS-LM model")
+    pdf.body_text("Literature: Blanchard, Macroeconomics, Chapters 5 & 6.")
+
+    pdf.section_title("IS Curve - Short Repetition")
+    pdf.body_text("There is an equilibrium in the goods market if production Y equals the demand for goods Z.")
+    pdf.formula_block(r"Y = C(Y - T) + I(Y,\,i) + G \quad \text{(assumption: } EX = IM = 0\text{)}")
+    pdf.bullet("As the interest rate rises, income decreases in the goods market equilibrium")
+    pdf.bullet("The IS curve therefore has a **downward slope**")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 4,
+        'Figure: IS Curve Derivation - From goods market equilibrium (ZZ diagram) to the downward-sloping IS curve')
+
+    pdf.section_title("LM Curve - Short Repetition")
+    pdf.body_text("The financial market is in equilibrium when the real money supply equals the real money demand:")
+    pdf.formula_block(r"\frac{M}{P} = Y \cdot L(i)")
+    pdf.bullet("We distinguish between **money supply control** (left charts) and **interest rate control** (right charts)")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 5,
+        'Figure: LM Curve - Money supply control (upward-sloping LM) vs. interest rate control (horizontal LM)')
+
+    pdf.section_title("IS-LM Model: Combining Both Markets")
+    pdf.body_text("John Hicks and Alvin Hansen developed the IS-LM model in the late 1930s and early 1940s, based on Keynes' General Theory (1936).")
+    pdf.bullet("While in the original model the central bank controls the money supply, we usually consider the case of **interest rate control**")
+    pdf.formula_block(r"\text{IS curve:} \quad Y = C(Y - T) + I(Y,\,i) + G")
+    pdf.formula_block(r"\text{LM curve:} \quad i = \bar{\imath}")
+    pdf.bullet("Only at the intersection of both curves do we have **simultaneous equilibrium** in the goods and financial markets")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 7,
+        'Figure: The IS-LM Model - Equilibrium at point A where both goods and financial markets clear')
+
+    # ===== CHAPTER 5 =====
+    pdf.add_page()
+    pdf.chapter_title("CHAPTER 5: GOODS AND FINANCIAL MARKETS; THE IS-LM MODEL")
+
+    pdf.section_title("5-1 The Goods Market and the IS Relation")
+    pdf.body_text("In Chapter 3, we characterized equilibrium as Y = Z with constant investment. Now we relax this: investment depends on the interest rate.")
+
+    pdf.subsection_title("Investment, Sales, and the Interest Rate")
+    pdf.body_text("Investment depends primarily on two factors:")
+    pdf.bullet("**The level of sales (Y)**: A firm facing rising sales needs to invest in additional capacity")
+    pdf.bullet("**The interest rate (i)**: Higher interest rates make borrowing more expensive, discouraging investment")
+    pdf.formula_block(r"I = I(Y,\,i)")
+    pdf.formula_block(r"\quad (+)\;(-)")
+    pdf.body_text("Investment is an increasing function of production and a decreasing function of the interest rate.")
+
+    pdf.subsection_title("Determining Output")
+    pdf.body_text("Taking investment into account, the equilibrium condition in the goods market becomes:")
+    pdf.formula_block(r"\text{(5.2)} \quad Y = C(Y - T) + I(Y,\,i) + G")
+    pdf.body_text("This is the expanded IS relation. For a given interest rate i, demand is an increasing function of output (through both consumption and investment effects). The demand curve ZZ is upward-sloping but flatter than the 45-degree line.")
+
+    pdf.subsection_title("Deriving the IS Curve")
+    pdf.bullet("For a given interest rate, equilibrium output is where ZZ crosses the 45-degree line")
+    pdf.bullet("If the interest rate increases from i to i', investment falls, ZZ shifts down to ZZ', and equilibrium output decreases from Y to Y'")
+    pdf.bullet("The resulting relation between i and Y is the **downward-sloping IS curve**")
+
+    pdf.subsection_title("Shifts of the IS Curve")
+    pdf.bullet("Changes in T or G shift the IS curve (they are exogenous to the IS relation)")
+    pdf.bullet("An increase in taxes T -> lower disposable income -> lower consumption -> IS shifts **left**")
+    pdf.bullet("An increase in government spending G -> higher demand -> IS shifts **right**")
+    pdf.bullet("An increase in consumer confidence (higher c0) -> IS shifts **right**")
+
+    pdf.key_concept_box("IS Curve Summary",
+        "The IS curve shows all combinations of (i, Y) where the goods market is in equilibrium. "
+        "It is downward-sloping: higher interest rates reduce investment, leading to lower output. "
+        "Changes in T, G, or consumer confidence shift the IS curve.")
+
+    pdf.section_title("5-2 Financial Markets and the LM Relation")
+    pdf.body_text("From Chapter 4, the interest rate is determined by the equality of money supply and money demand:")
+    pdf.formula_block(r"M = \$Y \cdot L(i)")
+    pdf.body_text("Rewriting in terms of real money (dividing by P):")
+    pdf.formula_block(r"\text{(5.3)} \quad \frac{M}{P} = Y \cdot L(i)")
+    pdf.body_text("This is the LM relation: the real money supply must equal real money demand.")
+
+    pdf.subsection_title("Deriving the LM Curve")
+    pdf.body_text("The traditional approach: the central bank chooses the money stock M, and the interest rate adjusts. This gives an upward-sloping LM curve.")
+    pdf.body_text("The modern approach: central banks now focus directly on the interest rate. They choose an interest rate i-bar and adjust the money supply to achieve it. This makes the LM curve a simple horizontal line:")
+    pdf.formula_block(r"\text{LM curve:} \quad i = \bar{\imath}")
+
+    pdf.key_concept_box("LM Curve Summary",
+        "Under interest rate control (modern approach), the LM curve is a horizontal line at the policy rate i-bar. "
+        "The central bank adjusts the money supply as needed to maintain this rate. "
+        "Under money supply control (traditional), the LM curve is upward-sloping.")
+
+    pdf.section_title("5-3 Putting the IS and LM Relations Together")
+    pdf.formula_block(r"\text{IS relation:} \quad Y = C(Y - T) + I(Y,\,i) + G")
+    pdf.formula_block(r"\text{LM relation:} \quad i = \bar{\imath}")
+    pdf.bullet("Any point on the IS curve = goods market equilibrium")
+    pdf.bullet("Any point on the LM curve = financial market equilibrium")
+    pdf.bullet("Only at their intersection (point A) are **both** markets in equilibrium simultaneously")
+
+    pdf.subsection_title("Three-Step Method for Policy Analysis")
+    pdf.body_text("When analyzing effects of policy changes, always follow these three steps:")
+    pdf.bullet("(1) Does it shift the IS curve, the LM curve, or both?")
+    pdf.bullet("(2) What happens to the equilibrium (intersection of IS and LM)?")
+    pdf.bullet("(3) Describe the effects in words")
+
+    # ===== COMPARATIVE STATICS (Lecture) =====
+    pdf.add_page()
+    pdf.chapter_title("SHOCKS AND ECONOMIC POLICY")
+
+    pdf.section_title("Comparative Statics in the IS-LM Model")
+    pdf.body_text("When conducting comparative statics, we investigate how equilibrium levels of i and Y adjust as we change one variable.")
+    pdf.bullet("We change **exogenous variables** such as T, G, or M^s")
+    pdf.bullet("Important distinction: **movement along** a curve vs. **shift of** a curve")
+    pdf.bullet("Factors that change demand at a given interest rate shift the IS curve. Example: government spending")
+    pdf.bullet("An increase in money supply or reduction in reserve requirements shifts the LM curve downwards")
+
+    # ===== FISCAL POLICY =====
+    pdf.section_title("Fiscal Policy")
+    pdf.body_text("State influence on the economy through fiscal and monetary policy:")
+    pdf.bullet("**Fiscal policy** instruments:")
+    pdf.bullet("Tax reduction/increase: e.g., income tax, VAT", level=1)
+    pdf.bullet("Higher/lower transfer payments: e.g., unemployment benefits", level=1)
+    pdf.bullet("Higher/lower government spending: e.g., infrastructure, education, military", level=1)
+    pdf.formula_block(r"\text{Budget of the state:} \quad G \text{ and } T \quad (\text{budget deficit if } G > T)")
+    pdf.bullet("**Expansionary** fiscal policy: G up and/or T down")
+    pdf.bullet("**Contractionary** fiscal policy: G down and/or T up")
+    pdf.bullet("Changes in G and T affect the **IS curve**, not the LM curve")
+
+    pdf.subsection_title("Expansionary Fiscal Policy (Textbook: Increase in G)")
+    pdf.body_text("Example: The state increases G (underutilized capacity), e.g., building new roads.")
+    pdf.bullet("Transmission mechanism (interest rate control):")
+    pdf.bullet("G up -> demand for goods Z up -> production up -> income Y up -> **multiplier effect**: C and I rise, so Y continues to rise -> demand for money (PY * L(i)) up -> money supply (M_S) up -> i remains unchanged", level=1)
+    pdf.bullet("Expansionary fiscal policy shifts the IS curve to the **right**")
+    pdf.bullet("GDP (Y) increases by more than the change in G (multiplier effect)")
+    pdf.bullet("The interest rate i remains unchanged with interest rate control by the central bank")
+
+    pdf.body_text("With money supply control, the interest rate i rises because higher Y increases money demand while M is fixed. This **crowds out** private investment:")
+    pdf.formula_block(r"I = I(\underset{(+)}{Y},\;\underset{(-)}{i}\,) \quad \text{Investment depends negatively on } i")
+    pdf.bullet("The positive effect on GDP is **smaller** with money supply control than with interest rate control due to crowding out")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 12,
+        'Figure: Expansionary Fiscal Policy - Interest rate control (left: full multiplier) vs. money supply control (right: partial crowding out)')
+
+    pdf.sub_subsection_title("Practical Example: The Corona Crisis (Lecture)")
+    pdf.body_text("The corona crisis provides a good example of expansionary fiscal policy. Both government consumption and the SNB balance sheet expanded significantly in 2020.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 13,
+        'Figure: Swiss National Bank Balance Sheet and Government Consumption (2015-2025, Index 2020=100)')
+
+    pdf.subsection_title("Contractionary Fiscal Policy (Textbook: Increase in T)")
+    pdf.body_text("Example: The state raises taxes T.")
+    pdf.bullet("Transmission mechanism (interest rate control):")
+    pdf.bullet("T up -> Y_D down -> C down -> demand for goods down -> Production down -> Y down -> multiplier effect: C and I fall further -> Y falls further -> Demand for money (PY * L(i)) down -> Money supply (M_S) down -> i unchanged", level=1)
+    pdf.bullet("Transmission mechanism (money supply control):")
+    pdf.bullet("Same initial chain, but: demand for money falls -> with M_S constant -> i falls -> I up (partially offsetting)", level=1)
+    pdf.bullet("The decline in GDP due to contractionary fiscal policy is **smaller** if the central bank lets the interest rate fall")
+
+    pdf.sub_subsection_title("Three Cases of Central Bank Response to Tax Increase (Lecture)")
+    pdf.body_text("The effect of a tax increase depends critically on how the central bank acts:")
+
+    pdf.body_text("**Case 1 - Constant interest rate (i):** Central bank keeps i fixed. A tax increase shifts IS left. To keep i constant, the central bank reduces the money supply. Output falls from Y1 to Y2.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 15,
+        'Figure: Contractionary Fiscal Policy, Case 1 - Central bank keeps interest rate constant -> full IS multiplier effect')
+
+    pdf.body_text("**Case 2 - Constant money supply (M^s):** Central bank keeps M^s fixed. IS shifts left, but since money demand falls with Y, the interest rate decreases. Output falls less than in Case 1.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 16,
+        'Figure: Contractionary Fiscal Policy, Case 2 - Constant money supply -> interest rate falls, partially offsetting output decline')
+
+    pdf.body_text("**Case 3 - Constant income (Y):** Central bank wants to keep Y constant. It lowers the interest rate enough so that higher investment offsets lower consumption. Y stays at Y1, but the composition of GDP changes (less C, more I).")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 17,
+        'Figure: Contractionary Fiscal Policy, Case 3 - Central bank keeps income constant by lowering interest rate')
+
+    pdf.sub_subsection_title("Fiscal Policy Discussion (Lecture)")
+    pdf.body_text("Effects of fiscal policy also depend on the monetary policy the central bank is pursuing. With underutilized capacity, expansionary fiscal policy can raise Y. However:")
+    pdf.bullet("**Crowding out** of private investment (with money supply control)")
+    pdf.bullet("**Value-for-money**: Efficiency of government spending")
+    pdf.bullet("**Time lag**: Fiscal policy effects are time-delayed")
+    pdf.bullet("**Leakages**: Multiplier reduced by savings and imports")
+    pdf.bullet("**Ricardian equivalence**: People expect future tax increases to pay for current spending, so they save more now, reducing the multiplier")
+    pdf.bullet("In the medium run, state budget restrictions limit the scope of expansionary fiscal policy")
+
+    # ===== MONETARY POLICY =====
+    pdf.add_page()
+    pdf.section_title("Monetary Policy")
+    pdf.body_text("Monetary policy: the central bank's use of interest rates and money supply to influence the economy.")
+    pdf.bullet("**Expansionary monetary policy**: A reduction in the interest rate or an increase in the money supply shifts the LM curve **downwards**")
+    pdf.bullet("**Contractionary monetary policy**: An increase in the interest rate or a reduction in the money supply shifts the LM curve **upwards**")
+    pdf.bullet("Monetary policy does **not** shift the IS curve")
+
+    pdf.subsection_title("Expansionary Monetary Policy in the IS-LM Model")
+    pdf.body_text("Example: In March 2020, the US Federal Reserve lowered interest rates.")
+    pdf.bullet("Transmission mechanism:")
+    pdf.bullet("M^s up -> i down -> I(i) up -> demand for goods up -> Y up (production and income) -> multiplier effect: Y up further -> demand for money up -> Money supply (M_S) up", level=1)
+    pdf.bullet("The central bank adjusts money supply to meet the increased money demand")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 20,
+        'Figure: Expansionary Monetary Policy - LM shifts down from LM(i0) to LM\'(i1 < i0), output increases from Y0 to Y1')
+
+    pdf.subsection_title("Monetary Policy Discussion (Lecture)")
+    pdf.bullet("Monetary policy has always been controversial")
+    pdf.bullet("Key debates:")
+    pdf.bullet("Does loose monetary policy generate inflation? (-> Lecture 6)", level=1)
+    pdf.bullet("**Liquidity trap**: What happens when interest rates are already at zero?", level=1)
+    pdf.bullet("**Credibility** of the central bank (e.g., Greenspan put, moral hazard)", level=1)
+    pdf.bullet("Effects on the **exchange rate** (-> Lectures 8 and 9)", level=1)
+    pdf.bullet("SNB: room for maneuver on interest rates exhausted after the financial crisis, hence accumulation of foreign exchange reserves (purchase of foreign assets) to reduce appreciation pressure")
+
+    # ===== LIQUIDITY TRAP =====
+    pdf.section_title("The Liquidity Trap")
+    pdf.body_text("Very low interest rates since the financial crisis have raised concerns about the liquidity trap. When interest rates are at or near zero:")
+    pdf.bullet("Additional increases in money supply have no effect on the interest rate (people are willing to hold any amount of money at i = 0)")
+    pdf.bullet("Monetary policy becomes **ineffective** - the LM curve becomes flat")
+    pdf.bullet("Fiscal policy must do the heavy lifting")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 22,
+        'Figure: Return on 10-Year Government Bonds (1970-2025) for USA, Germany, Japan, and Switzerland (Source: FRED)')
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 24,
+        'Figure: The Liquidity Trap - At i0 near zero, increasing money supply from M0 to M1 has no effect on output (Y0 = Y1)')
+
+    # ===== POLICY MIX =====
+    pdf.section_title("5-4 Using a Policy Mix")
+    pdf.body_text("In practice, fiscal and monetary policies are often used together. The combination is called the monetary-fiscal policy mix, or simply the policy mix.")
+
+    pdf.subsection_title("Same Direction Policy Mix")
+    pdf.bullet("When the economy is in recession and output is too low, both policies can be used to increase output")
+    pdf.bullet("Expansionary fiscal policy (e.g., decrease in T) shifts IS to the right")
+    pdf.bullet("Expansionary monetary policy (decrease in i) shifts LM down")
+    pdf.bullet("Both contribute to higher output. Higher income and lower taxes raise consumption; higher output and lower interest rate raise investment")
+
+    pdf.subsection_title("Opposite Direction Policy Mix")
+    pdf.body_text("Sometimes the right mix uses the two policies in opposite directions. Example: fiscal consolidation combined with monetary expansion.")
+    pdf.bullet("Government wants to reduce the deficit (T up or G down) -> IS shifts left to IS'")
+    pdf.bullet("By itself, this would cause a recession (output falls from Y to Y')")
+    pdf.bullet("Central bank reduces the interest rate -> LM shifts down to LM'")
+    pdf.bullet("The combination achieves: deficit reduction + unchanged (or higher) output")
+    pdf.bullet("Investment unambiguously increases (lower interest rate), while consumption effects depend on method (tax increase vs. spending cuts)")
+
+    pdf.key_concept_box("Why Use a Policy Mix?",
+        "(1) Running large deficits is dangerous - better to share the burden with monetary policy. "
+        "(2) Fiscal and monetary policies have different effects on output composition (C vs I). "
+        "(3) Neither policy works perfectly alone - a decrease in taxes may fail to increase consumption; "
+        "a decrease in the interest rate may fail to increase investment. Using both hedges against failure.")
+
+    # ===== SECTION 5-5 =====
+    pdf.section_title("5-5 How Does the IS-LM Model Fit the Facts?")
+    pdf.body_text("The IS-LM model so far has ignored dynamics: adjustment takes time, not instantaneous.")
+    pdf.bullet("Consumers take time to adjust consumption after changes in disposable income")
+    pdf.bullet("Firms take time to adjust investment after changes in sales or interest rates")
+    pdf.bullet("Firms take time to adjust production after changes in sales")
+
+    pdf.subsection_title("Empirical Evidence (Lecture: Chapter 5.5)")
+    pdf.body_text("Econometric studies (Christiano, Eichenbaum, Evans, 1996) using U.S. data from 1960-1990 show that a 1% increase in the federal funds rate leads to:")
+    pdf.bullet("A decline in retail sales, with the largest decrease (-0.9%) after 5 quarters")
+    pdf.bullet("A decline in output, with the largest decrease (-0.7%) after 8 quarters")
+    pdf.bullet("A decline in employment, slow and steady, reaching -0.5% after 8 quarters")
+    pdf.bullet("An increase in the unemployment rate")
+    pdf.bullet("Nearly no change in the price level for the first 6 quarters (validating the IS-LM assumption of fixed prices in the short run)")
+    pdf.body_text("Key takeaway: Monetary policy works, but with long lags. It takes nearly two years for the full effect on output.")
+
+    pdf.key_concept_box("Empirical Validation",
+        "Various empirical studies support the core statements of the IS-LM model and also show the dynamics (time lag). "
+        "However, large isolated shocks and policy changes are rare, making empirical studies difficult (-> chapter 5.5).")
+
+    # ===== CHAPTER 6 =====
+    pdf.add_page()
+    pdf.chapter_title("CHAPTER 6: FINANCIAL MARKETS II - THE EXTENDED IS-LM MODEL")
+
+    pdf.body_text("So far we assumed only two financial assets (money and bonds) and one interest rate. Reality is more complex: there are many interest rates, many financial institutions, and the financial system plays a major role in the economy (7% of U.S. GDP). The 2008 crisis showed this assumption was too simplistic.")
+
+    pdf.section_title("6-1 Nominal versus Real Interest Rates")
+
+    pdf.subsection_title("Definitions")
+    pdf.bullet("**Nominal interest rate (i)**: Interest rate in terms of dollars (or national currency). What you see in newspapers.")
+    pdf.bullet("**Real interest rate (r)**: Interest rate in terms of goods. What matters for consumption and investment decisions.")
+
+    pdf.subsection_title("Derivation of the Real Interest Rate")
+    pdf.body_text("The exact relation between nominal and real interest rates:")
+    pdf.formula_block(r"\text{(6.1)} \quad (1 + r_t) = (1 + i_t) \cdot \frac{P_t}{P_{t+1}^e}")
+    pdf.body_text("Defining expected inflation:")
+    pdf.formula_block(r"\text{(6.2)} \quad \pi_{t+1}^e = \frac{P_{t+1}^e - P_t}{P_t}")
+    pdf.body_text("This gives us:")
+    pdf.formula_block(r"\text{(6.3)} \quad (1 + r_t) = \frac{1 + i_t}{1 + \pi_{t+1}^e}")
+    pdf.body_text("When inflation is not too large (< 20%), we can use the approximation:")
+    pdf.formula_block(r"\text{(6.4)} \quad r_t \approx i_t - \pi_{t+1}^e")
+
+    pdf.key_concept_box("Real Interest Rate",
+        "The real interest rate is approximately equal to the nominal interest rate minus expected inflation. "
+        "When expected inflation = 0, nominal = real rate. "
+        "Because expected inflation is typically positive, the real rate is typically lower than the nominal rate. "
+        "The real rate is what matters for spending decisions.")
+
+    pdf.subsection_title("The Zero Lower Bound and Deflation")
+    pdf.bullet("The nominal interest rate cannot be negative (or only very slightly): **zero lower bound (ZLB)**")
+    pdf.bullet("The real interest rate cannot be lower than minus expected inflation: r >= -pi^e")
+    pdf.bullet("If expected inflation is positive (e.g., 2%), the real rate can go as low as -2%")
+    pdf.bullet("If expected inflation turns **negative** (deflation), the lower bound on the real rate is **positive**, which may not be low enough to stimulate the economy -> serious concern during the 2008 crisis")
+
+    pdf.section_title("6-2 Risk and Risk Premia")
+    pdf.body_text("Not all bonds are the same. They differ in maturity and risk of default.")
+    pdf.bullet("**Risk premium (x)**: The additional interest rate charged on risky bonds to compensate for default risk")
+    pdf.body_text("The risk premium depends on two factors:")
+    pdf.bullet("(1) **Probability of default (p)**: Higher p -> higher risk premium")
+    pdf.formula_block(r"(1 + i) = (1 - p)(1 + i + x) + (p)(0)")
+    pdf.formula_block(r"x = \frac{(1 + i) \cdot p}{1 - p} \approx p \quad \text{(for small } i, p\text{)}")
+    pdf.bullet("(2) **Risk aversion**: Even with fair expected returns, risk-averse investors demand extra compensation")
+    pdf.bullet("During the 2008 crisis: AAA bond rates rose to 8%, BBB rates to 10%, while government bond rates fell (flight to safety)")
+
+    pdf.section_title("6-3 The Role of Financial Intermediaries")
+    pdf.body_text("Most borrowing happens through financial intermediaries (banks, non-banks, hedge funds), not through direct bond issuance.")
+
+    pdf.subsection_title("Leverage and Its Consequences")
+    pdf.bullet("**Capital ratio** = capital / assets (e.g., 20/100 = 20%)")
+    pdf.bullet("**Leverage ratio** = assets / capital (e.g., 100/20 = 5)")
+    pdf.bullet("Higher leverage -> higher expected profit per unit of capital, but higher risk of **insolvency**")
+    pdf.bullet("When asset values decline, highly leveraged banks must either raise capital or reduce lending -> **credit crunch**")
+
+    pdf.subsection_title("Liquidity Risk and Bank Runs")
+    pdf.bullet("Banks' assets (loans) are **illiquid** - hard to sell quickly")
+    pdf.bullet("Banks' liabilities (deposits) are **liquid** - can be withdrawn at short notice")
+    pdf.bullet("If investors doubt asset values -> they withdraw funds -> bank must sell at **fire sale prices** -> further losses -> potential insolvency")
+    pdf.bullet("This can be self-fulfilling: even a solvent bank can fail if enough depositors panic")
+    pdf.bullet("Solutions: **federal deposit insurance** (FDIC), **liquidity provision** by central bank, **narrow banking** proposals")
+
+    pdf.section_title("6-4 Extending the IS-LM")
+    pdf.body_text("We now extend the IS-LM model to account for the difference between nominal and real rates, and between the policy rate and the borrowing rate:")
+    pdf.formula_block(r"\text{IS relation:} \quad Y = C(Y - T) + I(Y,\, i - \pi^e + x) + G")
+    pdf.formula_block(r"\text{LM relation:} \quad i = \bar{\imath}")
+    pdf.body_text("Simplifying (central bank chooses the real policy rate r):")
+    pdf.formula_block(r"\text{(6.5)} \quad \text{IS:} \quad Y = C(Y - T) + I(Y,\, r + x) + G")
+    pdf.formula_block(r"\text{(6.6)} \quad \text{LM:} \quad r = \bar{r}")
+    pdf.bullet("The **policy rate (r)** is set by the central bank (enters the LM relation)")
+    pdf.bullet("The **borrowing rate (r + x)** is what consumers and firms actually face (enters the IS relation)")
+    pdf.bullet("Even if the central bank keeps r constant, an increase in the risk premium x raises the borrowing rate and shifts the IS curve to the left")
+
+    pdf.subsection_title("Financial Shocks and Policy Responses")
+    pdf.bullet("An increase in risk premium x -> IS shifts left -> output falls (financial crisis becomes macroeconomic crisis)")
+    pdf.bullet("Monetary policy response: decrease r to offset the increase in x")
+    pdf.bullet("But: the ZLB limits how far r can fall. The lowest real policy rate = -pi^e")
+    pdf.bullet("If inflation is low, the central bank may not be able to fully offset a large financial shock")
+
+    pdf.section_title("6-5 From a Housing Problem to a Financial Crisis")
+    pdf.body_text("The 2008 financial crisis illustrates how a housing price decline was amplified by the financial system.")
+
+    pdf.subsection_title("Key Amplification Mechanisms")
+    pdf.bullet("**High leverage**: Banks underestimated risk; compensation systems incentivized risk-taking; SIVs were used to circumvent capital requirements")
+    pdf.bullet("**Securitization**: Mortgages bundled into MBS and CDOs. Reduced incentives for careful lending; rating agencies underestimated risk; assets became **toxic** - extremely hard to value")
+    pdf.bullet("**Wholesale funding**: Banks relied on short-term borrowing from other investors (not just deposits). When confidence collapsed, this funding dried up.")
+    pdf.bullet("Result: High leverage + illiquid assets + liquid liabilities -> runs on financial institutions, fire sales, credit crunch")
+
+    pdf.subsection_title("Policy Responses to the Crisis")
+    pdf.bullet("**Financial policies**: Deposit insurance increased ($250K), Fed provided liquidity facilities, TARP ($700B) to recapitalize banks")
+    pdf.bullet("**Monetary policy**: Fed cut rates to zero by Dec 2008, then turned to unconventional policy (QE) - buying long-term assets to reduce borrowing rates")
+    pdf.bullet("**Fiscal policy**: American Recovery and Reinvestment Act ($780B in 2009) - tax cuts and spending increases")
+    pdf.bullet("The initial shock was so large that even combined financial, monetary, and fiscal policies were not enough to avoid a major recession (U.S. GDP fell 3.5% in 2009)")
+
+    # ===== BUSINESS CYCLES (Lecture) =====
+    pdf.add_page()
+    pdf.chapter_title("BUSINESS CYCLES")
+
+    pdf.section_title("GDP Fluctuations")
+    pdf.body_text("The goods market (GDP) is subject to fluctuations over time. Example: Swiss GDP since 2000 shows a long-term trend of approximately 1.9% growth per year, with short-term fluctuations around this trend.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-04.pdf', 25,
+        'Figure: Switzerland\'s GDP since 2000 - Real GDP vs. 1.9% trend line (Source: SECO)')
+
+    pdf.section_title("Explanatory Approaches")
+    pdf.formula_block(r"\text{GDP:} \quad Y = C + I + G + NX")
+    pdf.bullet("Fluctuations in GDP can have many causes - many factors determine C, I, G, NX")
+    pdf.bullet("General framework: **Impulse/shock** -> transmission -> interaction -> economic fluctuation")
+    pdf.bullet("Possible stimuli: fiscal & monetary policy measures, technological leaps, demand shocks, financial crises (Minsky hypothesis)")
+    pdf.bullet("The IS-LM model helps with:")
+    pdf.bullet("Analysis of business cycles", level=1)
+    pdf.bullet("Forecast of short-run GDP development (and its difficulty!)", level=1)
+
+    pdf.section_title("Sector Correlations with GDP Growth (Swiss Data)")
+    pdf.body_text("Not all industries are affected by the business cycle to the same extent. A positive correlation indicates the sector is pro-cyclical:")
+    widths = [70, 30]
+    pdf.table_header(["Sector", "Correlation"], widths)
+    pdf.table_row(["Manufacturing (Noga 10-33)", "0.70"], widths, True)
+    pdf.table_row(["Business services (Noga 68-75, 77-82)", "0.57"], widths)
+    pdf.table_row(["Hospitality (Noga 55-56)", "0.42"], widths, True)
+    pdf.table_row(["Retail trade (Noga 47)", "0.39"], widths)
+    pdf.table_row(["Health and social services (Noga 86-88)", "0.15"], widths, True)
+    pdf.table_row(["Education (Noga 85)", "0.05"], widths)
+    pdf.table_row(["Construction (Noga 41-43)", "0.05"], widths, True)
+    pdf.table_row(["Water, sewage, waste (Noga 36-39)", "-0.42"], widths)
+    pdf.ln(2)
+    pdf.body_text("Real, seasonally, calendar and sports-event adjusted, 1990-2024 (excl. Covid years 2020 & 2021). Data: SECO.")
+
+    # ===== EXTENSIONS AND LIMITATIONS (Lecture) =====
+    pdf.section_title("Extensions and Limitations of the IS-LM Model")
+    pdf.body_text("The IS-LM model can be extended in many ways:")
+    pdf.bullet("**Nominal vs real interest rates and risk premiums** (Chapter 6)")
+    pdf.bullet("**Consumption**: C = C(Y_D) may also depend on expectations (consumer confidence) or assets (IS-LM model ignores stocks)")
+    pdf.bullet("**Investments**: May depend on expectations (-> PMI, investment trap)")
+    pdf.bullet("**Open economy**: Exports and imports, exchange rates")
+    pdf.body_text("Important three steps: Understanding the model, applying the model, questioning the model.")
+
+    pdf.subsection_title("Limitations and Open Questions")
+    pdf.bullet("How do the short- and medium-run effects of expansionary or contractionary fiscal policy differ?")
+    pdf.bullet("Should the state better reduce taxes (T down) or increase spending (G up)?")
+    pdf.bullet("What else can the central bank do when the interest rate is already at zero?")
+    pdf.bullet("Are the incentives for key decision-makers in fiscal and monetary policy identical to those of the population? (-> political economy)")
+    pdf.bullet("In the model, G and thus Y can be increased at will - what is the limit?")
+    pdf.bullet("In the **medium run**, resource constraints are important; prices are not stable and inflation can occur due to expansionary policy")
+    pdf.bullet("-> In lectures 5 and 6 we will examine the labor market and inflation")
+
+    # ===== SUMMARY =====
+    pdf.add_page()
+    pdf.chapter_title("SUMMARY OF KEY EQUATIONS AND TERMS")
+
+    pdf.section_title("Key Equations - Chapter 5")
+    pdf.formula_block(r"\text{(5.1)} \quad I = I(\underset{(+)}{Y},\;\underset{(-)}{i}\,) \quad \text{Investment relation}", fontsize=12)
+    pdf.formula_block(r"\text{(5.2)} \quad Y = C(Y - T) + I(Y,\,i) + G \quad \text{IS relation}", fontsize=12)
+    pdf.formula_block(r"\text{(5.3)} \quad \frac{M}{P} = Y \cdot L(i) \quad \text{LM relation (real terms)}", fontsize=12)
+    pdf.formula_block(r"i = \bar{\imath} \quad \text{LM curve (interest rate control)}", fontsize=12)
+
+    pdf.section_title("Key Equations - Chapter 6")
+    pdf.formula_block(r"\text{(6.1)} \quad (1 + r_t) = (1 + i_t) \cdot \frac{P_t}{P_{t+1}^e} \quad \text{Exact real interest rate}", fontsize=12)
+    pdf.formula_block(r"\text{(6.4)} \quad r_t \approx i_t - \pi_{t+1}^e \quad \text{Approximate real interest rate}", fontsize=12)
+    pdf.formula_block(r"x \approx p \quad \text{Risk premium} \approx \text{probability of default}", fontsize=12)
+    pdf.formula_block(r"\text{(6.5)} \quad Y = C(Y - T) + I(Y,\, r + x) + G \quad \text{Extended IS relation}", fontsize=12)
+    pdf.formula_block(r"\text{(6.6)} \quad r = \bar{r} \quad \text{Extended LM relation}", fontsize=12)
+
+    pdf.section_title("Policy Effects Summary")
+    widths = [50, 30, 30, 30]
+    pdf.table_header(["Policy", "IS curve", "LM curve", "Output Y"], widths)
+    pdf.table_row(["G up (fiscal expansion)", "Right", "No shift", "Up"], widths, True)
+    pdf.table_row(["T up (fiscal contraction)", "Left", "No shift", "Down"], widths)
+    pdf.table_row(["i down (monetary exp.)", "No shift", "Down", "Up"], widths, True)
+    pdf.table_row(["i up (monetary contr.)", "No shift", "Up", "Down"], widths)
+    pdf.table_row(["x up (financial shock)", "Left", "No shift", "Down"], widths, True)
+    pdf.ln(3)
+
+    pdf.section_title("Key Terms")
+    terms = [
+        ("IS curve", "Downward-sloping: all (i,Y) pairs where goods market is in equilibrium"),
+        ("LM curve (modern)", "Horizontal line at i-bar; financial market equilibrium under interest rate control"),
+        ("LM curve (traditional)", "Upward-sloping; financial market equilibrium under money supply control"),
+        ("Fiscal contraction/consolidation", "Increase in T or decrease in G; reduces budget deficit"),
+        ("Fiscal expansion", "Decrease in T or increase in G; increases budget deficit"),
+        ("Monetary expansion", "Decrease in i (increase in M); shifts LM down"),
+        ("Monetary contraction/tightening", "Increase in i (decrease in M); shifts LM up"),
+        ("Policy mix", "Combination of fiscal and monetary policy"),
+        ("Nominal interest rate (i)", "Interest rate in terms of currency (dollars)"),
+        ("Real interest rate (r)", "Interest rate in terms of goods: r = i - pi^e"),
+        ("Risk premium (x)", "Extra interest charged for default risk and risk aversion"),
+        ("Policy rate (r-bar)", "Real interest rate chosen by the central bank"),
+        ("Borrowing rate (r + x)", "Rate actually faced by consumers and firms"),
+        ("Capital ratio", "Capital / Assets (e.g., 20%)"),
+        ("Leverage ratio", "Assets / Capital (e.g., 5x); inverse of capital ratio"),
+        ("Insolvency", "When assets < liabilities; bank goes bankrupt"),
+        ("Fire sale prices", "Prices far below true value; forced selling"),
+        ("Bank run", "Depositors panic and withdraw; can cause even solvent banks to fail"),
+        ("Securitization", "Bundling assets (e.g., mortgages) into tradable securities (MBS, CDOs)"),
+        ("Subprime mortgages", "Risky mortgages to borrowers with poor credit"),
+        ("Underwater mortgage", "Mortgage value > house value"),
+        ("Wholesale funding", "Banks borrowing from investors (not deposits); liquid liabilities"),
+        ("TARP", "Troubled Asset Relief Program ($700B); used to recapitalize U.S. banks"),
+        ("Unconventional monetary policy", "QE, buying long-term assets when at ZLB"),
+        ("Crowding out", "Government spending raises i, which reduces private investment"),
+        ("Ricardian equivalence", "People expect future taxes to offset current deficits, reducing multiplier"),
+        ("Liquidity trap", "At i = 0, more money has no effect; monetary policy is ineffective"),
+        ("Confidence band", "Range within which the true effect lies with 60% probability"),
+    ]
+    for term, defn in terms:
+        pdf.bullet(f"**{term}**: {defn}")
+
+    path = '/Users/roberthaeussler/Claude Coding/Apps/uni tracker/notes/econ/KW11_IS_LM_Model.pdf'
+    pdf.output(path)
+    print(f"Generated: {path}")
+
+
 if __name__ == "__main__":
     generate_kw8()
     generate_kw9()
     generate_kw10()
+    generate_kw11()
     print("\nAll PDFs generated successfully!")
