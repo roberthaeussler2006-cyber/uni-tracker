@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate PDF notes for Constitutional Law Lectures 1, 2, and 3."""
+"""Generate PDF notes for Constitutional Law Lectures 1, 2, 3, and 4."""
 
 import sys
 sys.path.insert(0, '/Users/roberthaeussler/Library/Python/3.9/lib/python/site-packages')
@@ -963,8 +963,442 @@ def generate_lecture3():
     print(f"Generated: {out}")
 
 
+# ============================================================
+# LECTURE 4: Democracy, Political Rights, Popular Initiative
+#            & Referendum, Swiss Citizenship, Social Justice
+# ============================================================
+
+def generate_lecture4():
+    """Generate Lecture 4 PDF: Democracy, Political Rights, Initiative & Referendum."""
+    pdf = NotesPDF("Lecture 4: Democracy & Political Rights",
+                   "Chapter E, Sections 3-4 (pp. 70-116)")
+    pdf.alias_nb_pages()
+    pdf.cover_page()
+
+    # ---- 3. DEMOCRACY ----
+    pdf.add_page()
+    pdf.chapter_title("3. DEMOCRACY")
+
+    pdf.remember_box("Remember", [
+        "**Democracy** implies that all state power is based on the will of the people.",
+        "Main characteristics: **popular self-determination** and **public control over political power**.",
+        "Three basic forms: **direct democracy**, **semi-direct democracy**, and **representative democracy**.",
+    ])
+
+    pdf.section_title("3.1 Concept: Overview")
+    pdf.bullet("From Greek: **demos** (people) + **kratos** (power, rule)")
+    pdf.bullet("Lincoln's Gettysburg Address (1863): 'government of the people, by the people, for the people'")
+    pdf.bullet("All citizens participate equally -- directly or through elected representatives -- in the political and legal system")
+    pdf.bullet("Most important political leaders are elected in **free and fair elections** and are accountable under the rule of law")
+
+    pdf.subsection_title("Key Characteristics")
+    pdf.bullet("**Popular self-determination and equality**: all citizens participate with equal rights")
+    pdf.bullet("**Governmental responsibility**: democratic systems must provide for public control of political power")
+    pdf.bullet("**Contrast: Autocracy** -- power held by one person or group, not subject to legal restraints or popular control")
+
+    # ---- 3.2 BASIC FORMS OF DEMOCRACY ----
+    pdf.section_title("3.2 Basic Forms of Democracy")
+
+    pdf.subsection_title("a) Representative Democracy")
+    pdf.bullet("Sovereign power remains with citizens; political power exercised **indirectly through elected representatives**")
+    pdf.bullet("People's participation limited to **election of government officials**; people do not decide policy questions directly")
+    pdf.bullet("Two main forms: **parliamentary** and **presidential** democracy")
+
+    widths = [30, 55, 55]
+    pdf.table_header(["Aspect", "Parliamentary Democracy", "Presidential Democracy"], widths)
+    pdf.table_row(["Powers", "Close interconnection", "Strict separation"], widths, True)
+    pdf.table_row(["Government", "Parliament forms/supports", "People elect president"], widths)
+    pdf.table_row(["Dismissal", "Vote of no confidence", "Fixed term, no dismissal"], widths, True)
+    pdf.table_row(["Head of state", "Separate from PM", "President = head of state"], widths)
+    pdf.table_row(["Party line", "Strong discipline", "Members vote conscience"], widths, True)
+    pdf.table_row(["Examples", "UK, Germany", "USA"], widths)
+    pdf.ln(3)
+
+    pdf.subsection_title("b) Direct Democracy")
+    pdf.bullet("People decide policy questions **directly**; all eligible citizens actively participate")
+    pdf.bullet("In ideal form, there is **no parliament**")
+    pdf.bullet("Practiced in ancient Greek city-state of **Athens**; hardly implementable in modern complex states")
+
+    pdf.subsection_title("c) Semi-Direct Democracy")
+    pdf.bullet("A **representative democracy combined with instruments of direct democracy**")
+    pdf.bullet("Parliament and government are main decision-makers, but people can **directly influence policy** through:")
+    pdf.bullet("**Referendum** (mandatory or optional) -- on constitution, statutes, treaties, administrative acts", level=1)
+    pdf.bullet("**Popular initiative** (specific draft or general proposal) -- for constitutional revision or legislation", level=1)
+    pdf.bullet("**Right to recall** -- dismiss parliament, government, or judges", level=1)
+    pdf.bullet("**Extended right to vote** -- elect head of state, government, officials, judges", level=1)
+
+    # ---- 3.3 DEMOCRACY IN THE SWISS SYSTEM ----
+    pdf.add_page()
+    pdf.section_title("3.3 Democracy in the Swiss System")
+
+    pdf.remember_box("Remember", [
+        "Switzerland is a **semi-direct democracy**: elected parliament + powerful instruments of direct participation.",
+        "The Swiss model is also called a **consensus-oriented democracy** -- legislation must find fair compromise.",
+        "Switzerland is **neither purely parliamentary nor presidential** -- it combines elements of both.",
+    ])
+
+    pdf.subsection_title("a) Characteristics")
+    pdf.bullet("The people elect representatives in the **Federal Assembly** (primary decision-making institution with Federal Council)")
+    pdf.bullet("Citizens can **directly influence** decisions on Constitution and legislation through **referendum and initiative**")
+    pdf.bullet("Decisions subject to direct participation are systematically selected according to **importance**")
+
+    pdf.sub_subsection_title("Parliamentary Features")
+    pdf.bullet("Constitution establishes parliament as **highest authority** (limited by rights of people and cantons)")
+    pdf.bullet("**Parliament elects** the Federal Council (not the people)")
+    pdf.bullet("No directly elected head of state; Federal President is **primus inter pares**")
+    pdf.bullet("Federal Council **cannot veto** decisions of parliament")
+
+    pdf.sub_subsection_title("Presidential Features")
+    pdf.bullet("Federal Council is **personally and functionally independent** of parliament")
+    pdf.bullet("Federal Council is a **multi-party coalition** government (not based on coalition agreement)")
+    pdf.bullet("Members serve for a **specific term** and **cannot be dismissed** by parliament; Federal Council cannot dissolve parliament")
+    pdf.bullet("Federal Council members decide as a **collegium** and defend decisions even if individual members disagree")
+    pdf.bullet("**No strong party discipline**; representatives can vote against their own Federal Council member's proposals")
+
+    pdf.subsection_title("b) Key Constitutional Provisions")
+
+    pdf.article_box([
+        "**Art. 1 Cst**: The people and the cantons form the Swiss Confederation",
+        "**Art. 2 para. 1 Cst**: Protection of liberty and rights of the people",
+        "**Art. 33 Cst**: Right of petition (every person, without prejudice)",
+        "**Art. 34 Cst**: Guarantee of political rights; freedom to form opinions and express will",
+        "**Art. 51 Cst**: Cantons must adopt democratic constitutions",
+        "**Art. 136 Cst**: All Swiss citizens over 18 have political rights (unless lacking capacity)",
+        "**Art. 138-142 Cst**: Initiatives and referenda",
+        "**Art. 148 para. 1 Cst**: Federal Assembly is supreme authority (subject to rights of people and cantons)",
+        "**Art. 190 Cst**: Courts must apply federal statutes (even if unconstitutional) -- supremacy of democratic principle over Rechtsstaat",
+    ])
+
+    pdf.key_concept_box("Art. 190 Cst and Democracy",
+        "The democratic legitimacy of parliament (elected by the people) is considered higher than that of judicial authorities "
+        "(elected by parliament, not directly by the people). Therefore, constitutional review of federal statutes is NOT provided "
+        "for in the Swiss system. Art. 190 illustrates the supremacy of the democratic principle over the Rechtsstaat principle.")
+
+    # ---- POLITICAL RIGHTS ----
+    pdf.add_page()
+    pdf.subsection_title("c) Political Rights (Art. 34, Art. 39-40 Cst)")
+    pdf.bullet("Political rights enable **direct participation** in elections and policy decisions at federal, cantonal, and communal level")
+    pdf.bullet("**Art. 34 para. 2 Cst**: the result of an election or vote must **accurately express the free will** of voters")
+    pdf.bullet("Public authorities may **not propagate inaccurate or biased information** that unduly influences voters")
+    pdf.bullet("Popular initiatives and governmental proposals must respect **unity of subject matter** -- voters must express their opinion on each subject separately")
+
+    pdf.sub_subsection_title("Distribution of Competencies (Art. 39-40 Cst)")
+    pdf.bullet("**Art. 39 para. 1 Cst**: Federation regulates political rights in federal matters; cantons regulate cantonal and communal matters")
+    pdf.bullet("**Federal Act on Political Rights (PRA)** of 17 December 1976 contains detailed provisions")
+    pdf.bullet("Political rights exercised at **place of domicile** (Art. 39 para. 2 Cst)")
+    pdf.bullet("No person may exercise political rights in **more than one canton** (Art. 39 para. 3 Cst)")
+    pdf.bullet("Waiting period of max. **3 months** for newly registered residents (Art. 39 para. 4 Cst)")
+
+    pdf.subsection_title("d) Right to Vote")
+    pdf.bullet("All Swiss citizens over **18** entitled to participate in National Council elections and popular votes (Art. 136 para. 1 Cst)")
+    pdf.bullet("Exception: persons lacking capacity due to **mental illness or incapacity**")
+    pdf.bullet("**Active right (aktives Wahlrecht)**: right to elect (vote in elections)")
+    pdf.bullet("**Passive right (passives Wahlrecht)**: right to be elected (stand as candidate) -- Art. 143 Cst")
+
+    pdf.sub_subsection_title("Elections to Parliament")
+    pdf.bullet("**National Council** (200 members): elected directly by the people, **proportional representation**, every 4 years (Art. 149 Cst)")
+    pdf.bullet("Seats allocated to cantons by population; each canton has at least **one seat**")
+    pdf.bullet("**Council of States**: elections determined by **cantonal law** (Art. 150 para. 3 Cst)")
+
+    # ---- INITIATIVE ON FEDERAL LEVEL ----
+    pdf.add_page()
+    pdf.section_title("3.4 Initiative on Federal Level")
+
+    pdf.remember_box("Remember", [
+        "Any **100,000 citizens** entitled to vote may request a **total** or **partial revision** of the Constitution.",
+        "A partial revision may take the form of a **general proposal** or a **specific draft**.",
+        "The initiative must respect: **consistency of form**, **consistency of subject matter**, **jus cogens**, and **implementability**.",
+    ])
+
+    pdf.subsection_title("a) Overview")
+
+    widths = [45, 30, 30, 50]
+    pdf.table_header(["Instrument", "Form", "Signatures", "Approval"], widths)
+    pdf.table_row(["Total revision (Art. 138)", "General proposal", "100,000", "Preliminary vote + double majority"], widths, True)
+    pdf.table_row(["Partial revision (Art. 139)", "General or draft", "100,000", "Double majority (people + cantons)"], widths)
+    pdf.ln(3)
+
+    pdf.subsection_title("b) Total Revision (Art. 138 Cst)")
+    pdf.bullet("May only take the form of a **general proposal**")
+    pdf.bullet("First: preliminary vote of the people on whether Constitution should be totally revised (Art. 138 para. 2 Cst)")
+    pdf.bullet("If approved: **Federal Assembly dissolved**, new elections held (Art. 193 para. 3 Cst)")
+    pdf.bullet("New parliament drafts the constitution; approved by **double majority** (people + cantons)")
+    pdf.bullet("Historically insignificant: only one attempt, dropped after negative vote in **1935**")
+
+    pdf.subsection_title("c) Partial Revision (Art. 139 Cst) -- Detailed Procedure")
+    pdf.bullet("The most **frequently utilized** democratic instrument at the federal level")
+    pdf.bullet("Topics range from footpaths in the Alps to abolition of the armed forces")
+
+    pdf.sub_subsection_title("9-Step Procedure")
+    pdf.bullet("**(1) Signature list**: sent to Federal Chancellery for preliminary examination (Art. 68-69 PRA); must include canton/commune of signatories, title/text, withdrawal clause, criminal warning, names of at least 7 authors")
+    pdf.bullet("**(2) Collection of signatures**: 100,000 within 18 months of official publication (Art. 139 para. 1 Cst); ~1 in 3 cases fail to collect enough")
+    pdf.bullet("**(3) Verification**: cantonal authorities verify signatories' voting rights; lists submitted to Federal Chancellery before 18-month deadline (Art. 71 PRA)")
+    pdf.bullet("**(4) Federal Chancellery decision**: determines if required number of valid signatures reached (Art. 72 PRA)")
+    pdf.bullet("**(5) Federal Council dispatch**: presents parliament a 'Botschaft' and draft decree on validity (Art. 97 ParlA)")
+    pdf.bullet("**(6) Validity check by parliament** (see validity requirements below)")
+    pdf.bullet("**(7) Parliament decides on support**: recommends adoption or rejection; may submit a **counterproposal** (Art. 139 para. 5 Cst, Art. 100-101 ParlA)")
+    pdf.bullet("**(8) Popular vote**: nationwide vote requiring **double majority** (Art. 75a PRA)")
+    pdf.bullet("**(9) Entry into force**: published in official compilation (Art. 195 Cst, Art. 7 PubA)")
+
+    pdf.subsection_title("d) Validity Requirements (Art. 139 para. 3 Cst)")
+
+    pdf.bullet("**i. Consistency of form**: must be exclusively a general proposal OR a specific draft -- no mixture (Art. 75 para. 3 PRA)")
+    pdf.bullet("**ii. Consistency of subject matter**: individual parts must have an **intrinsic connection** (Art. 75 para. 2 PRA); voters must be able to express opinion on each subject separately")
+    pdf.bullet("**iii. Compliance with jus cogens**: must respect mandatory provisions of international law (Art. 194 para. 2 Cst); if it violates jus cogens, parliament must declare it **invalid**")
+    pdf.bullet("**iv. Implementability**: must be possible to execute")
+
+    # ---- LECTURE EXAMPLE: VALIDITY EXERCISES ----
+    pdf.add_page()
+    pdf.key_concept_box("Lecture Exercise: 'For less military expenses and more peace policy'",
+        "The initiative proposes cutting the national defence budget by 10% annually, with 1/3 of savings "
+        "going to international peace policy and social security.\n\n"
+        "Analysis: Check consistency of form (specific draft -- OK), consistency of subject matter "
+        "(military spending + peace policy + social security -- is there an intrinsic connection?), "
+        "jus cogens (no violation), and implementability (feasible).")
+
+    pdf.key_concept_box("Lecture Exercise: 'For a new organisation of military service'",
+        "The initiative proposes: (1) clarify duty for Swiss men to do military service, (2) alternative civilian "
+        "service for conscientious objectors, (3) establish a federal civilian service organization -- all in Art. 18 Cst. "
+        "PLUS: 'Every Swiss woman is required to do military service' as a new Art. 18.\n\n"
+        "Analysis: Consistency of form? (specific draft -- OK). Consistency of subject matter? "
+        "(Military service organization for men + mandatory service for women -- is there an intrinsic connection?). "
+        "Jus cogens? (No violation). Implementability? (Feasible).")
+
+    pdf.subsection_title("e) Functions of the Popular Initiative")
+    pdf.bullet("An **innovative** part of the Swiss political system")
+    pdf.bullet("Provides a **political platform** for groups whose interests are not sufficiently represented")
+    pdf.bullet("Gives people **control over the political agenda**")
+    pdf.bullet("Even **unsuccessful** initiatives encourage the population and authorities to address certain questions")
+    pdf.bullet("Since 1891: ~523 initiatives launched, 353 successfully submitted, only **4 declared invalid**, 228 voted on, **25 accepted**")
+
+    pdf.subsection_title("f) Initiative and International Law")
+    pdf.bullet("Initiatives conflicting with **jus cogens**: declared **null and void** by Federal Assembly")
+    pdf.bullet("Initiatives conflicting with **other international law**: declared valid and submitted to vote")
+    pdf.bullet("Problem: several accepted initiatives are arguably **inconsistent with international law**:")
+    pdf.bullet("Art. 123a Cst (2004): life custody for dangerous sex offenders", level=1)
+    pdf.bullet("Art. 72 para. 3 Cst (2009): prohibition of minaret construction", level=1)
+    pdf.bullet("Art. 121 para. 3-6 Cst (2010): expulsion of criminal foreigners", level=1)
+    pdf.bullet("Art. 121a Cst (2014): control of immigration -- potential conflict with EU bilateral agreements", level=1)
+    pdf.bullet("Federal Assembly tries to implement such provisions **in conformity with international obligations** (e.g., hardship clauses, prioritizing Swiss residents instead of quotas)")
+
+    # ---- LECTURE EXAMPLE: CASH IS FREEDOM ----
+    pdf.key_concept_box("Lecture Example: 'Cash is freedom' Initiative (March 2026)",
+        "On 8 March 2026, voters and cantons decided whether to guarantee the availability of cash in the Constitution "
+        "(new Art. 99 Cst). The initiative demanded that banknotes and coins be forever available in sufficient quantities "
+        "and that any attempt to replace the Swiss franc must be adopted by voters and cantons.\n\n"
+        "The Federal Council and Parliament prepared a counterproposal with different wording: "
+        "the Swiss franc is the national currency and the SNB must guarantee the supply of cash.")
+
+    pdf.key_concept_box("Lecture Example: 'Internet Initiative'",
+        "The Guido Fluri Foundation launched an initiative for a new Art. 93a Cst demanding that platforms, "
+        "search engines and AI providers analyse the risks of their services and take measures to limit them. "
+        "The initiators criticise that the business model of corporations aims to maximise attention without accountability.")
+
+    # ---- REFERENDUM ON FEDERAL LEVEL ----
+    pdf.add_page()
+    pdf.section_title("3.5 Referendum on Federal Level")
+
+    pdf.remember_box("Remember", [
+        "Through the referendum, the people **approve or reject** constitutional amendments, statutes, treaties, or parliamentary decisions.",
+        "Two types: **mandatory** (automatically triggered) and **optional** (requested by 50,000 citizens or 8 cantons).",
+        "Two effects: **suspensive** (prevents entry into force) and **abrogative** (repeals acts already in force).",
+    ])
+
+    pdf.subsection_title("a) Mandatory Referendum (Art. 140 Cst)")
+
+    pdf.sub_subsection_title("Category 1: Double Majority Required (people + cantons)")
+    pdf.bullet("All **constitutional amendments** (Art. 140 para. 1 lit. a Cst)")
+    pdf.bullet("Accession to **organizations for collective security** (e.g., NATO) or **supranational communities** (e.g., EU) (Art. 140 para. 1 lit. b Cst)")
+    pdf.bullet("**Emergency federal statutes** not based on Constitution, validity > 1 year (Art. 140 para. 1 lit. c Cst) -- vote within 1 year; this is an **abrogative** mandatory referendum")
+
+    pdf.sub_subsection_title("Category 2: Simple Majority of People")
+    pdf.bullet("Popular initiatives for a **total revision** of the Constitution")
+    pdf.bullet("Popular initiatives for a **partial revision** (general proposal) rejected by Federal Assembly")
+    pdf.bullet("Whether a **total revision** should be carried out when the two Councils disagree")
+
+    pdf.subsection_title("b) Optional Referendum (Art. 141 Cst)")
+    pdf.bullet("Within **100 days** of official publication, **50,000 citizens** or **8 cantons** may request a popular vote")
+    pdf.bullet("Only requires majority of **voting population** (not cantonal majority)")
+
+    pdf.sub_subsection_title("Suspensive Optional Referendum (Art. 141 para. 1 lit. a, c-d Cst)")
+    pdf.bullet("**Federal statutes**")
+    pdf.bullet("**Specific federal decrees** (if referendum provided for in Constitution or statute)")
+    pdf.bullet("**Specific international treaties** (unlimited duration, may not be terminated, accession to international organization, or containing important legislative provisions)")
+
+    pdf.sub_subsection_title("Abrogative Optional Referendum (Art. 141 para. 1 lit. b Cst)")
+    pdf.bullet("**Emergency federal statutes** whose term of validity exceeds one year")
+
+    pdf.subsection_title("c) Functions of the Referendum")
+    pdf.bullet("Over **482 issues** subject to mandatory referendum; about 1/4 rejected (proposals often succeed only on 2nd or 3rd attempt)")
+    pdf.bullet("Since 1874, optional referendum successfully requested in about **211 cases** (~7% of parliamentary decisions)")
+    pdf.bullet("In about **half** of optional referendum cases, the majority rejected the parliamentary decision")
+    pdf.bullet("Referendum = a **right of popular opposition** and **veto power**")
+    pdf.bullet("Consequence: political authorities try to minimize referendum risk via **inclusive decision-making**")
+    pdf.bullet("Downside: constant threat of referendum may **weaken responsiveness** to challenges")
+
+    # ---- LECTURE EXAMPLES: REFERENDUM ----
+    pdf.key_concept_box("Lecture Example: War Materials Statute Referendum",
+        "Germany asked Switzerland to allow re-export of Gepard tank ammunition to Ukraine. Switzerland's War Materials "
+        "Statute bans exports/re-exports to countries in conflict. Parliament revised the statute to allow arms exports to 25 "
+        "countries even during conflict. The Green Party opposed this amendment.\n\n"
+        "Analysis: This is a revision of a federal statute. The Green Party could launch an optional referendum "
+        "(Art. 141 para. 1 lit. a Cst) by collecting 50,000 signatures within 100 days.")
+
+    pdf.key_concept_box("Lecture Example: Airport Zurich AG",
+        "Although Zurich Airport AG is a listed company, decisions on runway changes require: "
+        "(1) approval by cantonal representatives on the board, (2) Government Council directive approved by "
+        "Cantonal Council (Parliament), and (3) the Cantonal Council decision is subject to optional referendum "
+        "(e.g., 3,000 citizens in Zurich can request a popular vote). This illustrates how democratic participation "
+        "affects even corporate infrastructure decisions.")
+
+    # ---- REFERENDUM PRACTICE EXERCISE ----
+    pdf.add_page()
+    pdf.key_concept_box("Lecture Exercise: Referendum Type Identification",
+        "Which type of democratic participation applies at the federal level?\n\n"
+        "1. Art. 8 Cst (equality) is repealed\n"
+        "   -> Constitutional amendment -> mandatory referendum (double majority)\n\n"
+        "2. Switzerland accedes to the EU\n"
+        "   -> Supranational community -> mandatory referendum (double majority)\n\n"
+        "3. Amendment of Art. 2a of the Ordinance on Political Rights\n"
+        "   -> Ordinance -> NO referendum (ordinances not subject to referendum)\n\n"
+        "4. A commune in Thurgau wants to become part of St. Gallen\n"
+        "   -> Change in cantonal territory -> Art. 53 para. 3 Cst (federal decree, optional referendum)\n\n"
+        "5. A new federal statute on forced marriages\n"
+        "   -> Federal statute -> optional referendum (50,000 signatures or 8 cantons)\n\n"
+        "6. Appenzell IR and AR want to merge\n"
+        "   -> Change in existence of cantons -> Art. 53 para. 2 Cst (constitutional amendment, mandatory referendum)")
+
+    # ---- POLITICAL RIGHTS ON CANTONAL LEVEL ----
+    pdf.section_title("3.6 Political Rights on the Cantonal Level")
+    pdf.bullet("Key federal instruments exist in **all cantons**: mandatory constitutional referendum, optional legislative referendum, popular initiative for constitutional amendments")
+    pdf.bullet("**Art. 51 para. 1 Cst** requires cantons to provide mandatory constitutional referendum AND initiative")
+    pdf.bullet("Cantonal semi-direct democracy allows **more diverse participation** than the federal level:")
+    pdf.bullet("Popular initiative extends to **ordinary legislation** (not just constitutional amendments)", level=1)
+    pdf.bullet("In some cantons, the legislative referendum is **mandatory**", level=1)
+    pdf.bullet("Important **individual acts and administrative decisions** can be challenged (e.g., financial referenda for large investments)", level=1)
+    pdf.bullet("In **all cantons**, the executive is directly elected by the people; in some, also judges and prosecutors", level=1)
+
+    # ---- 3.7 SWISS CITIZENSHIP ----
+    pdf.add_page()
+    pdf.section_title("3.7 Swiss Citizenship")
+
+    pdf.remember_box("Remember", [
+        "Switzerland has a **three-level citizenship**: federal, cantonal, and communal (Art. 37 para. 1 Cst).",
+        "Citizenship is based on **ius sanguinis** (descent), not ius soli (place of birth).",
+        "Naturalization follows a **cantonal-federal-cantonal** process.",
+    ])
+
+    pdf.subsection_title("a) General Concept")
+    pdf.bullet("Every Swiss has at least **three citizenships**: Swiss, cantonal, and communal (Art. 37 para. 1 Cst)")
+    pdf.bullet("Federal and cantonal citizenship **cannot be obtained** without communal citizenship")
+    pdf.bullet("Special rights from Swiss citizenship: **political rights** (Art. 34), **domicile anywhere** (Art. 24), **no expulsion** (Art. 25 para. 1), diplomatic protection, military duty (Art. 59 para. 1)")
+
+    pdf.subsection_title("b) Acquisition by Law (Ius Sanguinis)")
+    pdf.bullet("Based on **parents' origins**, not place of birth (Art. 38 para. 1 Cst)")
+    pdf.bullet("Swiss at birth if (Art. 1 SCA):")
+    pdf.bullet("Child of married parents where **at least one parent** is Swiss", level=1)
+    pdf.bullet("Child of a Swiss mother **not married** to the father", level=1)
+    pdf.bullet("Minor foreign child of Swiss father upon **recognition of paternity**", level=1)
+
+    pdf.subsection_title("c) Ordinary Naturalization")
+    pdf.bullet("**Cantonal-federal-cantonal** process:")
+    pdf.bullet("(1) Canton/commune agree in principle; forward application to **SEM** (State Secretariat for Migration) (Art. 13 para. 2 SCA)", level=1)
+    pdf.bullet("(2) SEM grants federal naturalization license if all requirements met (Art. 13 para. 3 SCA)", level=1)
+    pdf.bullet("(3) Canton makes final naturalization decision within 1 year (Art. 14 para. 1 SCA)", level=1)
+    pdf.bullet("Requirements: **integrated** into Swiss society, familiar with Swiss way of life, no security risk (Art. 11 SCA)")
+    pdf.bullet("Residence: **10 years** total in Switzerland (3 of last 5 years); years aged 8-18 count double (min. 6 actual years)")
+    pdf.bullet("Denial of naturalization must be based on **sound reasoning** (Art. 16 SCA) -- secret ballots not allowed (BGE 129 I 217)")
+
+    pdf.subsection_title("d) Simplified Naturalization (Art. 20-25 SCA)")
+    pdf.bullet("Spouse of a Swiss citizen")
+    pdf.bullet("Persons who believed in good faith they were Swiss")
+    pdf.bullet("Stateless children")
+    pdf.bullet("Foreign child not included in parents' naturalization")
+    pdf.bullet("**Third-generation immigrants** (before age 25, meeting certain conditions)")
+
+    pdf.subsection_title("e) Loss of Swiss Citizenship")
+    pdf.bullet("**By law** (automatic): annulment of parentage link (Art. 5 SCA); adoption by foreigners (Art. 6 SCA); at age 25 if born abroad, always lived abroad, holds other citizenship, and never registered (Art. 7 SCA)")
+    pdf.bullet("**By decree**: dual citizen living abroad who wishes to renounce (Art. 37 SCA)")
+    pdf.bullet("**Revocation**: dual citizens who seriously violate Swiss interests, e.g., espionage (Art. 42 SCA)")
+    pdf.bullet("**Nullification**: naturalization obtained by false information or concealment (Art. 36 SCA)")
+
+    # ---- 4. SOCIAL JUSTICE ----
+    pdf.add_page()
+    pdf.chapter_title("4. SOCIAL JUSTICE")
+
+    pdf.remember_box("Remember", [
+        "**Social justice** aims at establishing just and equal conditions within society, particularly between social classes.",
+        "The Constitution contains **social objectives** (guidelines for legislators, NOT directly enforceable in courts).",
+        "A few **social rights** are directly enforceable: right to assistance (Art. 12), children's protection (Art. 11), free basic education (Art. 19).",
+    ])
+
+    pdf.section_title("4.1 Concept")
+    pdf.bullet("Relatively new compared to other structural principles; emerged from the **industrial revolution** and socialist doctrine")
+    pdf.bullet("Aimed at improving living conditions of working classes")
+    pdf.bullet("Fundamental rights and democratic processes are of **limited value** for those who lack the means to benefit from them")
+    pdf.bullet("The Swiss Constitution does not explicitly label Switzerland a **'Sozialstaat'** (welfare state)")
+
+    pdf.section_title("4.2 Social Objectives (Art. 41 Cst)")
+    pdf.bullet("**Guidelines for the legislature** -- NOT directly enforceable in courts, do NOT confer individual rights (Art. 41 para. 4 Cst)")
+    pdf.bullet("Federation and cantons must endeavor to ensure:")
+    pdf.bullet("Access to **social security** and required **health care**", level=1)
+    pdf.bullet("**Families** are protected and encouraged", level=1)
+    pdf.bullet("Everyone fit to work can earn a living under **fair conditions**", level=1)
+    pdf.bullet("Suitable **accommodation** on reasonable terms", level=1)
+    pdf.bullet("**Education and training** according to abilities", level=1)
+    pdf.bullet("Protection against economic consequences of **old age, invalidity, illness, accident, unemployment, maternity** (Art. 41 para. 2 Cst)")
+
+    pdf.section_title("4.3 Competencies in Social Matters")
+    pdf.bullet("Constitution of 1848 had **no federal social competencies**; 1874 added fragmentary employee protection")
+    pdf.bullet("Today: extensive federal competencies, some with **substantive guidelines** (e.g., Art. 114 Cst on unemployment insurance)")
+
+    pdf.subsection_title("Three-Pillar System (Art. 111 Cst)")
+    pdf.bullet("**1st Pillar**: Federal old-age, survivors' and invalidity insurance (AHV/IV) -- covers basic living expenses (Art. 112 Cst)")
+    pdf.bullet("**2nd Pillar**: Compulsory occupational pension scheme (BVG) -- supplements AHV/IV (Art. 113 Cst)")
+    pdf.bullet("**3rd Pillar**: Voluntary private pension schemes -- optional additional security (Art. 111 para. 4 Cst)")
+    pdf.bullet("Additional: unemployment insurance (Art. 114), child allowances/maternity (Art. 116), health/accident insurance (Art. 117)")
+    pdf.bullet("**Subsidiary support** by canton of residence when social security is insufficient (Art. 115 Cst)")
+
+    pdf.section_title("4.4 Social Rights (Enforceable)")
+    pdf.bullet("**Art. 12 Cst**: Right to assistance and care, financial means for a decent standard of living (for persons in need)")
+    pdf.bullet("**Art. 11 Cst**: Children and young people have the right to special protection and encouragement of development")
+    pdf.bullet("**Art. 19 Cst**: Right to adequate and **free basic school education**")
+    pdf.bullet("**Art. 29 para. 3 Cst**: Right to free legal advice and representation for those without sufficient means")
+    pdf.bullet("**Art. 28 para. 3 Cst**: Right to strike (debated whether this is a social right)")
+
+    # ---- KEY ABBREVIATIONS ----
+    pdf.add_page()
+    pdf.chapter_title("KEY TERMS AND ABBREVIATIONS")
+
+    pdf.subsection_title("Key Terms")
+    pdf.bullet("**Aktives Wahlrecht** = active right to vote (right to elect)")
+    pdf.bullet("**Passives Wahlrecht** = passive right to vote (right to be elected)")
+    pdf.bullet("**Stimmrecht** = right to participate in popular votes")
+    pdf.bullet("**Primus inter pares** = first among equals (Federal President)")
+    pdf.bullet("**Ius sanguinis** = citizenship by descent (blood)")
+    pdf.bullet("**Ius soli** = citizenship by place of birth")
+    pdf.bullet("**Suspensive referendum** = prevents entry into force")
+    pdf.bullet("**Abrogative referendum** = repeals acts already in force")
+    pdf.bullet("**Sozialstaat** = welfare state")
+
+    pdf.subsection_title("Key Abbreviations")
+    pdf.bullet("**Cst** = Federal Constitution of the Swiss Confederation")
+    pdf.bullet("**PRA** = Federal Act on Political Rights (SR 161.1)")
+    pdf.bullet("**ParlA** = Parliament Act")
+    pdf.bullet("**SCA** = Swiss Citizenship Act (SR 141.0)")
+    pdf.bullet("**SEM** = State Secretariat for Migration")
+    pdf.bullet("**AHV** = Alters- und Hinterlassenenversicherung (old-age/survivors' insurance)")
+    pdf.bullet("**IV** = Invalidenversicherung (invalidity insurance)")
+    pdf.bullet("**BVG** = Berufliche Vorsorge (occupational pension)")
+
+    out = os.path.join(os.path.dirname(__file__), "Lecture4_Democracy_Political_Rights.pdf")
+    pdf.output(out)
+    print(f"Generated: {out}")
+
+
 if __name__ == "__main__":
     generate_lecture1()
     generate_lecture2()
     generate_lecture3()
+    generate_lecture4()
     print("\nAll law lecture notes generated successfully!")
