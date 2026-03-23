@@ -1781,10 +1781,681 @@ def generate_lecture5():
     print(f"Generated: {out}")
 
 
+def generate_lecture6():
+    """Generate Lecture 6 PDF: Civil Liberties, Equality, Social/Procedural Rights, Protection of FR (Egli pp. 129-180 + Lecture 6 Slides)."""
+    pdf = NotesPDF("Lecture 6: Civil Liberties & Protection of Fundamental Rights",
+                   "Chapters G (cont.) & H (pp. 129-180) + Lecture 6 Slides")
+    pdf.alias_nb_pages()
+    pdf.cover_page()
+
+    # ---- REMEMBER BOX ----
+    pdf.add_page()
+    pdf.remember_box("Remember (Chapters G cont. & H)", [
+        "Civil liberties confer upon the individual a specific sphere of personal freedom, protect a specific activity, or guarantee certain institutions.",
+        "Human dignity (Art. 7 Cst) is absolute -- no restrictions admissible under Art. 36.",
+        "Equality before the law (Art. 8) is NOT restricted to a particular activity but informs ALL state action. Direct and indirect discrimination are distinguished.",
+        "Art. 190 Cst: Federal statutes must be applied regardless of constitutionality (but ECHR-violating provisions shall not be applied).",
+        "ECtHR proceedings: individual application after exhausting domestic remedies, 4-month time limit, must be a victim.",
+    ])
+
+    # ===================================================================
+    # LECTURE CASE STUDIES
+    # ===================================================================
+    pdf.chapter_title("LECTURE CASE STUDIES")
+
+    # Case 1: St. Gallen demonstration
+    pdf.key_concept_box("Case 1: Freedom of Assembly -- St. Gallen Demonstration",
+        "February 2026: several hundred people demonstrated in St. Gallen against compulsory vaccination "
+        "(Mass-Voll movement). Some carried halberds, some were known far-right members. Counter-demonstration "
+        "called by left-wing groups. Police ordered demonstrators to stop on safety grounds. Some broke through "
+        "a police cordon and marched through the old town. Police used tear gas. Violent incidents occurred.\n\n"
+        "Your friend A.'s animal rights association applied for permission to demonstrate in the old town next "
+        "Saturday (starting at Vadianplatz). The St. Gallen authorities refused permission under Art. 40 Cantonal "
+        "Police Statute due to recent violent incidents.\n\n"
+        "Art. 40 Cantonal Police Statute:\n"
+        "Para. 1: Demonstrations on public ground require a permission.\n"
+        "Para. 2: The permission may be refused on public safety grounds.\n\n"
+        "Question: Assess the legal situation for the animal rights association.")
+
+    # Case 2: Bern expropriation
+    pdf.key_concept_box("Case 2: Right to Property -- Bern Land Expropriation",
+        "A. owns a lot of land in Bern, partially built on, in the city building area. The city needs to build "
+        "new railway lines for public transportation and needs a 30cm strip of A.'s land along the existing "
+        "railway line. Based on the cantonal statute on expropriation, the authorities inform A. that the "
+        "property is transferred to the city of Bern.\n\n"
+        "All agree the transfer is a lawful restriction. Question: Must the city of Bern pay compensation?")
+
+    # Case 3: Winterthur food truck
+    pdf.key_concept_box("Case 3: Economic Freedom -- Winterthur Food Truck",
+        "K., Indian citizenship, has lived with his family in Winterthur for over ten years, has a permanent "
+        "residency permit. Started a food truck business in the old town cooking South Indian specialties. "
+        "Receives a letter withdrawing his permit based on Art. 26 para. 1 lit. b Cantonal Health Statute.\n\n"
+        "Version 1: Reason = food truck competes with local restaurants who complained about difficult economic situation.\n"
+        "Version 2: Reason = cantonal chemist criticised the hygiene at his last visit.\n\n"
+        "Art. 26 Cantonal Health Statute: Administrative measures for offences include (a) warning, "
+        "(b) withdrawal of permits, (c) confiscation, (d) charging up to CHF 10,000.\n\n"
+        "Question: Assess the legal situation.")
+
+    # ===================================================================
+    # CHAPTER G (CONT.): HUMAN DIGNITY
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("HUMAN DIGNITY (ART. 7 CST)")
+
+    pdf.body_text("Human dignity cannot be defined in a general/abstract way. The Federal Supreme Court requires respecting all individuals in their unique personality. Violation occurs when humans are treated as mere objects, in a degrading manner, or discriminated based on race, origin, or religion.")
+
+    pdf.section_title("Four Dimensions of Art. 7 Cst")
+    pdf.bullet("(1) **Guiding principle** for all state activity, informing the entire constitutional order")
+    pdf.bullet("(2) **Basis and essence** of other fundamental rights (closely connected to: prohibition of torture Art. 10(3), protection of personality, non-discrimination Art. 8(2), right to assistance Art. 12, fair procedure guarantees)")
+    pdf.bullet("(3) Serves for **interpretation and effective implementation** of fundamental rights")
+    pdf.bullet("(4) A **civil liberty**, legally enforceable like any other fundamental right")
+
+    pdf.body_text("Two civil liberties based directly on Art. 7: right to a decent burial (BGE 125 I 300) and prohibition of incarceration to enforce settlement of debts (BGE 130 I 169).")
+
+    pdf.bullet("**Beneficiaries**: Natural persons only (no nationality distinction). Legal persons excluded.")
+    pdf.bullet("**Essence**: Absolute guarantee. No restrictions admissible under Art. 36 Cst.")
+
+    # ===================================================================
+    # RIGHT TO LIFE AND PERSONAL LIBERTY
+    # ===================================================================
+    pdf.chapter_title("RIGHT TO LIFE AND PERSONAL LIBERTY (ART. 10 CST)")
+
+    pdf.article_box([
+        "**Art. 10 para. 1 Cst**: Right to life; death penalty prohibited",
+        "**Art. 10 para. 2 Cst**: Right to personal liberty (physical integrity, mental integrity, freedom of movement)",
+        "**Art. 10 para. 3 Cst**: Prohibition of torture and cruel/inhuman/degrading treatment (absolute)",
+        "**Art. 10a Cst**: Ban on covering the face in public spaces (approved 2021)",
+        "**Art. 2 ECHR**: Right to life | **Art. 3 ECHR**: Prohibition of torture | **Art. 5 ECHR**: Right to liberty",
+    ])
+
+    pdf.section_title("Right to Life (Art. 10 para. 1)")
+    pdf.body_text("Encompasses all essential physical and mental functions necessary for human life. Constitution is silent on when life begins/ends (relevant for abortion/right to die).")
+    pdf.bullet("Death penalty explicitly prohibited")
+    pdf.bullet("State must refrain from intentional killing")
+    pdf.bullet("Art. 2(2) ECHR exceptions: force absolutely necessary in (a) defense from unlawful violence, (b) lawful arrest/preventing escape, (c) quelling riot/insurrection")
+    pdf.bullet("**Positive obligations**: protect human life (criminal laws, police operations minimizing lethal force)")
+    pdf.bullet("**Procedural obligations**: effective/independent investigations in homicide cases (BGE 131 I 455)")
+    pdf.bullet("Prohibits extradition to countries with death penalty (Art. 10(1), Art. 25(3) Cst)")
+
+    pdf.body_text("Abortion: exempt from penalty within first 12 weeks at written request + informed consent (Art. 119 Criminal Code). Also exempt if medically necessary to prevent serious physical/psychological distress. Constitutional protection starts no later than birth.")
+    pdf.body_text("Right to die: derives from personal liberty (Art. 10 para. 2), not right to life (Art. 10 para. 1).")
+
+    pdf.section_title("Right to Personal Liberty (Art. 10 para. 2)")
+    pdf.body_text("Grants every individual a sphere of freedom for developing/realizing potential (BGE 136 I 254). Protects exercise of all essential freedoms indispensable for personal development (BGE 101 Ia 336).")
+
+    pdf.subsection_title("Three Sub-Rights")
+    pdf.bullet("**Physical integrity**: Affected by ANY interference with the body, even if painless (blood tests, DNA tests, hair extractions, forced medication)")
+    pdf.bullet("**Mental integrity**: Protects psychological well-being, integrity of consciousness, ability to interpret situations and act accordingly. Protects from state manipulation (mind-altering drugs)")
+    pdf.bullet("**Freedom of movement**: Protection against deprivation of liberty without justification. Only admissible in cases listed in Art. 5(1) ECHR. Speed limits and traffic checks do NOT qualify as intrusions.")
+
+    pdf.body_text("NOT protected by personal liberty: right to gamble, navigating only in designated zones, consumption of illegal drugs.")
+
+    pdf.subsection_title("Prohibition of Torture (Art. 10 para. 3 / Art. 3 ECHR)")
+    pdf.body_text("Absolute prohibition, irrespective of circumstances or victim behavior. No exception, no derogation. Part of ius cogens.")
+
+    pdf.subsection_title("Ban on Covering the Face (Art. 10a Cst)")
+    pdf.body_text("Approved 7 March 2021 (51.2% majority). No face covering in public spaces/places accessible to public (except places of worship). Exceptions for health, safety, weather, local custom. Restricts: personal liberty (Art. 10(2)), private life (Art. 13(1)), freedom of religion (Art. 15), economic freedom (Art. 27), freedom of expression/assembly (Art. 16, Art. 22).")
+    pdf.body_text("ECtHR: S.A.S. v. France (GC, 2014) -- no violation; justified for 'living together.'")
+
+    pdf.bullet("**Beneficiaries**: Natural persons only. Legal persons excluded.")
+    pdf.bullet("**Essence**: Prohibition of death penalty = essence of Art. 10(1). Prohibition of torture (Art. 10(3)) is absolute. Essence of personal liberty violated by psychotropic substances, brainwashing, lie detectors (BGE 109 Ia 273).")
+
+    # ===================================================================
+    # RIGHT TO PRIVACY
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("RIGHT TO PRIVACY (ART. 13 CST / ART. 8 ECHR)")
+
+    pdf.section_title("Scope of Application: Four Key Aspects")
+
+    pdf.subsection_title("1. Private Life (Art. 13 para. 1)")
+    pdf.body_text("Matters an individual doesn't want to share; reflects attitudes, values, tastes, preferences, relations. Right to be left alone. Freedom from state surveillance.")
+
+    pdf.subsection_title("2. Family Life (Art. 13 para. 1)")
+    pdf.body_text("Covers traditional two-parent families AND other relationships of certain intensity/stability: marital, extra-marital (m/f), homosexual couples, relationships with own/adopted children. Important in immigration law.")
+    pdf.bullet("Udeh v. Switzerland (ECtHR, 2013): Nigerian national; violation of Art. 8 ECHR if expelled")
+
+    pdf.subsection_title("3. Home (Art. 13 para. 1)")
+    pdf.body_text("Physically defined place as locus of private/family life. Also covers temporary housing (hotel rooms, mobile homes). Prohibits state access physically or through surveillance.")
+
+    pdf.subsection_title("4. Secrecy of Mail and Telecommunications")
+    pdf.body_text("Covers letters, telephone, e-mail. Interferences include wire-tapping, restricting prisoner correspondence.")
+
+    pdf.subsection_title("5. Protection Against Abuse of Personal Data (Art. 13 para. 2)")
+    pdf.body_text("'Right to informational self-determination.' Protects against unlimited collection, processing, storage, dissemination of personal data. Includes right to decide what data is shared, right to be informed, right to rectification/deletion. Covers biometric/genetic data. Strengthened by Federal Act on Data Protection (2020, SR 235.1).")
+    pdf.bullet("Copland v. UK (ECtHR, 2007): employer monitored telephone/email/internet; violation of Art. 8 ECHR (no domestic law regulating monitoring)")
+
+    pdf.bullet("**Beneficiaries**: All natural persons. Legal persons can invoke aspects not aimed exclusively at human beings.")
+    pdf.bullet("**Essence**: Not clearly defined. Arguably: abolition of mail/telecommunications secrecy or personal data protection would violate essence.")
+
+    # ===================================================================
+    # RIGHT TO MARRIAGE
+    # ===================================================================
+    pdf.section_title("Right to Marriage and Family (Art. 14 Cst / Art. 12 ECHR)")
+    pdf.bullet("**Positive dimension**: Right to marry freely chosen natural person of marriageable age (18+, capacity of judgment)")
+    pdf.bullet("**Negative dimension**: Right to refuse marriage; prohibits forced marriage")
+    pdf.bullet("Requirements: 18+ years (Art. 94 CC), no existing marriage, no close degree of relationship (Art. 95-96 CC)")
+    pdf.bullet("'Marriage for all' accepted by referendum 2021, in force 1 July 2022. Now: all natural persons of marriageable age.")
+    pdf.bullet("**Essence**: State may not abolish institution of marriage. General prohibition for a group (prisoners, asylum seekers) may violate core content.")
+
+    # ===================================================================
+    # FREEDOM OF RELIGION
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("FREEDOM OF RELIGION AND CONSCIENCE (ART. 15 CST / ART. 9 ECHR)")
+
+    pdf.section_title("Scope of Application")
+    pdf.bullet("**Freedom of religion (Art. 15 para. 1)**: Spiritual freedom, relationship with transcendental. Protects theistic, nontheistic, atheistic beliefs, even shocking/repulsive ones.")
+    pdf.bullet("**Freedom of conscience (Art. 15 para. 1)**: Right to remain true to conscience and act accordingly. Protects private sphere and thought processes.")
+    pdf.bullet("**Philosophical convictions (Art. 15 para. 2)**: Exact meaning not yet clarified.")
+
+    pdf.section_title("Positive Dimension")
+    pdf.body_text("Right to adopt belief system, manifest faith individually/in community, public/private (Art. 15 para. 2). Includes: establishing/attending worship, manifesting beliefs, religious literature, rites/ceremonies. Includes right to join/belong to religious community (Art. 15 para. 3).")
+
+    pdf.subsection_title("State Neutrality Cases")
+    pdf.bullet("Crucifixes in primary school classrooms violate neutrality (BGE 116 Ia 252)")
+    pdf.bullet("Teacher wearing headscarf during lessons violates neutrality (BGE 123 I 296)")
+    pdf.bullet("BUT: general ban for pupils covering head during class is unlawful (BGE 142 I 49)")
+    pdf.bullet("Muslim exemption from school swimming rejected (BGE 135 I 79; confirmed by ECtHR Osmanoglu v. Suisse, 2017)")
+
+    pdf.section_title("Negative Dimension (Art. 15 para. 4)")
+    pdf.body_text("No forced joining of religious community, no forced participation in religious acts, no forced following of religious teachings. No school prayers, baptism, religious oaths.")
+    pdf.bullet("Bayatyan v. Armenia (ECtHR GC, 2011): Jehovah's Witness imprisoned for draft evasion; violation of Art. 9 ECHR")
+
+    pdf.bullet("**Beneficiaries**: All natural persons. Parents determine child's religious upbringing until age 16 (Art. 303 CC). Legal persons may be beneficiaries if pursuing religious ends.")
+    pdf.bullet("**Essence**: Negative components of Art. 15(4) are inviolable. Person may not be forced to renounce/change religion.")
+
+    # ===================================================================
+    # FREEDOM OF EXPRESSION, INFORMATION, MEDIA
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("FREEDOM OF EXPRESSION, INFORMATION & MEDIA")
+
+    pdf.article_box([
+        "**Art. 16 Cst**: Freedom of expression and of information",
+        "**Art. 17 Cst**: Freedom of the media; para. 2: censorship absolutely prohibited",
+        "**Art. 18 Cst**: Freedom of language",
+        "**Art. 20 Cst**: Academic freedom (research and teaching)",
+        "**Art. 21 Cst**: Freedom of artistic expression",
+        "**Art. 10 ECHR / Art. 19 ICCPR**: Freedom of expression",
+    ])
+
+    pdf.section_title("Two Functions (from Lecture)")
+    pdf.bullet("**Democratic function**: Cornerstones of pluralist democracy. Right of free access to information, forming/expressing political opinion. Especially important in semi-direct democracy.")
+    pdf.bullet("**Individual function**: Basic human need to freely communicate. Identity, personal autonomy, development as social being.")
+
+    pdf.section_title("Freedom of Expression (Art. 16 para. 2)")
+    pdf.body_text("Covers all forms/types of opinions. FSC defines 'opinion' very extensively -- all means of expression protected, irrespective of content, even those that offend/disturb/shock. Art. 16 only protects non-material matters (not commercial interests, which fall under Art. 27 economic freedom). Art. 16 has a subsidiary function: applies when more specific guarantees (media, academic, artistic freedom) don't apply.")
+
+    pdf.bullet("Perincek v. Switzerland (ECtHR GC, 2015): Turkish politician denied Armenian 'genocide'; conviction for racial discrimination violated Art. 10 ECHR")
+
+    pdf.section_title("Freedom of Information (Art. 16 para. 1 & 3)")
+    pdf.body_text("Right to freely receive, gather from generally accessible sources, and disseminate information. State not obliged to impart information, but if it does, must be even-handed (Art. 8 Cst). Federal Act on Freedom of Information (2004, SR 152.3): right to inspect official documents, with exceptions.")
+
+    pdf.section_title("Freedom of the Media (Art. 17)")
+    pdf.body_text("Covers press, radio, television, other public telecommunications.")
+    pdf.bullet("**Censorship absolutely prohibited** (Art. 17 para. 2) -- affects very essence")
+    pdf.bullet("**Source protection** (Art. 17 para. 3, Art. 28a Criminal Code)")
+    pdf.bullet("Radio and television: Art. 93 Cst guarantees independence and programming autonomy")
+    pdf.bullet("SRG v. Switzerland (ECtHR, 2012): refusal of prison TV interview; violation of Art. 10 ECHR")
+
+    pdf.section_title("Other Freedoms")
+    pdf.bullet("**Freedom of language (Art. 18)**: Right to use any language. Subject to territoriality principle (Art. 70 para. 2 Cst).")
+    pdf.bullet("**Academic freedom (Art. 20)**: Freedom of research and teaching. Freedom from state interference with university mission.")
+    pdf.bullet("**Freedom of artistic expression (Art. 21)**: Broadly interpreted. Protects artistic expression and presentation of art.")
+
+    pdf.bullet("**Beneficiaries**: All natural persons (journalists, TV hosts, professors, artists). Legal persons (newspaper/radio companies, art galleries). High-level officials may face justified restrictions (judges must avoid comments casting doubt on impartiality).")
+    pdf.bullet("**Essence**: Censorship (prior systematic monitoring/restraint of communications) absolutely prohibited (Art. 17 para. 2). Does not exclude civil/penal liability after the fact.")
+
+    # ===================================================================
+    # FREEDOM OF ASSEMBLY, ASSOCIATION
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("FREEDOM OF ASSEMBLY & ASSOCIATION (ART. 22-23, 28 CST)")
+
+    pdf.section_title("Freedom of Assembly (Art. 22 / Art. 11 ECHR)")
+    pdf.body_text("Right to organize meetings, participate or not. 'Assembly' = all forms of people coming together for a common opinion-forming purpose for a certain time. Only **peaceful** assemblies are guaranteed. Protects meetings in enclosed spaces and outdoors, private and public places.")
+
+    pdf.subsection_title("Demonstrations")
+    pdf.body_text("Specific form of assembly, protected by Art. 22 (assembly) AND Art. 16 (expression). May require authorization in public places. Grounds for declining: fundamental rights of others, interests of general public, imminent danger of violence. State must protect demonstrations against disruption by opponents (BGE 127 I 164).")
+
+    pdf.section_title("Freedom of Association (Art. 23)")
+    pdf.body_text("Right to form, join, belong to an association and participate in activities. Protects groups organized in a legal entity pursuing non-profit interests collectively (e.g., political parties). Economic purpose associations = Art. 27; religious = Art. 15.")
+
+    pdf.section_title("Right to Form Professional Associations (Art. 28)")
+    pdf.bullet("Freedom of association in the economic context. No forced membership (Art. 28 para. 1).")
+    pdf.bullet("Conflicts resolved through negotiation/mediation where possible (Art. 28 para. 2).")
+    pdf.bullet("Strikes and lockouts permitted if negotiation fails, subject to Art. 28 para. 3 conditions.")
+    pdf.bullet("Lawful strike cannot be grounds for dismissal (BGE 132 III 122).")
+    pdf.bullet("Some categories (public officers, firemen, army) may be prohibited from striking (Art. 28 para. 4).")
+
+    pdf.bullet("**Beneficiaries**: Natural persons (assembly/association); employees/employers (professional associations). Legal persons (trade unions, employers' organizations) can invoke all three.")
+    pdf.bullet("**Essence**: Not clearly defined. But: systematically ascertaining topics/aims before assemblies = censorship (Art. 17 para. 2).")
+
+    # ===================================================================
+    # LECTURE CASE 1 APPLICATION: ST. GALLEN DEMONSTRATION
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("CASE APPLICATION: ST. GALLEN DEMONSTRATION")
+
+    pdf.section_title("Step 1: Is a Fundamental Right Affected?")
+
+    pdf.subsection_title("(1) Guarantee")
+    pdf.body_text("Freedom of assembly: guaranteed nationally in Art. 22 Cst, internationally in Art. 11 ECHR and Art. 21 ICCPR. Freedom of expression: guaranteed nationally in Art. 16 Cst, internationally in Art. 10 ECHR and Art. 19 ICCPR.")
+
+    pdf.subsection_title("(2) Scope of application")
+    pdf.body_text("Art. 22: 'Assembly' comprises all forms of people coming together for a common opinion-forming purpose. Only peaceful assemblies protected. A demonstration is a specific form of assembly. Art. 16: the purpose of a demonstration is to collectively manifest a certain opinion on an issue. Both are applicable.")
+
+    pdf.subsection_title("(3) Beneficiaries")
+    pdf.body_text("The animal rights association is a legal person. Legal persons are beneficiaries of those aspects of freedom of assembly and expression not exclusively aimed at protecting human beings.")
+
+    pdf.subsection_title("(4) Addressees")
+    pdf.body_text("The St. Gallen cantonal authorities are state authorities, therefore addressees.")
+
+    pdf.body_text("**Conclusion**: Freedom of assembly and freedom of expression are affected.")
+
+    pdf.section_title("Step 2: Is the Restriction Lawful?")
+
+    pdf.subsection_title("(1) Legal basis (Art. 36 para. 1)")
+    pdf.body_text("Art. 40 Cantonal Police Statute: general and abstract (applies to all demonstrations). A cantonal statute enacted by the legislature. The refusal of a demonstration permit is a significant restriction requiring a formal statute -- this requirement is met.")
+
+    pdf.subsection_title("(2) Public interest (Art. 36 para. 2)")
+    pdf.body_text("Public safety is a recognized police interest. The recent violent incidents provide a basis for concern. Public interest exists.")
+
+    pdf.subsection_title("(3) Proportionality (Art. 36 para. 3)")
+    pdf.bullet("**Adequate**: Refusing the permit prevents potential violence at the location.")
+    pdf.bullet("**Necessary**: A blanket refusal may not be necessary. Less restrictive alternatives exist: (a) require the demonstration at a different location, (b) impose conditions (no weapons, time limits), (c) provide increased police presence. The animal rights association has no connection to the previous violent incidents.")
+    pdf.bullet("**Proportionate in narrow sense**: A general refusal based on prior unrelated incidents disproportionately restricts the animal rights association's fundamental rights relative to the safety concern. The association has shown no propensity for violence.")
+
+    pdf.subsection_title("(4) Essence (Art. 36 para. 4)")
+    pdf.body_text("A blanket refusal of all demonstrations due to prior incidents by different groups could amount to censorship-like prior restraint. The essence of freedom of assembly would be violated if authorities systematically prevented assemblies based on content or past events by other groups.")
+
+    pdf.body_text("**Conclusion**: The restriction is likely **unlawful** -- the refusal is disproportionate given less restrictive alternatives and the association's lack of connection to prior violence.")
+
+    # ===================================================================
+    # FREEDOM OF DOMICILE / EXPULSION
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("FREEDOM OF DOMICILE (ART. 24 CST)")
+
+    pdf.bullet("Para. 1: Right to establish domicile anywhere in Switzerland, right to sojourn anywhere")
+    pdf.bullet("Para. 2: Right to leave Switzerland; right to enter Switzerland (important for Swiss citizens abroad)")
+    pdf.bullet("Includes right to passport")
+    pdf.bullet("May be limited (e.g., police officers required to live near duty station). Fiscal reasons alone insufficient.")
+    pdf.bullet("**Beneficiaries**: Only Swiss citizens (Art. 24 para. 1 explicit). EU citizens have similar rights via bilateral agreement.")
+    pdf.bullet("**Essence**: Swiss citizens may not be expelled; may only be extradited with consent (Art. 25 para. 1).")
+
+    pdf.section_title("Protection Against Expulsion, Extradition, Deportation (Art. 25 Cst)")
+
+    pdf.bullet("**Art. 25 para. 1**: Swiss citizens protected from expulsion and involuntary extradition")
+    pdf.bullet("**Art. 25 para. 2**: Refugees may not be deported/extradited to state of persecution (non-refoulement). Exception: Art. 5 para. 2 Federal Asylum Act (particularly serious felony, threat to security)")
+    pdf.bullet("**Art. 25 para. 3**: No deportation to state where person faces torture/cruel treatment. Applies to everybody. Absolute, part of ius cogens.")
+
+    pdf.body_text("Refugee definition (Art. 3 para. 1 Federal Asylum Act): persons subject to or fearing serious disadvantages for reasons of race, religion, nationality, social group membership, or political opinions.")
+    pdf.bullet("Hirsi Jamaa v. Italy (ECtHR GC, 2012): Somali/Eritrean migrants intercepted at sea, sent back to Libya; violation of Art. 3 ECHR")
+
+    # ===================================================================
+    # RIGHT TO PROPERTY
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("RIGHT TO PROPERTY (ART. 26 CST)")
+
+    pdf.article_box([
+        "**Art. 26 para. 1 Cst**: The right to own property is guaranteed",
+        "**Art. 26 para. 2 Cst**: Expropriation and equivalent restrictions shall be compensated in full",
+        "**Art. 1 Protocol No. 1 ECHR**: Protection of property (not ratified by Switzerland)",
+    ])
+
+    pdf.section_title("Scope: Broad Interpretation of 'Property'")
+    pdf.body_text("Includes: immovable property (Art. 655-712t CC), movable objects (Art. 713-729 CC), limited rights in rem (Art. 730-915 CC), contractual rights of economic value, intangible property rights, ownership from concessions (e.g., water rights).")
+
+    pdf.section_title("Three Guarantees (from Lecture)")
+
+    pdf.subsection_title("1. Institutional Guarantee (Art. 26 para. 1)")
+    pdf.body_text("Preservation of the essential rights of an owner to dispose and make use of property. Lawmakers must preserve essential rights of owners. Replacing real property with state licenses would violate Constitution.")
+
+    pdf.subsection_title("2. Individual Guarantee (Art. 26 para. 1)")
+    pdf.body_text("Protection of individual property in a given situation from state intrusion. Directed at lawmakers AND executive authorities. Restrict only under Art. 36 conditions.")
+
+    pdf.subsection_title("3. Compensation Guarantee (Art. 26 para. 2)")
+    pdf.body_text("Full compensation for expropriations and equivalent restrictions.")
+
+    pdf.section_title("Types of Restrictions (from Lecture Flowchart)")
+
+    pdf.subsection_title("Formal Expropriation")
+    pdf.body_text("Compulsory purchase: ownership transferred from individual to the state. Full compensation guaranteed (Art. 26 para. 2).")
+    pdf.bullet("Example: 30cm strip of A.'s land transferred to city of Bern for railway construction")
+
+    pdf.subsection_title("Substantive Expropriation -- Definition 1")
+    pdf.body_text("The previous or foreseeable future use of property is prohibited or limited in a serious manner, i.e. the owner is deprived of an essential right following from property. Full compensation guaranteed.")
+    pdf.bullet("Example: A.'s lot rezoned from building area to sport/education facilities only")
+
+    pdf.subsection_title("Substantive Expropriation -- Definition 2: Special Sacrifice")
+    pdf.body_text("An owner is affected by a restriction on property in such a specific manner that it would be unacceptable not to pay compensation. Full compensation guaranteed.")
+    pdf.bullet("Example: Owners of 590 archaeological pieces subjected to duty to get permission + prohibition to alter pieces, even for restoration")
+
+    pdf.subsection_title("Other Restrictions (No Compensation)")
+    pdf.body_text("Restrictions that do not amount to expropriation and do not constitute a special sacrifice. No compensation. Example: building height regulations.")
+
+    pdf.bullet("**Beneficiaries**: All natural persons AND legal persons.")
+    pdf.bullet("**Essence**: Right to property as institution. Legislation extinguishing property right per se would violate Constitution.")
+
+    # ===================================================================
+    # ECONOMIC FREEDOM
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("ECONOMIC FREEDOM (ART. 27 CST)")
+
+    pdf.article_box([
+        "**Art. 27 para. 1 Cst**: Economic freedom is guaranteed",
+        "**Art. 27 para. 2 Cst**: Includes freedom to choose an occupation and freedom to pursue a private economic activity",
+        "**Art. 94 para. 1 Cst**: Confederation and cantons shall observe the principle of economic freedom",
+        "**Art. 94 para. 4 Cst**: Measures deviating from economic freedom are permitted only if provided for in the Constitution or based on cantonal monopoly rights",
+    ])
+
+    pdf.section_title("Three Key Functions")
+    pdf.bullet("(1) **Institutional function**: Choice of free market economic system (Art. 94 Cst -- free market/competition principles)")
+    pdf.bullet("(2) **Federal function**: Unified national economic area, preventing cantonal protectionism (Art. 95 para. 2 -- profession recognized throughout CH)")
+    pdf.bullet("(3) **Individual function (Art. 27 para. 2)**: Protects all private economic activities aimed at profit/income")
+
+    pdf.body_text("Art. 27 para. 2 guarantees three aspects:")
+    pdf.bullet("Free **choice of profession** (all private sector occupations; no right to state employment)")
+    pdf.bullet("Free **access** to private economic activities (state may not hinder market access)")
+    pdf.bullet("Free **exercise** of economic activity (choice of means, organization, employment policy, advertising, contract partners, contract content)")
+
+    pdf.section_title("Restrictions: Deviating vs. Compatible (from Lecture Flowchart)")
+
+    pdf.subsection_title("Compatible with Economic Freedom Principle")
+    pdf.body_text("State measures compatible with Art. 94 para. 1: lawful under Art. 36 Cst conditions. Police interests are main justifications (health, safety, morals, good faith in business). Must also respect equal treatment of competitors.")
+
+    pdf.subsection_title("Deviating from Economic Freedom Principle")
+    pdf.body_text("Measures designed to restrain competition. Permitted ONLY if provided for in the Constitution or based on cantonal monopoly rights (Art. 94 para. 4). Constitutional authorizations: structural policy (Art. 103), stabilization policy (Art. 100(3)), foreign trade (Art. 101(2)), national supply (Art. 102(2)), agriculture (Art. 104(2)). Cantonal monopolies: mining, hunting, fishing.")
+    pdf.body_text("If no constitutional basis or cantonal monopoly right: the measure is **unlawful**.")
+
+    pdf.subsection_title("Equal Treatment of Competitors (from Lecture)")
+    pdf.body_text("State regulations in economic matters must be neutral and may not favor one direct competitor over another. Direct competitors = members of the same branch offering the same products to the same consumer group to satisfy demand of that group (BGE 121 I 129).")
+
+    pdf.section_title("Beneficiaries")
+    pdf.bullet("Swiss citizens and Swiss private law legal persons")
+    pdf.bullet("Foreign nationals with permanent or renewable residency permits")
+    pdf.bullet("EU/EFTA citizens")
+    pdf.bullet("State employees cannot invoke when exercising state function")
+    pdf.bullet("Foreign legal persons if treaty-based right exists")
+
+    pdf.section_title("Essence")
+    pdf.bullet("**Individual function**: Right to choose profession/occupation. Forced labor violates essence (Art. 4 ECHR, Art. 8 ICCPR).")
+    pdf.bullet("**Institutional function**: Free market economic system as institution. Violated if state had general co-determination right in business.")
+
+    # ===================================================================
+    # LECTURE CASE 3 APPLICATION: FOOD TRUCK
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("CASE APPLICATION: WINTERTHUR FOOD TRUCK")
+
+    pdf.section_title("Step 1: Is a Fundamental Right Affected?")
+    pdf.bullet("**Guarantee**: Art. 27 Cst (economic freedom) is guaranteed nationally.")
+    pdf.bullet("**Scope**: K.'s food truck business aims to gain income. Art. 27 para. 2 guarantees free access to private economic activities. Scope is affected.")
+    pdf.bullet("**Beneficiary**: K. is of Indian nationality but has a permanent residency permit. He is therefore a beneficiary of Art. 27 Cst.")
+    pdf.bullet("**Addressee**: The cantonal administrative police is a state authority.")
+    pdf.body_text("**Conclusion**: Economic freedom is affected.")
+
+    pdf.section_title("Step 2: Is the Restriction Lawful?")
+
+    pdf.subsection_title("Version 1: Competition Complaints")
+    pdf.body_text("Reason: food truck competes with local restaurants who complained about difficult economic situation.")
+    pdf.bullet("**Deviating or compatible?** Withdrawing a permit to protect existing restaurants from competition is a measure designed to restrain competition. This is a measure **deviating** from the principle of economic freedom.")
+    pdf.bullet("**Art. 94 para. 4**: Is there a constitutional basis or cantonal monopoly right? No. Restaurant competition is not covered by any constitutional authorization. No cantonal monopoly right applies.")
+    pdf.body_text("**Conclusion**: The measure is **unlawful**. No need to check Art. 36 conditions -- the measure fails at the first hurdle.")
+
+    pdf.subsection_title("Version 2: Hygiene Violation")
+    pdf.body_text("Reason: cantonal chemist criticised the hygiene.")
+    pdf.bullet("**Deviating or compatible?** Hygiene enforcement is a police measure (public health). It is **compatible** with the principle of economic freedom. Proceed to Art. 36.")
+    pdf.bullet("**Legal basis**: Art. 26 para. 1 lit. b Cantonal Health Statute. General and abstract cantonal statute. Withdrawal of permits for health offences is a significant restriction with a formal statutory basis.")
+    pdf.bullet("**Public interest**: Public health is a recognized police interest.")
+    pdf.bullet("**Proportionality**: Adequate (withdrawal prevents health risk). Necessary? A warning (lit. a) would be less restrictive for a first offence. Withdrawal may be disproportionate if this was K.'s first hygiene issue -- a warning or deadline to fix conditions might suffice. If repeated offences, withdrawal is necessary.")
+    pdf.bullet("**Essence**: Not violated -- K. can still choose another profession or fix hygiene and reapply.")
+    pdf.bullet("**Equal treatment of competitors**: If similar hygiene violations at restaurants are not sanctioned with permit withdrawal, K. may have a claim under equal treatment.")
+
+    pdf.body_text("**Conclusion**: Depends on severity and prior history. First offence -- likely disproportionate (warning first). Repeated offences -- likely lawful.")
+
+    # ===================================================================
+    # EQUALITY BEFORE THE LAW
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("EQUALITY BEFORE THE LAW (ART. 8 CST)")
+
+    pdf.body_text("Unlike civil liberties, equality is NOT restricted to a particular characteristic/activity/institution but informs state action in **every field of law**.")
+
+    pdf.article_box([
+        "**Art. 8 para. 1 Cst**: General equal protection (equal treatment + differentiation precepts)",
+        "**Art. 8 para. 2 Cst**: Non-discrimination (origin, race, gender, age, language, social position, way of life, convictions, disability)",
+        "**Art. 8 para. 3 Cst**: Equality of men and women; sentence 3: equal pay for equal value work (direct Drittwirkung)",
+        "**Art. 8 para. 4 Cst**: Mandate to eliminate disability discrimination",
+        "**Art. 14 ECHR**: Prohibition of discrimination | **Art. 26 ICCPR**: Equal protection",
+    ])
+
+    pdf.section_title("Art. 8 para. 1: General Equal Protection")
+    pdf.bullet("**Equal treatment precept**: No legal distinctions without objective/reasonable grounds for similar cases")
+    pdf.bullet("**Differentiation precept**: May not treat essentially different circumstances identically")
+    pdf.body_text("Binds all state authorities at all levels. FSC exercises restraint, only intervenes for apparent violations. Different application across cantons does not violate Art. 8(1). Unlawful application generally doesn't create right to same unlawful treatment (legality overrides equality), EXCEPT when authority constantly derogates and indicates it won't comply in future.")
+
+    pdf.section_title("Art. 8 para. 2: Non-Discrimination")
+    pdf.body_text("Prohibited grounds: origin, race, gender, age, language, social position, way of life, religious/ideological/political convictions, disability. List is illustrative, not exhaustive. Distinctions based on listed grounds create a presumption of discrimination (rebuttable with adequate justification).")
+
+    pdf.subsection_title("Direct vs. Indirect Discrimination")
+    pdf.bullet("**Direct discrimination**: Adverse distinction directly related to prohibited ground without adequate justification")
+    pdf.bullet("**Indirect discrimination**: Neutral measure with detrimental effects disproportionately affecting protected group, without serious/objective justification")
+    pdf.bullet("Timishev v. Russia (ECtHR, 2005): refused entry based on Chechen origin; racial discrimination")
+
+    pdf.section_title("Art. 8 para. 3: Equality of Men and Women")
+    pdf.bullet("**Sentence 1**: Directly enforceable. State may not treat differently based on gender. Exceptions only for inherent necessity (biological differences, e.g., maternity). Constitutional derogations: Art. 59 (military service for men).")
+    pdf.bullet("**Sentence 2**: Mandate to lawmakers for de jure and de facto equality. Federal Act on Gender Equality (1995, SR 151.1). Affirmative action permitted if adequate, necessary, balanced.")
+    pdf.bullet("**Sentence 3**: Equal pay for work of equal value. Applies to state AND private employers (**direct third-party effect**). Women still earn considerably less.")
+
+    pdf.section_title("Art. 8 para. 4: Disability")
+    pdf.body_text("Requires lawmakers to introduce measures. Does NOT confer enforceable individual rights. Federal Act on Elimination of Discrimination Against People with Disabilities (2002, SR 151.3).")
+
+    pdf.bullet("**Beneficiaries**: Art. 8(1): natural and legal persons. Art. 8(2)-(3) sentence 1: natural persons only.")
+
+    # ===================================================================
+    # PROTECTION AGAINST ARBITRARINESS
+    # ===================================================================
+    pdf.section_title("Protection Against Arbitrariness / Good Faith (Art. 9 Cst)")
+
+    pdf.subsection_title("Prohibition of Arbitrariness")
+    pdf.body_text("Subjective and fully enforceable fundamental right (unique to Switzerland). Safeguards minimum standard of justice. Subsidiary character: usually invoked as ultima ratio when no other fundamental right available.")
+    pdf.bullet("Arbitrary legislation: not merely incorrect but plainly untenable, senseless, or useless")
+    pdf.bullet("Arbitrary application: manifestly unfounded decision; obvious contradiction with facts; violates undisputed legal principle; violates idea of justice in shocking manner")
+
+    pdf.subsection_title("Principle of Good Faith (Art. 9, Art. 5 para. 3 Cst)")
+    pdf.bullet("Three aspects: (1) right to protection of confidence, (2) prohibition of abuse of rights, (3) prohibition of contradictory behavior (actus contrarius)")
+    pdf.bullet("Protection of confidence conditions: assurance made (unconditional), legitimate and specific, caused irreversible action, balancing favors individual")
+    pdf.bullet("BGE 135 III 374: incorrect appeal instructions in court decision; good faith protects appellant who relied on them")
+
+    # ===================================================================
+    # BASIC SOCIAL RIGHTS
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("BASIC SOCIAL RIGHTS")
+
+    pdf.body_text("Three directly enforceable social rights (unlike social objectives in Art. 41 which are programmatic):")
+
+    pdf.section_title("Right to Assistance When in Need (Art. 12 Cst)")
+    pdf.body_text("FSC recognized implied right to subsistence minimum in 1995. Persons in need and unable to provide for themselves have right to assistance/care. Extends only to means indispensable for living in dignity (Art. 7). Does NOT grant minimum salary. Principle of subsidiarity: state benefits only for those who don't refuse employment.")
+    pdf.bullet("**Absolute nature**: Cannot be restricted under Art. 36.")
+
+    pdf.section_title("Right to Primary School Education (Art. 19 Cst)")
+    pdf.body_text("Art. 62 para. 2: cantons must provide sufficient, compulsory, free education. Includes 9-11 years of compulsory school. Must be appropriate, suitable for individual, prepare for self-reliant life. Includes transportation costs if distance is prohibitive. High schools NOT covered (fees may be charged). Art. 62 para. 3: adequate education for handicapped children.")
+
+    pdf.section_title("Protection of Children and Young People (Art. 11 Cst)")
+    pdf.body_text("Children and young people have the right to special protection and to the fostering of their development.")
+
+    # ===================================================================
+    # BASIC PROCEDURAL RIGHTS
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("BASIC PROCEDURAL RIGHTS (ART. 29-32 CST)")
+
+    pdf.section_title("Procedural Safeguards in General (Art. 29)")
+
+    pdf.subsection_title("Art. 29 para. 1: Equal and Fair Treatment")
+    pdf.body_text("Governs judicial AND administrative proceedings (broader than Art. 6 ECHR which is judicial only). Includes:")
+    pdf.bullet("Equality of arms (reasonable opportunity under same conditions)")
+    pdf.bullet("Fair procedure before state authorities")
+    pdf.bullet("Prohibition of denial of justice (refusing to decide when required)")
+    pdf.bullet("Reasonable time-frame (considering case complexity, authority/party behavior)")
+    pdf.bullet("Prohibition of excessive formalism")
+
+    pdf.subsection_title("Art. 29 para. 2: Right to Be Heard")
+    pdf.body_text("Encompasses:")
+    pdf.bullet("Right to be informed")
+    pdf.bullet("Right to comment and participate")
+    pdf.bullet("Right to access records ('Akteneinsichtsrecht')")
+    pdf.bullet("Right to produce relevant evidence")
+    pdf.bullet("Right to legal counsel")
+    pdf.bullet("Obligation to state reasons ('Begrundungspflicht')")
+    pdf.body_text("Violation renders decision null and void, regardless of impact on substance.")
+
+    pdf.subsection_title("Art. 29 para. 3: Free Legal Proceedings")
+    pdf.body_text("For persons without sufficient means, unless case has no prospect of success. Provisional exemption (reimbursement possible later). Free legal counsel only if matter is sufficiently complex (e.g., serious criminal offenses).")
+
+    pdf.section_title("Guarantee of Access to Court (Art. 29a)")
+    pdf.body_text("Every person has right to have legal dispute determined by judicial authority. At least one cantonal/federal authority must do full review of law and fact.")
+
+    pdf.section_title("Special Guarantees for Judicial Proceedings (Art. 30)")
+    pdf.bullet("Art. 30(1): Right to legally constituted, competent, independent, impartial court. Bias appearance requires recusal.")
+    pdf.bullet("Art. 30(2): Civil defendants have right to be heard in canton of domicile.")
+    pdf.bullet("Art. 30(3): Public court hearings and public judgments (exceptions for minors, sexual offense victims).")
+
+    pdf.section_title("No Deprivation of Liberty Without Due Process (Art. 31)")
+    pdf.bullet("Art. 31(1): Deprivation of liberty only by statute, only in cases of Art. 5(1) ECHR")
+    pdf.bullet("Art. 31(2): Immediate information of reasons and rights (right to be silent, right to attorney). Evidence obtained in violation = inadmissible.")
+    pdf.bullet("Art. 31(3): Pre-trial detention -- right to be brought before judge without delay (24-48 hours). Judgment generally within 10 days.")
+    pdf.bullet("Art. 31(4): If not ordered by court, right to judicial review of legality.")
+
+    pdf.section_title("Criminal Proceedings (Art. 32)")
+    pdf.bullet("Art. 32(1): Presumption of innocence until legally enforceable judgment. Burden of proof on prosecution. In dubio pro reo. Extends beyond courtroom (political authorities, media must not prejudge).")
+    pdf.bullet("Art. 32(2): Right to quick/complete information of charges; right to proper defense (sufficient time, free communication with counsel, cross-examination).")
+    pdf.bullet("Art. 32(3): Right to have sentence reviewed by higher court (exception: FSC sitting at first instance).")
+
+    # ===================================================================
+    # CHAPTER H: PROTECTION OF FUNDAMENTAL RIGHTS
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("CHAPTER H: PROTECTION OF FUNDAMENTAL RIGHTS")
+
+    pdf.section_title("1. Constitutional Jurisdiction")
+    pdf.body_text("Two aims: (1) protect individuals against fundamental rights violations; (2) safeguard constitutional order.")
+
+    pdf.subsection_title("Types of Review")
+    pdf.bullet("**Abstract judicial review** ('abstrakte Normenkontrolle'): Reviews constitutionality of norms without concrete case. Preventive (norm doesn't take effect) or repressive (norm repealed).")
+    pdf.bullet("**Concrete judicial review** ('konkrete Normenkontrolle'): Subsequent to individual act (arrest, seizure). Court reviews constitutionality of underlying legal norm. If unconstitutional, court refuses to apply norm; norm itself not necessarily repealed.")
+
+    pdf.section_title("2. Remedies Under Swiss System")
+
+    pdf.subsection_title("2.1 Appeal in Public Law Matters (Art. 82-89 FSCA)")
+    pdf.body_text("Ordinary appeal for all complaints about misapplication of law and violation of fundamental rights.")
+    pdf.bullet("**Objects**: (a) decisions in public law matters, (b) cantonal legislative acts, (c) right to vote matters")
+    pdf.bullet("**Exceptions (Art. 83)**: internal/external security, neutrality, diplomatic protection, naturalization")
+    pdf.bullet("**Reasons (Art. 95)**: violation of federal law (incl. Constitution), public international law, cantonal constitutional rights")
+    pdf.bullet("**Right of appeal (Art. 89)**: participated in lower instance; specially affected; interest worthy of protection")
+    pdf.bullet("**Time limit**: 30 days (Art. 100 para. 1)")
+    pdf.bullet("**Special**: in fundamental rights cases, must explicitly state which law violated and substantiate claim (Art. 106)")
+
+    pdf.subsection_title("2.2 Subsidiary Constitutional Appeal (Art. 113-119 FSCA)")
+    pdf.body_text("Available only when no appeal under Art. 72-89 is possible.")
+    pdf.bullet("**Objects**: decisions of highest cantonal instances only")
+    pdf.bullet("**Reasons (Art. 116)**: violations of constitutional rights only")
+    pdf.bullet("**Right of appeal (Art. 115)**: participated in previous instance; interest protected by law (not merely factual)")
+    pdf.bullet("**Time limit**: 30 days")
+
+    pdf.section_title("3. Art. 190 Cst: Decisiveness of Federal Statutes")
+
+    pdf.key_concept_box("Art. 190 Cst",
+        "Federal statutes must be applied by FSC and other judicial authorities regardless of constitutionality. "
+        "Courts may review and state a statute is unconstitutional, but cannot declare it invalid. Legislature "
+        "decides whether to change the law.\n\n"
+        "Important exception: provisions violating ECHR shall not be applied (BGE 125 II 417, BGE 139 I 16).\n\n"
+        "Courts ARE required to exercise concrete review regarding norms below federal statute level "
+        "(ordinances, cantonal law). Abstract review limited to cantonal legislative acts (challenged within "
+        "30 days of publication).")
+
+    pdf.section_title("4. International Protection: ECtHR Proceedings")
+
+    pdf.subsection_title("4.1 Individual Applications (Art. 34 ECHR)")
+    pdf.body_text("After exhausting domestic remedies up to highest court, individual may file application with ECtHR. Two conditions: (1) fall into category of petitioners (natural persons, NGOs, groups of individuals); (2) be a victim (directly or indirectly affected).")
+
+    pdf.subsection_title("4.2 Admissibility Criteria (Art. 35 ECHR)")
+    pdf.bullet("**Exhaustion of domestic remedies** (Art. 35 para. 1)")
+    pdf.bullet("**Four-month time limit** after last judicial decision")
+    pdf.bullet("**Identifiable applicants** (must submit under names)")
+    pdf.bullet("**No duplicate applications**")
+    pdf.bullet("**Compatibility**: ratione temporis (after ECHR entry into force), ratione loci (within state jurisdiction), ratione personae (against bound state; applicant is victim), ratione materiae (ECHR-guaranteed rights)")
+    pdf.bullet("**Not manifestly ill-founded** and **no abuse of petition right**")
+    pdf.bullet("**Significant disadvantage** (minimum severity threshold)")
+
+    pdf.subsection_title("4.3 Judgments")
+    pdf.bullet("Single judge: clear inadmissibility, no appeal")
+    pdf.bullet("Committee of 3: inadmissibility or judgment on well-established case law")
+    pdf.bullet("Chamber of 7: admissibility and merits")
+    pdf.bullet("Grand Chamber of 17: exceptional cases (referral after Chamber judgment, or relinquishment)")
+    pdf.body_text("Final judgments are binding on states concerned (Art. 46 ECHR). Committee of Ministers monitors execution. Non-execution may lead to suspension from Council of Europe.")
+
+    # ===================================================================
+    # KEY ARTICLES SUMMARY
+    # ===================================================================
+    pdf.add_page()
+    pdf.chapter_title("KEY ARTICLES AND ABBREVIATIONS")
+
+    pdf.article_box([
+        "**Art. 7 Cst**: Human dignity (absolute, no restrictions)",
+        "**Art. 8 Cst**: Equality; para. 2: non-discrimination; para. 3: gender equality + equal pay (direct Drittwirkung)",
+        "**Art. 9 Cst**: Arbitrariness prohibition + good faith",
+        "**Art. 10 Cst**: Life (para. 1), personal liberty (para. 2), torture prohibition (para. 3, absolute)",
+        "**Art. 10a Cst**: Face covering ban (2021)",
+        "**Art. 11-12 Cst**: Protection of children; assistance when in need (absolute)",
+        "**Art. 13 Cst**: Privacy + informational self-determination",
+        "**Art. 14 Cst**: Marriage and family (marriage for all since 2022)",
+        "**Art. 15 Cst**: Religion and conscience; para. 4: negative dimension (inviolable)",
+        "**Art. 16-17 Cst**: Expression + media; Art. 17(2): censorship prohibition (absolute)",
+        "**Art. 18, 20, 21 Cst**: Language, academic freedom, artistic expression",
+        "**Art. 22-23 Cst**: Assembly + association",
+        "**Art. 24-25 Cst**: Domicile (Swiss only) + expulsion/extradition protection",
+        "**Art. 26 Cst**: Property (institutional, individual, compensation guarantees)",
+        "**Art. 27 Cst**: Economic freedom; Art. 94(4): deviating measures need constitutional basis",
+        "**Art. 28 Cst**: Professional associations + strikes",
+        "**Art. 29-32 Cst**: Procedural rights (fair trial, right to be heard, presumption of innocence)",
+        "**Art. 36 Cst**: Restrictions (legal basis, public interest, proportionality, essence)",
+        "**Art. 190 Cst**: Federal statutes decisive (exception: ECHR-violating provisions)",
+    ])
+
+    pdf.section_title("Key Abbreviations")
+    pdf.bullet("**Cst** = Federal Constitution of the Swiss Confederation")
+    pdf.bullet("**ECHR** = European Convention on Human Rights")
+    pdf.bullet("**ECtHR** = European Court of Human Rights (Strasbourg)")
+    pdf.bullet("**ICCPR** = International Covenant on Civil and Political Rights")
+    pdf.bullet("**FSC** = Federal Supreme Court")
+    pdf.bullet("**FSCA** = Federal Supreme Court Act")
+    pdf.bullet("**BGE** = Bundesgerichtsentscheid (Federal Supreme Court decision)")
+    pdf.bullet("**CC** = Swiss Civil Code")
+    pdf.bullet("**Drittwirkung** = Third-party applicability of fundamental rights")
+    pdf.bullet("**Sonderstatusverhaltnis** = Special state relationship")
+    pdf.bullet("**Institutsgarantie** = Institutional guarantee (property)")
+    pdf.bullet("**Bestandesgarantie** = Individual guarantee (property)")
+    pdf.bullet("**Wertgarantie** = Compensation guarantee (property)")
+    pdf.bullet("**Normenkontrolle** = Constitutional review (abstract/concrete)")
+    pdf.bullet("**Non-refoulement** = Prohibition of returning refugees to persecution")
+
+    out = os.path.join(os.path.dirname(__file__), "Lecture6_Civil_Liberties_Protection.pdf")
+    pdf.output(out)
+    print(f"Generated: {out}")
+
+
 if __name__ == "__main__":
     generate_lecture1()
     generate_lecture2()
     generate_lecture3()
     generate_lecture4()
     generate_lecture5()
+    generate_lecture6()
     print("\nAll law lecture notes generated successfully!")
