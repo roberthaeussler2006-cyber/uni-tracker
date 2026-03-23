@@ -2314,9 +2314,815 @@ def generate_kw11():
     print(f"Generated: {path}")
 
 
+def generate_kw12():
+    """Generate KW 12 PDF: The Labor Market (Ch 7 + Lecture 5)."""
+    pdf = NotesPDF("KW 12: The Labor Market", "Chapter 7 + Lecture 5")
+    pdf.alias_nb_pages()
+    pdf.cover_page()
+
+    # ===== LECTURE 5 CONTEXT =====
+    pdf.add_page()
+    pdf.chapter_title("LECTURE 5 CONTEXT: THE LABOR MARKET")
+
+    pdf.section_title("Learning Objectives")
+    pdf.bullet("Labor supply and demand")
+    pdf.bullet("Types and causes of unemployment")
+    pdf.bullet("The labor market in an economic model (WS-PS framework)")
+    pdf.bullet("State interventions and labor market policies")
+    pdf.body_text("Literature: Blanchard, Macroeconomics, Chapter 7.")
+
+    pdf.section_title("From Short Run to Medium Run")
+    pdf.body_text("In the short-run IS-LM model, prices and resource scarcity were neglected. Production was determined entirely by demand (a reversal of Say's law). But this has limits:")
+    pdf.bullet("If the government increases spending G, the labor market may lack suitable personnel")
+    pdf.bullet("Overtime leads to wage increases and price increases")
+    pdf.bullet("Tax cuts raise demand, but supply only increases in a limited way, leading to inflation")
+    pdf.bullet("Government debt must eventually be repaid")
+    pdf.bullet("Money supply expansion causes inflation in the medium run")
+    pdf.body_text("In the medium run, the economy returns to an equilibrium where production equals output capacity. The focus shifts to **labor as the scarce production factor**, and we examine supply-side constraints.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 7,
+        'Figure: Swiss Real GDP with 1.6% trend line - Booms and recessions fluctuate around the trend (Source: SECO)')
+
+    pdf.key_concept_box("Short Run vs Medium Run",
+        "Short run: demand determines output (IS-LM). Medium run: economy returns to its output capacity, "
+        "determined by the labor market. We are now examining what determines the trend line level, "
+        "not its slope (which is for lectures 10-11 on growth).")
+
+    # ===== UNEMPLOYMENT DEFINITIONS =====
+    pdf.add_page()
+    pdf.chapter_title("UNEMPLOYMENT: DEFINITIONS AND MEASUREMENT")
+
+    pdf.section_title("Stylized Facts")
+    pdf.bullet("Unemployment rates vary significantly across countries and over time")
+    pdf.bullet("Unemployment never drops to zero, even in good times")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 8,
+        'Figure: Unemployment rates for USA, Germany, Spain, and Switzerland (1980-2025, ILO/IFS data)')
+
+    pdf.section_title("The Labor Market Tree (Swiss Data, 2024)")
+    pdf.body_text("The labor market can be visualized as a tree diagram showing population categories:")
+    pdf.bullet("**Total population**: 7,508k")
+    pdf.bullet("**Labor force**: 4,824k (those who are employed or actively seeking work)")
+    pdf.bullet("Employed: 4,584k", level=1)
+    pdf.bullet("Unemployed: 241k", level=1)
+    pdf.bullet("**Out of labor force**: 2,683k (not working and not actively seeking work)")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 10,
+        'Figure: Swiss Labor Market Tree Diagram (2024 data, in thousands)')
+
+    pdf.section_title("Key Definitions")
+    pdf.formula_block(r"\text{Employment rate} = \frac{\text{Employed}}{\text{Reference population}}")
+    pdf.formula_block(r"\text{Participation rate} = \frac{\text{Civilian labor force}}{\text{Reference population}}")
+    pdf.formula_block(r"\text{Unemployment rate} = 1 - \frac{\text{Employment rate}}{\text{Participation rate}}")
+    pdf.bullet("**Discouraged workers**: People who have given up looking for work. They are not counted as unemployed (not in the labor force).")
+    pdf.bullet("The **employment rate** may be a better indicator than the unemployment rate because it captures discouraged workers.")
+
+    pdf.subsection_title("ILO vs SECO Measurement (Switzerland)")
+    pdf.bullet("**SECO** measures registered unemployment (people registered at employment offices)")
+    pdf.bullet("**ILO** measures survey-based unemployment (people actively seeking work)")
+    pdf.bullet("The ILO unemployment rate is considerably **higher** than the SECO rate in Switzerland")
+    pdf.bullet("This difference matters for international comparisons")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 9,
+        'Figure: Swiss Unemployment Rate Over Time (SECO) and Seasonal Variation by Month')
+
+    # ===== UNEMPLOYMENT DYNAMICS =====
+    pdf.add_page()
+    pdf.chapter_title("UNEMPLOYMENT DYNAMICS")
+
+    pdf.section_title("Labor Market Flows")
+    pdf.body_text("The labor market is characterized by large flows between three states: employed, unemployed, and out of the labor force.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 12,
+        'Figure: Labor Market Flow Diagram (Swiss data, Dec 31 2024, in thousands) - Flows between employed (3,966), unemployed (238), and out of labor force (3,850)')
+
+    pdf.section_title("Equilibrium Unemployment Rate Model")
+    pdf.body_text("Consider a simple two-state model with only employed (N) and unemployed (U):")
+    pdf.bullet("**p** = probability of losing a job (inflow rate to unemployment)")
+    pdf.bullet("**s** = probability of finding a job (outflow rate from unemployment)")
+    pdf.bullet("**L** = N + U (total labor force)")
+
+    pdf.body_text("In equilibrium, inflows to unemployment equal outflows:")
+    pdf.formula_block(r"p \cdot N = s \cdot U")
+    pdf.body_text("Substituting N = L - U and solving for the unemployment rate u = U/L:")
+    pdf.formula_block(r"u^* = \frac{p}{p + s}")
+
+    pdf.key_concept_box("Equilibrium Unemployment Rate",
+        "u* = p/(p+s). The equilibrium unemployment rate depends on the ratio of the job-loss rate (p) "
+        "to the sum of job-loss and job-finding rates (p+s). A higher job-finding rate s reduces unemployment; "
+        "a higher job-loss rate p increases it.")
+
+    pdf.subsection_title("Numerical Example")
+    pdf.bullet("If p = 1.5% and s = 20%:")
+    pdf.formula_block(r"u^* = \frac{0.015}{0.015 + 0.20} = \frac{0.015}{0.215} \approx 7.0\%")
+
+    pdf.subsection_title("International Comparison (Elsby et al., REStat 2013)")
+    pdf.body_text("Job-finding and job-loss rates vary substantially across countries:")
+    widths = [35, 25, 25, 25]
+    pdf.table_header(["Country", "u (%)", "s (%)", "p (%)"], widths)
+    pdf.table_row(["Australia", "6.2", "25.7", "1.7"], widths, True)
+    pdf.table_row(["Germany", "8.0", "6.8", "0.6"], widths)
+    pdf.table_row(["France", "9.2", "7.3", "0.7"], widths, True)
+    pdf.table_row(["Japan", "4.1", "17.2", "0.7"], widths)
+    pdf.table_row(["Switzerland", "4.4", "33.0", "1.5"], widths, True)
+    pdf.table_row(["USA", "6.1", "56.5", "3.6"], widths)
+    pdf.table_row(["UK", "5.9", "26.6", "1.7"], widths, True)
+    pdf.ln(2)
+
+    pdf.body_text("Switzerland: very high job-finding rate (33%) combined with moderate job-loss rate (1.5%) explains its low unemployment. The US has the highest job-finding rate (56.5%) but also the highest job-loss rate (3.6%).")
+    pdf.bullet("Differences are partly explained by **employment protection legislation** and **severance payments**")
+    pdf.bullet("More advanced: **search-and-matching models** explain how p and s are determined")
+
+    # ===== TYPES AND CAUSES =====
+    pdf.add_page()
+    pdf.chapter_title("TYPES AND CAUSES OF UNEMPLOYMENT")
+
+    pdf.section_title("Types of Unemployment")
+    pdf.bullet("**Seasonal unemployment**: Due to seasonal fluctuations in demand (e.g., tourism, agriculture)")
+    pdf.bullet("**Cyclical unemployment**: Due to business cycle fluctuations (recessions)")
+    pdf.bullet("**Frictional unemployment**: Due to the time it takes to match workers with jobs (always exists, even in good times)")
+    pdf.bullet("**Structural unemployment**: Due to mismatches between skills and jobs, or labor market institutions")
+
+    pdf.body_text("Also relevant: the **employment rate** and **underemployment** (5% in Switzerland, 2024, BFS). Long-term and youth unemployment are particularly problematic due to the loss of human capital.")
+
+    pdf.section_title("Causes: Deviations from a Perfect Labor Market")
+    pdf.body_text("In a perfectly competitive labor market, wages would adjust to clear the market. In reality, several factors prevent this:")
+    pdf.bullet("(1) **Minimum wage / reservation wage**: Workers won't accept wages below a certain threshold")
+    pdf.bullet("(2) **Unions**: Collective bargaining (insider-outsider theory). Insiders negotiate wages above market-clearing level, keeping outsiders unemployed")
+    pdf.bullet("(3) **Market power of firms**: Firms produce less than the competitive level, employing fewer workers")
+    pdf.bullet("(4) **Taxes and social contributions**: Create a wedge between income received and labor costs paid by firms")
+
+    # ===== TEXTBOOK: WAGE DETERMINATION =====
+    pdf.add_page()
+    pdf.chapter_title("CHAPTER 7: THE LABOR MARKET")
+
+    pdf.section_title("7-1 A Tour of the Labor Market")
+    pdf.body_text("The textbook uses U.S. data (2014) to illustrate labor market structure:")
+    pdf.bullet("Population: 318.9M; Non-institutional civilian population: 247.9M")
+    pdf.bullet("Civilian labor force: 155.9M; Employed: 146.3M; Unemployed: 9.5M")
+    pdf.bullet("Participation rate: 62.9%; Unemployment rate: 6.1%")
+    pdf.bullet("Large monthly flows: 8.2M separations per month (3/4 quits, 1/4 layoffs)")
+    pdf.bullet("Average duration of unemployment: 2-3 months in the US")
+
+    pdf.section_title("7-2 Movements in Unemployment")
+    pdf.bullet("U.S. unemployment rate (1948-2014) has fluctuated between 3% and 10%")
+    pdf.bullet("Two features: (1) upward trend until mid-1980s (from 4.5% to 7.3%), then decline to 4.6% by 2006; (2) cyclical peaks associated with recessions")
+    pdf.bullet("Higher unemployment means both a lower chance of **finding** a job and a higher chance of **losing** one")
+
+    pdf.section_title("7-3 Wage Determination")
+    pdf.body_text("How are wages set? Two key mechanisms:")
+
+    pdf.subsection_title("Collective Bargaining")
+    pdf.bullet("In the US: less than 10% of workers covered by collective bargaining")
+    pdf.bullet("In continental Europe: much more important (e.g., Germany, France, Scandinavia)")
+    pdf.bullet("Wages are typically fixed for 1-2 years; adjustments are not continuous")
+    pdf.bullet("For higher-qualified jobs, individual negotiations are more common")
+
+    pdf.subsection_title("Why Wages Exceed Reservation Wages")
+    pdf.body_text("Two main explanations for why workers are paid above their reservation wage:")
+    pdf.bullet("(1) **Bargaining power**: Depends on the nature of the job (replacement cost, firm-specific skills) and labor market conditions (unemployment rate)")
+    pdf.bullet("(2) **Efficiency wages**: Firms voluntarily pay above-market wages to reduce turnover, increase productivity, and attract better workers")
+
+    pdf.key_concept_box("Henry Ford's $5 Day (1914)",
+        "In 1914, Henry Ford doubled his workers' wages from $2.50 to $5 per day. "
+        "Result: turnover dropped 87%, absenteeism dropped 75%, productivity increased significantly. "
+        "This is a classic example of efficiency wages in practice.")
+
+    pdf.subsection_title("The Wage-Setting Equation")
+    pdf.body_text("Wages depend on three factors:")
+    pdf.formula_block(r"W = P^e \cdot F(u, z)")
+    pdf.formula_block(r"\text{where } F \text{ is decreasing in } u \text{ and increasing in } z", fontsize=12)
+    pdf.bullet("**W**: Nominal wage")
+    pdf.bullet("**P^e**: Expected price level (workers care about real wages, W/P)")
+    pdf.bullet("**u**: Unemployment rate (higher u weakens workers' bargaining power, lowers wages)")
+    pdf.bullet("**z**: Catch-all variable for other factors that increase wages:")
+    pdf.bullet("Unemployment insurance (higher benefits -> higher z -> higher wages)", level=1)
+    pdf.bullet("Employment protection legislation", level=1)
+    pdf.bullet("Minimum wage", level=1)
+
+    # ===== PRICE DETERMINATION =====
+    pdf.section_title("7-4 Price Determination")
+    pdf.body_text("The production function:")
+    pdf.formula_block(r"Y = A \cdot N")
+    pdf.body_text("where A is labor productivity. The textbook simplifies by setting A = 1, so Y = N (one worker produces one unit of output). The marginal cost of production is then W/A.")
+
+    pdf.subsection_title("Price Setting with Market Power")
+    pdf.body_text("Under perfect competition, P = marginal cost = W/A. With market power (imperfect competition), firms charge a markup:")
+    pdf.formula_block(r"P = (1 + \mu) \cdot \frac{W}{A}")
+    pdf.bullet("**mu** (or m in textbook notation): the markup over marginal cost")
+    pdf.bullet("mu = 0 under perfect competition; mu > 0 with market power")
+    pdf.bullet("Higher market power (fewer competitors) -> higher markup")
+
+    pdf.subsection_title("Markup Derivation from Profit Maximization (Lecture)")
+    pdf.body_text("The lecture provides a deeper derivation not in the textbook. Firms maximize profit:")
+    pdf.formula_block(r"\Pi = P(Y) \cdot Y - W \cdot N \quad \text{with } N = Y/A")
+    pdf.body_text("First-order condition:")
+    pdf.formula_block(r"P(Y) + \frac{dP}{dY} \cdot Y = \frac{W}{A}")
+    pdf.body_text("Introducing the price elasticity of demand:")
+    pdf.formula_block(r"\varepsilon_P = \frac{dY(P)}{dP} \cdot \frac{P}{Y(P)}")
+    pdf.body_text("The first-order condition becomes:")
+    pdf.formula_block(r"P(Y)\left(1 + \frac{1}{\varepsilon_P}\right) = \frac{W}{A}")
+    pdf.body_text("The markup is therefore:")
+    pdf.formula_block(r"\mu = \frac{-1}{1 + \varepsilon_P}")
+    pdf.bullet("When epsilon_P -> -1 (very inelastic demand): mu -> infinity (price far above marginal cost)")
+    pdf.bullet("When epsilon_P -> -infinity (perfectly elastic demand): mu -> 0 (perfect competition, price = marginal cost)")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 23,
+        'Figure: Monopolist Pricing - Marginal revenue = marginal cost, output Y^M below competitive level Y*')
+
+    # ===== NATURAL RATE =====
+    pdf.add_page()
+    pdf.chapter_title("THE NATURAL RATE OF UNEMPLOYMENT (WS-PS MODEL)")
+
+    pdf.section_title("7-5 Deriving the Natural Rate")
+    pdf.body_text("We now combine wage-setting and price-setting to find the equilibrium unemployment rate. Key assumption for the medium run: the actual price level equals the expected price level (P^e = P).")
+
+    pdf.subsection_title("Wage-Setting Relation (WS)")
+    pdf.body_text("Dividing the wage equation by P (and using P^e = P):")
+    pdf.formula_block(r"\frac{W}{P} = F(u, z)")
+    pdf.bullet("This is a **downward-sloping** curve in (u, W/P) space: higher unemployment lowers real wages")
+
+    pdf.subsection_title("Price-Setting Relation (PS)")
+    pdf.body_text("From the price equation P = (1 + mu) * W/A, solving for the real wage:")
+    pdf.formula_block(r"\frac{W}{P} = \frac{A}{1 + \mu}")
+    pdf.bullet("This is a **horizontal line** in (u, W/P) space: the real wage implied by price-setting does not depend on unemployment")
+    pdf.bullet("Note: with A = 1 (textbook simplification), W/P = 1/(1 + m)")
+
+    pdf.subsection_title("Equilibrium: The Natural Rate")
+    pdf.body_text("The natural rate of unemployment u_n is found where WS = PS:")
+    pdf.formula_block(r"F(u_n, z) = \frac{A}{1 + \mu}")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 27,
+        'Figure: WS-PS Diagram - Equilibrium determines the natural rate of unemployment u_n')
+
+    pdf.key_concept_box("Why Does Unemployment Exist?",
+        "Demand side: firms have market power, produce 'too little', employ fewer workers than the competitive level. "
+        "Supply side: unions decrease wages only to a limited extent (insider-outsider problem). "
+        "The WS-PS model explains structural and frictional unemployment, NOT seasonal or cyclical unemployment.")
+
+    # ===== COMPARATIVE STATICS =====
+    pdf.section_title("Comparative Statics")
+
+    pdf.subsection_title("Effect of Higher Unemployment Benefits (increase in z)")
+    pdf.bullet("Higher z shifts the WS curve to the **right** (upward)")
+    pdf.bullet("Workers demand higher real wages at every unemployment rate")
+    pdf.bullet("Equilibrium moves along the PS line: u_n **increases**, real wage unchanged")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 29,
+        'Figure: Effect of Higher z (Unemployment Benefits) - WS shifts right, natural unemployment increases')
+
+    pdf.subsection_title("Effect of Higher Markup (increase in mu)")
+    pdf.bullet("Higher mu shifts the PS line **down** (firms take a larger share, real wage falls)")
+    pdf.bullet("WS unchanged: u_n **increases**, real wage **falls**")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 30,
+        'Figure: Effect of Higher Markup - PS shifts down, natural unemployment increases, real wage falls')
+
+    pdf.subsection_title("Effect of a Binding Minimum Wage (Lecture)")
+    pdf.bullet("A minimum wage above the equilibrium acts like an increase in z")
+    pdf.bullet("WS shifts right/upward; PS unchanged; unemployment **increases**")
+    pdf.bullet("**Ripple effect**: unions demand higher wages, firms pass these on as higher prices, sell and produce less")
+    pdf.bullet("Medium-run conclusion: minimum wages lead to higher prices AND higher unemployment")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 31,
+        'Figure: Effect of a Binding Minimum Wage - WS shifts right, unemployment increases')
+
+    pdf.subsection_title("Empirical Evidence: Hartz Reforms in Germany (Lecture)")
+    pdf.body_text("The Hartz IV reform (2005) reduced unemployment benefits after 12 months of unemployment. Price (2025) estimates that this reduced structural unemployment by 0.7 percentage points.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-05.pdf', 32,
+        'Figure: Hartz Reform Evidence - Job-finding hazard rates before and after reform (Price, 2025)')
+
+    # ===== NATURAL OUTPUT =====
+    pdf.add_page()
+    pdf.chapter_title("FROM NATURAL UNEMPLOYMENT TO NATURAL OUTPUT")
+
+    pdf.section_title("7-6 Natural Employment and Output")
+    pdf.body_text("Given the natural rate of unemployment u_n, we can derive natural employment and output:")
+    pdf.formula_block(r"N_n = L \cdot (1 - u_n)")
+    pdf.formula_block(r"Y_n = A \cdot N_n = A \cdot L \cdot (1 - u_n)")
+    pdf.bullet("Y_n is the **natural level of output** (also called potential output). This is the trend line on the Swiss GDP chart.")
+    pdf.bullet("'Natural' is a misnomer; 'structural rate of unemployment' is more appropriate, since it depends on institutional factors (z, mu) that can be changed by policy")
+
+    pdf.subsection_title("Short Run vs Medium Run")
+    pdf.bullet("In the short run, P^e may differ from P, so actual unemployment can differ from u_n")
+    pdf.bullet("Key assumption: expectations are not systematically wrong, so in the medium run P^e = P")
+    pdf.bullet("If production is above potential, wages and prices rise")
+    pdf.bullet("Next lecture: inflation (Ch 8, 23.2, 23.3)")
+
+    # ===== POLICIES =====
+    pdf.section_title("Policies to Reduce u_n and Increase Y_n (Lecture)")
+    pdf.body_text("From the equation Y_n = A * L * (1 - u_n), there are three levers:")
+
+    pdf.subsection_title("1. Increase Productivity A")
+    pdf.bullet("Education and training")
+    pdf.bullet("Capital investment")
+    pdf.bullet("Innovation and R&D")
+    pdf.bullet("Better management practices")
+
+    pdf.subsection_title("2. Lower Markup mu (Competition Policy)")
+    pdf.bullet("Antitrust enforcement")
+    pdf.bullet("Reducing barriers to entry")
+    pdf.bullet("More competition leads to lower prices and higher employment")
+
+    pdf.subsection_title("3. Lower z (Labor Market Institutions)")
+    pdf.bullet("Reform unemployment insurance (wage replacement rates vary widely across countries)")
+    pdf.bullet("Improve childcare (increase labor supply)")
+    pdf.bullet("Reform tax structure (reduce the wedge between income and labor costs)")
+    pdf.bullet("Active labor market policy: training programs, job creation schemes")
+
+    pdf.key_concept_box("The Lump of Labor Fallacy",
+        "The mistaken belief that there is a fixed amount of work to be done. "
+        "Proposals like the 35-hour workweek or early retirement assume that reducing hours per worker "
+        "creates jobs for others. In reality, working hours are not constant - the economy adjusts.")
+
+    # ===== SUMMARY =====
+    pdf.add_page()
+    pdf.chapter_title("SUMMARY OF KEY EQUATIONS AND TERMS")
+
+    pdf.section_title("Key Equations")
+    pdf.formula_block(r"\text{Wage-setting:} \quad W = P^e \cdot F(u, z) \quad \text{(Eq. 7.1)}", fontsize=12)
+    pdf.formula_block(r"\text{Production function:} \quad Y = A \cdot N \quad \text{(textbook: } Y = N \text{ with } A = 1\text{)}", fontsize=12)
+    pdf.formula_block(r"\text{Price-setting:} \quad P = (1 + \mu) \cdot \frac{W}{A} \quad \text{(Eq. 7.3)}", fontsize=12)
+    pdf.formula_block(r"\text{WS relation:} \quad \frac{W}{P} = F(u, z) \quad \text{(Eq. 7.4, with } P^e = P\text{)}", fontsize=12)
+    pdf.formula_block(r"\text{PS relation:} \quad \frac{W}{P} = \frac{A}{1 + \mu} \quad \text{(Eq. 7.6)}", fontsize=12)
+    pdf.formula_block(r"\text{Natural rate:} \quad F(u_n, z) = \frac{A}{1 + \mu} \quad \text{(Eq. 7.7)}", fontsize=12)
+    pdf.formula_block(r"\text{Unemployment dynamics:} \quad u^* = \frac{p}{p + s} \quad \text{(Lecture only)}", fontsize=12)
+    pdf.formula_block(r"\text{Natural employment:} \quad N_n = L \cdot (1 - u_n)", fontsize=12)
+    pdf.formula_block(r"\text{Natural output:} \quad Y_n = A \cdot L \cdot (1 - u_n)", fontsize=12)
+    pdf.formula_block(r"\text{Markup from elasticity:} \quad \mu = \frac{-1}{1 + \varepsilon_P} \quad \text{(Lecture only)}", fontsize=12)
+
+    pdf.section_title("Comparative Statics Summary")
+    widths = [55, 30, 30, 30]
+    pdf.table_header(["Change", "WS shift", "PS shift", "u_n"], widths)
+    pdf.table_row(["z up (benefits, min wage)", "Right/Up", "No shift", "Increases"], widths, True)
+    pdf.table_row(["mu up (more market power)", "No shift", "Down", "Increases"], widths)
+    pdf.table_row(["A up (productivity)", "No shift", "Up", "Decreases"], widths, True)
+    pdf.ln(3)
+
+    pdf.section_title("Key Terms")
+    terms = [
+        ("Natural rate of unemployment (u_n)", "Equilibrium unemployment from WS-PS; structural + frictional"),
+        ("Wage-setting relation (WS)", "Downward-sloping: real wage demanded decreases with unemployment"),
+        ("Price-setting relation (PS)", "Horizontal: real wage implied by firms' pricing does not depend on u"),
+        ("Markup (mu or m)", "Firms charge above marginal cost due to market power"),
+        ("z (catch-all variable)", "Factors raising wages: unemployment insurance, min wage, employment protection"),
+        ("Efficiency wages", "Firms pay above reservation wage to reduce turnover and boost productivity"),
+        ("Bargaining power", "Workers' ability to negotiate wages above reservation; depends on job and labor market"),
+        ("Reservation wage", "Lowest wage a worker will accept; below this, they prefer unemployment"),
+        ("Collective bargaining", "Wage negotiation between unions and employer associations"),
+        ("Insider-outsider theory", "Insiders (employed) negotiate high wages, keeping outsiders (unemployed) out"),
+        ("Frictional unemployment", "Due to time needed to match workers with jobs; always exists"),
+        ("Structural unemployment", "Due to skill mismatches or institutional factors"),
+        ("Cyclical unemployment", "Due to business cycle downturns"),
+        ("Seasonal unemployment", "Due to seasonal demand patterns"),
+        ("Underemployment", "Workers employed below their capacity (5% in Switzerland, 2024)"),
+        ("Natural output (Y_n)", "Output when unemployment is at natural rate: Y_n = A * L * (1 - u_n)"),
+        ("Job-finding rate (s)", "Probability of moving from unemployment to employment per period"),
+        ("Job-loss rate (p)", "Probability of moving from employment to unemployment per period"),
+        ("Lump of labor fallacy", "Mistaken belief that there is a fixed amount of work in the economy"),
+        ("Hartz reforms", "German labor market reforms (2005) that reduced benefits and lowered u_n by 0.7pp"),
+        ("Employment protection legislation", "Rules making it costly to fire workers; affects p and s"),
+        ("Price elasticity of demand", "Responsiveness of demand to price; determines markup in lecture derivation"),
+    ]
+    for term, defn in terms:
+        pdf.bullet(f"**{term}**: {defn}")
+
+    path = '/Users/roberthaeussler/Claude Coding/Apps/uni tracker/notes/econ/KW12_Labor_Market.pdf'
+    pdf.output(path)
+    print(f"Generated: {path}")
+
+
+def generate_kw13():
+    """Generate KW 13 PDF: Inflation, Phillips Curve, IS-LM Extensions (Ch 8 + Lecture 6)."""
+    pdf = NotesPDF("KW 13: Inflation & The Phillips Curve", "Chapter 8 + Lecture 6")
+    pdf.alias_nb_pages()
+    pdf.cover_page()
+
+    # ===== LECTURE 6 CONTEXT =====
+    pdf.add_page()
+    pdf.chapter_title("LECTURE 6 CONTEXT: INFLATION")
+
+    pdf.section_title("Learning Objectives")
+    pdf.bullet("Economy in the medium-run")
+    pdf.bullet("Importance of inflation")
+    pdf.bullet("Explaining inflation: Quantity theory and Phillips curve")
+    pdf.bullet("Extension of the IS-LM model to include the real interest rate and risk premium")
+    pdf.body_text("Literature: Blanchard, Macroeconomics, Chapters 8, 23.2, 23.3.")
+
+    pdf.section_title("From the Labor Market to Inflation")
+    pdf.body_text("Lecture 5 introduced the medium-run: resource constraints (labor) limit potential output. A persistently higher demand only leads to higher prices. We now study the topic of inflation.")
+
+    pdf.subsection_title("Motivation: Venezuela in the IS-LM Model")
+    pdf.bullet("In the IS-LM model, increasing the money supply decreases interest rates, stimulates the economy, and increases GDP")
+    pdf.bullet("Venezuela expanded its money supply excessively -- the bolivar fuerte became practically worthless, with over 1,000,000% inflation in 2018")
+    pdf.bullet("On August 20, 2018, the new bolivar soberano was introduced at an exchange rate of 1:100,000, but lost value just as quickly")
+    pdf.bullet("Real GDP declined by more than two-thirds between 2013 and 2020")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 5,
+        'Figure: Venezuela - Excessive money supply growth led to hyperinflation and economic collapse')
+
+    # ===== INFLATION: DEFINITION AND MEASUREMENT =====
+    pdf.add_page()
+    pdf.chapter_title("INFLATION: DEFINITION AND MEASUREMENT")
+
+    pdf.section_title("Definition")
+    pdf.body_text("The inflation rate measures the rate of change of the price level over time:")
+    pdf.formula_block(r"\pi_{2025} \equiv \frac{P_{2025} - P_{2024}}{P_{2024}}")
+
+    pdf.section_title("Measurement")
+    pdf.bullet("**Consumer Price Index (CPI)**: Measures inflation in consumption. How does the price of an average basket of goods change?")
+    pdf.bullet("**GDP deflator**: Ratio of nominal GDP to real GDP. GDP deflator = Nominal GDP / Real GDP")
+    pdf.bullet("CPI and GDP deflator differ in: industrial and government consumption, imports, and the weighting of goods")
+
+    pdf.subsection_title("Problems with Measuring Inflation")
+    pdf.bullet("Quality improvements and new products make measurement difficult (Aghion et al., AER, 2019)")
+    pdf.bullet("'Shrinkflation': Same price but smaller quantity -- not captured by standard CPI")
+
+    pdf.subsection_title("Swiss CPI Basket 2025 (Weights)")
+    widths = [70, 30]
+    pdf.table_header(["Category", "Weight (%)"], widths)
+    pdf.table_row(["Housing and energy", "27.0"], widths, True)
+    pdf.table_row(["Health care", "15.6"], widths)
+    pdf.table_row(["Transport", "11.3"], widths, True)
+    pdf.table_row(["Food and non-alcoholic beverages", "10.4"], widths)
+    pdf.table_row(["Restaurants, hotels", "9.5"], widths, True)
+    pdf.table_row(["Recreation and culture", "8.9"], widths)
+    pdf.table_row(["Other goods and services", "5.8"], widths, True)
+    pdf.table_row(["Clothing and footwear", "3.6"], widths)
+    pdf.table_row(["Alcoholic beverages and tobacco", "3.5"], widths, True)
+    pdf.table_row(["Household goods and services", "3.1"], widths)
+    pdf.table_row(["Communication", "2.6"], widths, True)
+    pdf.table_row(["Education", "0.8 (est.)"], widths)
+    pdf.ln(2)
+    pdf.body_text("For comparison: food had a weight of 21% in the 1980s. CPI basket weights differ across countries (e.g., food weight: Austria 12.1%, Latvia 26.8%), complicating international comparisons.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 9,
+        'Figure: Swiss CPI Basket 2025 - Weights of main groups (Data: FSO)')
+
+    pdf.section_title("Inflation Since 1970")
+    pdf.bullet("From the mid-1980s, inflation was a limited problem in most developed countries")
+    pdf.bullet("Temporary rise in inflation rates after Covid-19")
+    pdf.bullet("Swiss inflation has been persistently lower than in other countries")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 11,
+        'Figure: International inflation rates since 1970 - USA, Germany, UK, Switzerland (Data: World Bank, IMF)')
+
+    pdf.subsection_title("Public Perception of Inflation")
+    pdf.body_text("The correlation between actual inflation and expected price developments in Switzerland is high (0.8), suggesting the public has a reasonably good sense of inflation trends.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 12,
+        'Figure: Swiss Inflation vs Consumer Sentiment (1980-2024, Data: SECO, FSO)')
+
+    # ===== COSTS AND BENEFITS =====
+    pdf.add_page()
+    pdf.chapter_title("COSTS AND BENEFITS OF INFLATION")
+
+    pdf.section_title("Costs of Inflation")
+    pdf.bullet("**Uncertainty**: High inflation is associated with uncertainty about future prices, making planning difficult")
+    pdf.bullet("**Redistribution**: From creditors to debtors (unexpected inflation erodes the real value of debt)")
+    pdf.bullet("**Nominal contracts**: Bracket creep (tax brackets not indexed), wages, pensions, and mortgages affected")
+    pdf.bullet("**Menu costs**: Costs of changing prices (reprinting menus, catalogs)")
+    pdf.bullet("**Shoe leather costs**: Costs of economizing on money holdings (more frequent bank trips)")
+    pdf.bullet("**Flight to real assets**: People convert money to material assets or stable foreign currencies (e.g., USD)")
+    pdf.bullet("**Political costs**: Inflation reduces re-election chances (behavioural economics: people 'do not like' inflation)")
+    pdf.bullet("Examples of hyperinflation: Germany 1922/23, Zimbabwe 2006-08")
+
+    pdf.section_title("Benefits of Inflation")
+    pdf.bullet("**Central bank room for manoeuvre**: Inflation allows the central bank to set negative real interest rates, since nominal rates cannot become arbitrarily negative (zero lower bound)")
+    pdf.bullet("**Real wage adjustment**: Nominal wage cuts are hard to enforce; inflation leads to real wage reductions without explicit cuts")
+    pdf.bullet("**Seigniorage**: State revenues from the creation of money. This can be less distortionary than other taxes")
+    pdf.bullet("**Initial stimulus**: The initial consequences of higher inflation can be beneficial (short-run trade-off)")
+
+    pdf.key_concept_box("Why Not Target 0% Inflation?",
+        "If inflation is costly, why not aim for zero? Because moderate inflation (around 2%) gives central banks room "
+        "to lower real interest rates during recessions (since nominal rates hit zero as a floor). "
+        "Also, nominal wage rigidity means that real wage adjustments are easier with positive inflation. "
+        "Stable inflation is better than no inflation -- see Avenir Suisse (2017).")
+
+    # ===== QUANTITY THEORY OF MONEY =====
+    pdf.add_page()
+    pdf.chapter_title("QUANTITY THEORY OF MONEY")
+
+    pdf.section_title("How Does Inflation Arise?")
+    pdf.body_text("First explanation: the money supply increases too fast.")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 15,
+        'Figure: Cross-country data showing positive correlation between money supply growth and inflation (2000-2015)')
+
+    pdf.section_title("Transaction Version")
+    pdf.body_text("Milton Friedman (1963): 'Inflation is always and everywhere a monetary phenomenon.'")
+    pdf.body_text("The equation of exchange:")
+    pdf.formula_block(r"M \cdot V = P \cdot T")
+    pdf.bullet("**M** = money supply")
+    pdf.bullet("**V** = velocity of money (how often each unit of money changes hands)")
+    pdf.bullet("**P** = price level")
+    pdf.bullet("**T** = number of transactions")
+
+    pdf.body_text("Under two assumptions:")
+    pdf.bullet("Assumption 1: Money supply M has no impact on T (neutrality of money)")
+    pdf.bullet("Assumption 2: V is constant in the medium run (Delta V = 0)")
+    pdf.body_text("It follows that:")
+    pdf.formula_block(r"\%\Delta M = \%\Delta P")
+    pdf.body_text("Money supply and price level are proportional to each other. Inflation is caused by growth of the money supply.")
+
+    pdf.section_title("Income Version")
+    pdf.body_text("Since the number of transactions T is difficult to measure, replace T with real GDP (Y):")
+    pdf.formula_block(r"M \cdot V = P \cdot Y")
+
+    pdf.section_title("Swiss Data: Money Supply and Prices")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 18,
+        'Figure: Swiss money supply (M0, M2) and prices (CPI, wages, SMI, house prices) since 2008 (Data: SNB, FSO)')
+
+    pdf.subsection_title("Did QE Lead to Inflation?")
+    pdf.bullet("Central bank money supply (M0) increased massively due to quantitative easing, but the increase in M2 was much smaller")
+    pdf.bullet("Most of the money did not end up in the real economy -- the velocity of circulation V is not constant")
+    pdf.bullet("The inflation occurred primarily in financial markets (stock prices) and real estate, not measured by CPI")
+    pdf.bullet("Why was there no CPI inflation until 2021? Because asset price inflation (SMI, house prices) is not captured by the CPI")
+
+    pdf.key_concept_box("Quantity Theory: Useful but Limited",
+        "The quantity theory provides a useful long-run relationship between money growth and inflation. "
+        "However, the assumption of constant velocity (V) is violated in the short and medium run, "
+        "especially during periods of quantitative easing. The theory works better for explaining "
+        "hyperinflation episodes (Venezuela, Zimbabwe) than for moderate inflation in developed economies.")
+
+    # ===== THE PHILLIPS CURVE =====
+    pdf.add_page()
+    pdf.chapter_title("THE PHILLIPS CURVE")
+
+    pdf.section_title("8-1 Historical Background")
+    pdf.body_text("In 1958, A. W. Phillips plotted inflation against unemployment for the UK (1861-1957) and found a negative relationship. Samuelson and Solow (1960) replicated this for the US (1900-1960).")
+    pdf.bullet("When unemployment was low, inflation was high")
+    pdf.bullet("When unemployment was high, inflation was low or negative")
+    pdf.bullet("This was called the **Phillips curve**: it implied a trade-off between inflation and unemployment")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 21,
+        'Figure: Phillips Curve in Swiss data by decade (1970s-2020s) - negative correlation between unemployment and inflation (Data: BFS)')
+
+    pdf.section_title("The Phillips Curve -- Intuition (Lecture)")
+    pdf.bullet("How do companies react to additional demand?")
+    pdf.bullet("Overtime, hiring more staff, subcontracting, raising prices", level=1)
+    pdf.bullet("At high capacity utilization: primarily increase prices", level=1)
+    pdf.bullet("In a boom (low unemployment), wages tend to rise due to workers' stronger negotiating position")
+    pdf.bullet("With higher wages, companies pass on the increased wage costs as higher prices")
+    pdf.bullet("Time series data confirm: inflation (or wage growth) is higher in years with low unemployment")
+
+    # ===== DERIVING THE PHILLIPS CURVE =====
+    pdf.section_title("8-1 Deriving the Relation: Inflation, Expected Inflation, Unemployment")
+
+    pdf.body_text("Starting from the wage-setting and price-setting equations from Chapter 7:")
+    pdf.formula_block(r"\text{Wage setting:} \quad W = P^e \cdot F(u, z)")
+    pdf.formula_block(r"\text{Price setting:} \quad P = (1 + \mu) \cdot W")
+    pdf.body_text("Combining these (replace W from the first into the second):")
+    pdf.formula_block(r"P = P^e (1 + \mu)(1 - \alpha u + z) \qquad \text{(Eq. 8.1)}")
+    pdf.body_text("where F(u,z) = 1 - alpha*u + z is a specific functional form, and alpha captures the strength of unemployment's effect on wages.")
+
+    pdf.body_text("By means of some transformations (dividing by P_{t-1}, using the approximation that cross-products of small terms vanish), we obtain:")
+    pdf.formula_block(r"\pi_t = \pi_t^e + (\mu + z) - \alpha u_t \qquad \text{(Eq. 8.3)}")
+
+    pdf.key_concept_box("The Core Relation (Eq. 8.3)",
+        "Inflation depends on: (1) expected inflation pi^e -- higher expected inflation leads to higher actual inflation; "
+        "(2) the markup mu and catch-all z -- higher markup or z increases inflation; "
+        "(3) the unemployment rate u -- lower unemployment increases inflation. "
+        "This equation is the foundation for understanding the Phillips curve and its mutations.")
+
+    pdf.subsection_title("Effects of Each Variable")
+    pdf.bullet("**Expected inflation up** -> actual inflation up (workers demand higher wages anticipating price increases)")
+    pdf.bullet("**Markup mu or z up** -> inflation up (higher costs or wage demands push prices up)")
+    pdf.bullet("**Unemployment u down** -> inflation up (tighter labor market gives workers more bargaining power)")
+
+    # ===== MUTATIONS OF THE PHILLIPS CURVE =====
+    pdf.add_page()
+    pdf.chapter_title("THE PHILLIPS CURVE AND ITS MUTATIONS")
+
+    pdf.section_title("8-2 The Original Phillips Curve (Pre-1970)")
+    pdf.body_text("When inflation is not persistent, it is reasonable for wage setters to assume expected inflation equals some constant pi-bar:")
+    pdf.formula_block(r"\pi_t^e = \bar{\pi} \quad \Rightarrow \quad \pi_t = \bar{\pi} + (\mu + z) - \alpha u_t \qquad \text{(Eq. 8.4)}")
+    pdf.bullet("This gives a **negative relation between the level of inflation and unemployment**")
+    pdf.bullet("This is what Phillips, Samuelson, and Solow observed in the pre-1970 data")
+    pdf.bullet("It implied a **trade-off**: accept more inflation to get lower unemployment, or vice versa")
+
+    pdf.subsection_title("Anchored Expectations (Lecture)")
+    pdf.body_text("If the inflation rate is stable at a level pi* over several years and without a trend, rational individuals expect inflation of pi* for the next year:")
+    pdf.formula_block(r"\pi_t^e = \pi^*")
+    pdf.bullet("In this case, low unemployment leads to high inflation (with mu and z unchanged)")
+    pdf.bullet("It appears that there is a trade-off between inflation and unemployment")
+    pdf.bullet("Helmut Schmidt (1972): 'It seems to me that the German people can tolerate a 5% price increase more easily than a 5% unemployment rate'")
+
+    pdf.section_title("The Apparent Trade-Off and Its Disappearance")
+    pdf.body_text("In the 1960s, U.S. policy aimed at steadily decreasing unemployment. From 1961 to 1969, unemployment fell from 6.8% to 3.4% while inflation rose from 1.0% to 5.5%. The economy moved along the original Phillips curve.")
+    pdf.body_text("Around 1970, the relation broke down. Both high inflation AND high unemployment appeared (stagflation). The original Phillips curve vanished.")
+
+    pdf.section_title("8-2 Why the Phillips Curve Collapsed")
+    pdf.body_text("Wage setters changed how they formed expectations. As inflation became persistent in the 1970s, people started basing expectations on last year's inflation:")
+    pdf.formula_block(r"\pi_t^e = (1 - \theta)\bar{\pi} + \theta \pi_{t-1} \qquad \text{(Eq. 8.5)}")
+    pdf.bullet("**theta = 0**: Expectations ignore past inflation. The original Phillips curve holds (Eq. 8.4)")
+    pdf.bullet("**0 < theta < 1**: Expectations partly depend on last year's inflation")
+    pdf.bullet("**theta = 1**: Expectations fully based on last year's inflation. The relation becomes:")
+    pdf.formula_block(r"\pi_t - \pi_{t-1} = (\mu + z) - \alpha u_t \qquad \text{(Eq. 8.6)}")
+
+    pdf.key_concept_box("Modified (Expectations-Augmented) Phillips Curve",
+        "When theta = 1, the unemployment rate affects not the level of inflation, but the CHANGE in inflation. "
+        "High unemployment leads to decreasing inflation; low unemployment leads to increasing inflation. "
+        "This is also called the accelerationist Phillips curve (low u accelerates inflation).")
+
+    pdf.body_text("The empirical counterpart for the US (1970-2014):")
+    pdf.formula_block(r"\pi_t - \pi_{t-1} = 3.0\% - 0.5 \, u_t \qquad \text{(Eq. 8.7)}")
+
+    # ===== NATURAL RATE AND NAIRU =====
+    pdf.add_page()
+    pdf.chapter_title("THE PHILLIPS CURVE AND THE NATURAL RATE")
+
+    pdf.section_title("8-3 The Natural Rate of Unemployment")
+    pdf.body_text("In the late 1960s, Friedman and Phelps argued that the inflation-unemployment trade-off was an illusion. They predicted it would disappear, and coined the term 'natural rate of unemployment'.")
+
+    pdf.subsection_title("Deriving the Natural Rate")
+    pdf.body_text("The natural rate u_n is the unemployment rate at which actual inflation equals expected inflation (pi = pi^e). Setting pi_t = pi_t^e in Eq. 8.3:")
+    pdf.formula_block(r"0 = (\mu + z) - \alpha u_n \quad \Rightarrow \quad u_n = \frac{\mu + z}{\alpha} \qquad \text{(Eq. 8.8)}")
+    pdf.bullet("The higher the markup mu, the higher the natural rate")
+    pdf.bullet("The higher z (unemployment benefits, employment protection, etc.), the higher the natural rate")
+    pdf.bullet("The higher alpha (sensitivity of wages to unemployment), the lower the natural rate")
+
+    pdf.subsection_title("Rewriting the Phillips Curve")
+    pdf.body_text("Substituting u_n = (mu + z)/alpha back into the Phillips curve:")
+    pdf.formula_block(r"\pi_t - \pi_t^e = -\alpha(u_t - u_n) \qquad \text{(Eq. 8.9)}")
+    pdf.body_text("If expected inflation is well approximated by last year's inflation:")
+    pdf.formula_block(r"\pi_t - \pi_{t-1} = -\alpha(u_t - u_n) \qquad \text{(Eq. 8.10)}")
+
+    pdf.key_concept_box("NAIRU (Non-Accelerating Inflation Rate of Unemployment)",
+        "Equation 8.10 gives us two key insights: "
+        "(1) The change in inflation depends on the gap between actual and natural unemployment. "
+        "If u > u_n: inflation decreases. If u < u_n: inflation increases. "
+        "(2) The natural rate is the unemployment rate that keeps inflation constant. "
+        "This is why u_n is also called the NAIRU. "
+        "From Eq. 8.7: u_n = 3.0%/0.5 = 6% for the US (1970-2014 average).")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 28,
+        'Figure: NAIRU derivation - the Phillips curve relates inflation changes to the deviation of u from u_n')
+
+    pdf.section_title("NAIRU in Practice")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 29,
+        'Figure: Unemployment rates and NAIRU estimates for Germany, Switzerland, and USA (1990-2020, OECD data)')
+
+    pdf.body_text("The NAIRU varies across countries and over time. Germany's NAIRU decreased substantially after the Hartz reforms. Switzerland's NAIRU has been consistently low. The US NAIRU decreased from the 1980s onwards.")
+
+    # ===== WARNINGS AND VARIATIONS =====
+    pdf.add_page()
+    pdf.chapter_title("WARNINGS AND VARIATIONS")
+
+    pdf.section_title("8-4 Variations in the Natural Rate Across Countries")
+    pdf.bullet("The natural rate depends on mu, z, and alpha, which differ across countries")
+    pdf.bullet("Euro area: average unemployment around 9% since 1990, reflecting high natural rate")
+    pdf.bullet("Labor-market rigidities: generous unemployment insurance, high employment protection, minimum wages, extension agreements for collective bargaining")
+    pdf.bullet("But the picture is complex: Denmark and the Netherlands have generous social protection yet low unemployment (efficient design matters)")
+
+    pdf.section_title("Variations in the Natural Rate Over Time")
+    pdf.bullet("m + z is not constant: monopoly power, costs, bargaining structures, and benefits change over time")
+    pdf.bullet("US: natural rate rose from the 1950s to 1980s (from ~4.5% to ~7.3%), then declined to ~5% by 2007")
+    pdf.bullet("Europe: natural rate increased dramatically since the 1960s due to adverse shocks and institutional rigidities")
+
+    pdf.section_title("High Inflation and the Phillips Curve")
+    pdf.bullet("When inflation is high, it becomes more variable and persistent")
+    pdf.bullet("Workers and firms shorten wage contracts and increase **wage indexation** (automatic adjustment to inflation)")
+    pdf.bullet("With wage indexation (proportion lambda of contracts indexed):")
+    pdf.formula_block(r"\pi_t - \pi_{t-1} = -\frac{\alpha}{1 - \lambda}(u_t - u_n) \qquad \text{(Eq. 8.11, rearranged)}")
+    pdf.bullet("Higher lambda amplifies the effect of unemployment on inflation")
+    pdf.bullet("As lambda approaches 1, small changes in unemployment cause huge inflation swings, and the Phillips curve relation breaks down")
+
+    pdf.section_title("Deflation and the Phillips Curve")
+    pdf.bullet("During the Great Depression (1930s), high unemployment led to surprisingly little deflation")
+    pdf.bullet("When inflation is close to zero, workers resist nominal wage cuts (downward nominal wage rigidity)")
+    pdf.bullet("This means the Phillips curve may be weaker or disappear at very low inflation")
+    pdf.bullet("This is called **money illusion**: workers care about nominal wages, not just real wages")
+    pdf.bullet("Relevant today: many countries have both low inflation and high unemployment")
+
+    # ===== IS-LM EXTENSIONS =====
+    pdf.add_page()
+    pdf.chapter_title("IS-LM MODEL EXTENSIONS (LECTURE)")
+
+    pdf.section_title("From Short Run to Medium Run")
+    pdf.body_text("The IS-LM model from lecture 4 is suitable for the short run. In the medium run, we must consider:")
+    pdf.bullet("Resource constraints (labor market): equilibrium Y_n and u_n")
+    pdf.bullet("Inflation: prices change")
+    pdf.body_text("We therefore extend the IS-LM model with: (1) distinction between nominal and real interest rates, (2) risk premiums, and (3) the Phillips curve (PC curve) -- the PC curve follows in lecture 7.")
+
+    pdf.section_title("Real Interest Rate: The Fisher Equation")
+    pdf.body_text("In the short-run IS-LM model, there was only one interest rate. With inflation, we must distinguish nominal and real interest rates.")
+    pdf.formula_block(r"\text{Fisher equation:} \quad i_t \approx r_t + \pi_{t+1}^e")
+    pdf.formula_block(r"\text{where } \pi_{t+1}^e = \frac{P_{t+1}^e - P_t}{P_t}", fontsize=12)
+    pdf.bullet("**i**: nominal interest rate (in terms of currency)")
+    pdf.bullet("**r**: real interest rate (in terms of goods)")
+    pdf.bullet("The nominal interest rate is the sum of the real interest rate and expected inflation")
+    pdf.bullet("Exact formula: (1 + i_t) = (1 + r_t) * P^e_{t+1} / P_t")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 32,
+        'Figure: Swiss nominal and real interest rates (10-year yield, 1980-2026, Data: SNB, FSO)')
+
+    pdf.section_title("Monetary Policy: The Taylor Rule")
+    pdf.body_text("The central bank determines the real interest rate r indirectly via the nominal interest rate i. One approach for how central banks set rates:")
+    pdf.formula_block(r"i_t = r + \pi_t + a(\pi_t - \pi^*) + b(Y_t - Y_{n,t})")
+    pdf.bullet("The central bank raises i when inflation exceeds the target pi* (weight a)")
+    pdf.bullet("The central bank raises i when GDP exceeds potential GDP Y_n (weight b)")
+    pdf.bullet("Parameters a and b reflect how much value the central bank places on price stability vs economic growth")
+    pdf.bullet("Also known as the Orphanides rule in Europe")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 34,
+        'Figure: Taylor Rule vs Actual Federal Funds Rate (1970-2022, Data: Federal Reserve Bank of Atlanta)')
+
+    pdf.section_title("Risk Premium")
+    pdf.body_text("Many bonds are risky. Buyers demand a risk premium. Let i be the safe rate, x the risk premium, and p the probability of default.")
+    pdf.formula_block(r"(1 + i) = (1 - p)(1 + i + x) + p \cdot 0")
+    pdf.formula_block(r"\Rightarrow \quad x = \frac{(1 + i) \cdot p}{1 - p} \approx p \quad \text{(for small } p \text{)}")
+    pdf.bullet("The risk premium is determined by the probability of default and the degree of risk aversion")
+    pdf.bullet("Credit rating agencies assess default risk: AAA is safest, BBB is barely investment-grade")
+
+    pdf.slide_figure('2026-Economics-B_Folien-06.pdf', 36,
+        'Figure: Bond yields by rating - AAA vs BBB vs US Treasuries (2000-2026, Data: FRED)')
+
+    pdf.section_title("Extended IS-LM Model")
+    pdf.body_text("Combining real interest rates and risk premiums, the IS-LM equilibrium becomes:")
+    pdf.formula_block(r"\text{IS curve:} \quad Y = C(Y - T) + I(Y, \; r + x) + G")
+    pdf.formula_block(r"\text{LM curve:} \quad r = r_0 = i_0 - \pi^e")
+    pdf.bullet("Investments depend on the **real interest rate plus risk premium** (r + x)")
+    pdf.bullet("The central bank controls the real interest rate through the nominal rate and inflation expectations")
+    pdf.bullet("The real interest rate falls when the central bank reduces i at given inflation expectations")
+
+    pdf.key_concept_box("Extended IS-LM: What Changes?",
+        "Compared to the basic IS-LM model: (1) The IS curve now uses the real interest rate + risk premium "
+        "instead of the nominal rate. An increase in x shifts the IS curve left (reduces investment and output). "
+        "(2) The LM curve is now in terms of the real rate: r = i - pi^e. "
+        "(3) The central bank must consider inflation expectations when setting the nominal rate. "
+        "In lecture 7, the Phillips curve (PC curve) will be added to complete the IS-LM-PC model.")
+
+    # ===== SUMMARY =====
+    pdf.add_page()
+    pdf.chapter_title("SUMMARY OF KEY EQUATIONS AND TERMS")
+
+    pdf.section_title("Key Equations -- Chapter 8")
+    pdf.formula_block(r"\text{(8.1)} \quad P = P^e(1+\mu)(1 - \alpha u + z) \quad \text{Price-wage relation}", fontsize=12)
+    pdf.formula_block(r"\text{(8.3)} \quad \pi_t = \pi_t^e + (\mu + z) - \alpha u_t \quad \text{Core Phillips curve}", fontsize=12)
+    pdf.formula_block(r"\text{(8.4)} \quad \pi_t = \bar{\pi} + (\mu + z) - \alpha u_t \quad \text{Original PC (}\theta = 0\text{)}", fontsize=12)
+    pdf.formula_block(r"\text{(8.5)} \quad \pi_t^e = (1 - \theta)\bar{\pi} + \theta\pi_{t-1} \quad \text{Expectation formation}", fontsize=12)
+    pdf.formula_block(r"\text{(8.6)} \quad \pi_t - \pi_{t-1} = (\mu + z) - \alpha u_t \quad \text{Modified PC (}\theta = 1\text{)}", fontsize=12)
+    pdf.formula_block(r"\text{(8.8)} \quad u_n = \frac{\mu + z}{\alpha} \quad \text{Natural rate of unemployment}", fontsize=12)
+    pdf.formula_block(r"\text{(8.10)} \quad \pi_t - \pi_{t-1} = -\alpha(u_t - u_n) \quad \text{PC in terms of } u_n", fontsize=12)
+
+    pdf.section_title("Key Equations -- Lecture 6 (Quantity Theory & IS-LM Extensions)")
+    pdf.formula_block(r"M \cdot V = P \cdot Y \quad \text{Quantity equation (income version)}", fontsize=12)
+    pdf.formula_block(r"\%\Delta M = \%\Delta P \quad \text{(if } V \text{ constant and } M \text{ neutral)}", fontsize=12)
+    pdf.formula_block(r"i_t \approx r_t + \pi_{t+1}^e \quad \text{Fisher equation}", fontsize=12)
+    pdf.formula_block(r"i_t = r + \pi_t + a(\pi_t - \pi^*) + b(Y_t - Y_{n,t}) \quad \text{Taylor rule}", fontsize=12)
+    pdf.formula_block(r"x \approx p \quad \text{Risk premium} \approx \text{default probability}", fontsize=12)
+    pdf.formula_block(r"Y = C(Y-T) + I(Y,\, r+x) + G \quad \text{Extended IS}", fontsize=12)
+    pdf.formula_block(r"r = i_0 - \pi^e \quad \text{Extended LM}", fontsize=12)
+
+    pdf.section_title("Phillips Curve Evolution Summary")
+    widths = [35, 35, 40, 35]
+    pdf.table_header(["Period", "Theta", "Relation", "Implication"], widths)
+    pdf.table_row(["Pre-1970", "0", "pi vs u (level)", "Stable trade-off"], widths, True)
+    pdf.table_row(["Post-1970", "1", "Delta pi vs u", "No permanent trade-off"], widths)
+    pdf.table_row(["High infl.", "1 + indexation", "Amplified", "PC breaks down"], widths, True)
+    pdf.table_row(["Deflation", "< 1", "Weakened", "Wage rigidity"], widths)
+    pdf.ln(3)
+
+    pdf.section_title("Key Terms")
+    terms = [
+        ("Phillips curve (original)", "Negative relation between inflation level and unemployment (pre-1970)"),
+        ("Modified (expectations-augmented) Phillips curve", "Relation between change in inflation and unemployment (post-1970)"),
+        ("Accelerationist Phillips curve", "Low u leads to increasing (accelerating) inflation"),
+        ("NAIRU", "Non-accelerating inflation rate of unemployment; u_n where inflation is stable"),
+        ("Natural rate of unemployment (u_n)", "u_n = (mu + z) / alpha; depends on markup, institutions, wage sensitivity"),
+        ("Stagflation", "Simultaneous high inflation and high unemployment (1970s)"),
+        ("Inflation expectations (pi^e)", "What wage setters expect inflation to be; determines actual inflation"),
+        ("Theta (expectation parameter)", "Weight on last year's inflation in expectations; rose from 0 to 1 over time"),
+        ("Wage indexation (lambda)", "Proportion of contracts with automatic wage adjustment to inflation"),
+        ("Money illusion", "Workers care about nominal wages, resist nominal cuts even when real wages unchanged"),
+        ("Quantity theory of money", "M*V = P*Y; inflation is a monetary phenomenon (Friedman)"),
+        ("Velocity of money (V)", "How often each unit of money changes hands; assumed constant in QT"),
+        ("Seigniorage", "Government revenue from creating money"),
+        ("Shrinkflation", "Reducing product size while keeping price constant"),
+        ("Fisher equation", "i = r + pi^e; nominal rate = real rate + expected inflation"),
+        ("Taylor rule", "i = r + pi + a(pi - pi*) + b(Y - Y_n); central bank interest rate rule"),
+        ("Risk premium (x)", "Extra return demanded for bearing default risk; x approx p"),
+        ("Labor-market rigidities", "Institutions that raise the natural rate: benefits, employment protection, min wages"),
+        ("Extension agreements", "Contracts between a subset of firms/unions extended to all firms in sector"),
+        ("Downward nominal wage rigidity", "Workers resist nominal wage cuts; weakens Phillips curve near zero inflation"),
+    ]
+    for term, defn in terms:
+        pdf.bullet(f"**{term}**: {defn}")
+
+    path = '/Users/roberthaeussler/Claude Coding/Apps/uni tracker/notes/econ/KW13_Inflation.pdf'
+    pdf.output(path)
+    print(f"Generated: {path}")
+
+
 if __name__ == "__main__":
     generate_kw8()
     generate_kw9()
     generate_kw10()
     generate_kw11()
+    generate_kw12()
+    generate_kw13()
     print("\nAll PDFs generated successfully!")
