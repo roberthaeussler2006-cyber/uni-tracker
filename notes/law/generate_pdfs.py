@@ -1396,9 +1396,395 @@ def generate_lecture4():
     print(f"Generated: {out}")
 
 
+def generate_lecture5():
+    """Generate Lecture 5 PDF: Fundamental Rights (Egli pp. 117-128 + Lecture 5 Slides)."""
+    pdf = NotesPDF("Lecture 5: Fundamental Rights",
+                   "Chapter G (pp. 117-128) + Lecture 5 Slides")
+    pdf.alias_nb_pages()
+    pdf.cover_page()
+
+    # ---- REMEMBER BOX ----
+    pdf.add_page()
+    pdf.remember_box("Remember (Chapter G)", [
+        "Fundamental rights are constitutionally and internationally guaranteed legal entitlements of individuals in their relationship with the state, protecting essential freedoms.",
+        "Categories: civil liberties, equality before the law, social rights, procedural rights, political rights.",
+        "Main sources: the Constitution and international human rights treaties (ECHR, ICCPR, ICESCR).",
+        "Restrictions require ALL four preconditions of Art. 36 Cst: legal basis, public interest or protection of others, proportionality, and respect for the essence of fundamental rights.",
+    ])
+
+    # ---- LECTURE CASE STUDY ----
+    pdf.chapter_title("LECTURE CASE STUDY: IDENTIFICATION MEASURES")
+
+    pdf.body_text("The following case is used throughout the lecture to apply the two-step analysis framework:")
+
+    pdf.key_concept_box("Case: DNA Buccal Swab (Basel-Stadt)",
+        "The public prosecutor's office of Basel-Stadt is conducting a criminal investigation against friend A. "
+        "He is accused of surrounding the UBS building during climate action days: writing slogans with coal, "
+        "taping surveillance cameras, and partially blocking entrances with wooden barricades. A. remained on "
+        "the spot despite being ordered to leave and organized a sit-in blockade. He was carried away by police "
+        "and temporarily detained. The police issued an order for identification measures based on Art. 255 "
+        "Swiss Criminal Procedure Code (a federal statute), in particular a buccal swab (non-invasive sample "
+        "of DNA from cells on the inside of the cheek) for a DNA profile.\n\n"
+        "Question: Is a fundamental right affected, and is the restriction lawful?")
+
+    pdf.subsection_title("Art. 255 Swiss Criminal Procedure Code")
+    pdf.body_text("Para. 1: For the purpose of solving a felony or misdemeanor, a sample may be taken and a DNA profile may be obtained from:")
+    pdf.bullet("(a) the accused person")
+    pdf.bullet("(b) other persons, insofar as necessary to distinguish biological material originating from them from that of the accused")
+    pdf.body_text("Para. 2: The police may order:")
+    pdf.bullet("(a) the non-invasive taking of samples from persons")
+    pdf.bullet("(b) the creation of a DNA profile of biological material relevant to the offence")
+
+    # ---- TWO-STEP FRAMEWORK ----
+    pdf.add_page()
+    pdf.chapter_title("TWO-STEP ANALYSIS FRAMEWORK")
+
+    pdf.body_text("The lecture introduces a two-step method for solving fundamental rights cases. This framework structures all exam answers.")
+
+    pdf.section_title("Step 1: Is a Fundamental Right Affected?")
+    pdf.bullet("(1) Is the fundamental right guaranteed on a national or international level?")
+    pdf.bullet("(2) Is the scope of application of the fundamental right affected?")
+    pdf.bullet("(3) Is the victim a beneficiary of the fundamental right?")
+    pdf.bullet("(4) Is the claim filed against an addressee of the fundamental right?")
+    pdf.bullet("Conclusion: A fundamental right is affected.", level=1)
+
+    pdf.section_title("Step 2: Is the Restriction Lawful? (Art. 36 Cst)")
+    pdf.bullet("(1) Is there a legal basis for the restriction? (Art. 36 para. 1)")
+    pdf.bullet("(2) Is there a public interest or need to protect others' rights? (Art. 36 para. 2)")
+    pdf.bullet("(3) Is the restriction proportionate? (Art. 36 para. 3)")
+    pdf.bullet("(4) Is the essence of the fundamental right respected? (Art. 36 para. 4)")
+    pdf.bullet("Conclusion: The restriction is lawful / unlawful.", level=1)
+
+    # ---- CHAPTER G: FUNDAMENTAL RIGHTS ----
+    pdf.add_page()
+    pdf.chapter_title("CHAPTER G: FUNDAMENTAL RIGHTS -- GENERAL CONCEPT")
+
+    pdf.section_title("1.1 Definition")
+    pdf.body_text("Fundamental rights = constitutionally and internationally guaranteed legal entitlements of individuals in their relationship with the state, protecting essential freedoms.")
+
+    pdf.body_text("Five key aspects:")
+    pdf.bullet("**Beneficiaries**: Generally natural persons, but some rights extend to legal persons (companies)")
+    pdf.bullet("**Addressees**: Can only be asserted against the state or entities fulfilling state functions, generally NOT against private persons")
+    pdf.bullet("**Entitlements**: Individual entitlements, directly enforceable in courts (differ from mere state obligations)")
+    pdf.bullet("**Content**: Protect freedoms necessary to safeguard human dignity and development of essential personal characteristics")
+    pdf.bullet("**Sources**: Federal and cantonal constitutions + international treaties (ECHR, ICESCR, ICCPR)")
+
+    pdf.subsection_title("Distinctions")
+    pdf.bullet("**Fundamental rights vs. Human rights**: Human rights are pre-constitutional, inalienable, indivisible rights inherent in every individual (natural law theory), guaranteed independently of a state. Fundamental rights are part of the positive law of a state, written legal rules.")
+    pdf.bullet("**Fundamental rights vs. Constitutional rights**: Constitutional rights ('verfassungsmassige Rechte') is a broader procedural term from Federal Supreme Court case law. It encompasses all fundamental rights PLUS additional principles (legality in criminal matters, prohibition of intercantonal double taxation, communal autonomy, etc.).")
+
+    # ---- CATEGORIZATION ----
+    pdf.section_title("1.2 Categories of Fundamental Rights")
+
+    pdf.subsection_title("a) Civil Liberties")
+    pdf.body_text("Rooted in 18th century American and French declarations. Defensive rights against unwanted state action -- they confer spheres of freedom on the individual.")
+    pdf.bullet("Personal liberty (Art. 10 para. 2 Cst)")
+    pdf.bullet("Right to privacy (Art. 13 Cst)")
+    pdf.bullet("Freedom of expression and information (Art. 16 Cst)")
+    pdf.bullet("Freedom of the media (Art. 17 Cst)")
+    pdf.bullet("Freedom of religion (Art. 15 Cst)")
+    pdf.bullet("Freedom of assembly (Art. 22 Cst), Freedom of association (Art. 23 Cst)")
+    pdf.bullet("Right to property (Art. 26 Cst), Economic freedom (Art. 27 Cst)")
+    pdf.body_text("May also guarantee institutions: right to property (Art. 26 para. 1), marriage (Art. 14). Now recognized as guiding principles for overall state activity influencing the entire legal system.")
+
+    pdf.subsection_title("b) Equality Before the Law")
+    pdf.body_text("Every person is equal before the law and has the right to equal treatment by all state authorities (Art. 8 Cst). No discrimination on grounds of origin, race, gender, age, language, social position, way of life, or religious/ideological/political convictions. Also encompasses good faith and non-arbitrary treatment (Art. 9 Cst). Not restricted to a particular activity -- informs ALL state action.")
+
+    pdf.subsection_title("c) Social Rights")
+    pdf.body_text("Origins in 19th century industrialization. Oblige the state to take positive action -- give individuals access to specific resources, goods, and services:")
+    pdf.bullet("Right to assistance when in need (Art. 12 Cst)")
+    pdf.bullet("Right to basic education (Art. 19 Cst)")
+    pdf.bullet("Protection of children and young people (Art. 11 Cst)")
+
+    pdf.subsection_title("d) Procedural Rights")
+    pdf.body_text("Swiss Constitution Arts. 29-32, greatly influenced by Art. 6 ECHR:")
+    pdf.bullet("Right to public hearing before independent and impartial tribunal within reasonable time")
+    pdf.bullet("Presumption of innocence")
+    pdf.bullet("Adequate time and facilities to prepare defense")
+    pdf.bullet("Access to legal representation")
+    pdf.bullet("Right to examine witnesses")
+    pdf.bullet("Right to free assistance of an interpreter")
+
+    pdf.subsection_title("e) Political Rights")
+    pdf.body_text("Right to participate in the political process (Art. 33-34 Cst). As a general rule, beneficiaries must be citizens of the state.")
+
+    # ---- LEGAL SOURCES ----
+    pdf.add_page()
+    pdf.section_title("1.3 Legal Sources")
+
+    pdf.subsection_title("a) National Level")
+    pdf.body_text("The Constitution of 1999 contains a catalogue of fundamental rights in Chapter One of Title Two (Arts. 7-34 Cst):")
+    pdf.bullet("Human dignity (Art. 7)")
+    pdf.bullet("Equal protection (Art. 8)")
+    pdf.bullet("Civil liberties and freedoms (Arts. 10, 13-18, 20-28)")
+    pdf.bullet("Basic procedural rights (Arts. 29-32)")
+    pdf.bullet("Political rights (Arts. 33-34)")
+    pdf.bullet("Basic social rights (Arts. 11-12, 19)")
+    pdf.bullet("Effective realization (Art. 35), Restrictions (Art. 36)")
+
+    pdf.body_text("The catalogue is NOT exhaustive. Courts may recognize implied, unwritten fundamental rights if:")
+    pdf.bullet("The right is a precondition for exercising other written fundamental rights, AND")
+    pdf.bullet("The right is essential to the democratic order and the Rechtsstaat, AND")
+    pdf.bullet("The right reflects widely shared cantonal constitutional practice and is generally accepted")
+
+    pdf.subsection_title("b) International Level")
+    pdf.body_text("The ECHR is of supreme importance. Drawn up within the Council of Europe after WWII as a reaction to wartime human rights violations. Key features: both interstate and individual applications, establishes a European minimum standard.")
+    pdf.bullet("Switzerland ratified the ECHR in 1974 (monistic approach -- directly part of Swiss law)")
+    pdf.bullet("ECHR rights are directly applicable before domestic courts")
+    pdf.bullet("If both ECHR and Federal Constitution are invoked, whichever offers more protection applies (Art. 53 ECHR)")
+    pdf.bullet("After exhausting domestic remedies, appeal to the European Court of Human Rights in Strasbourg")
+
+    # Comparison table
+    pdf.subsection_title("ECHR vs Swiss Constitution -- Comparison")
+    w_right = 50
+    w_echr = 50
+    w_cst = 50
+    widths = [w_right, w_echr, w_cst]
+    if pdf.get_y() + 90 > pdf.h - pdf.b_margin:
+        pdf.add_page()
+    pdf.table_header(["Right", "ECHR", "Swiss Cst"], widths)
+    pdf.table_row(["Right to life", "Art. 2, Prot. 6 & 13", "Art. 10 para. 1"], widths, fill=True)
+    pdf.table_row(["Prohibition of torture", "Art. 3", "Art. 7, 10(3), 25(3)"], widths)
+    pdf.table_row(["Prohibition of slavery", "Art. 4", "Art. 7, 10(2)"], widths, fill=True)
+    pdf.table_row(["Right to liberty/security", "Art. 5", "Art. 10(2), 31"], widths)
+    pdf.table_row(["Right to a fair trial", "Art. 6", "Art. 29-30, 32"], widths, fill=True)
+    pdf.table_row(["No punishment without law", "Art. 7", "(Art. 1 Crim. Code)"], widths)
+    pdf.table_row(["Private and family life", "Art. 8", "Art. 13"], widths, fill=True)
+    pdf.table_row(["Freedom of conscience/religion", "Art. 9", "Art. 15"], widths)
+    pdf.table_row(["Freedom of expression", "Art. 10", "Art. 16-17, 20-21"], widths, fill=True)
+    pdf.table_row(["Freedom of assembly/assoc.", "Art. 11", "Art. 22-23, 28"], widths)
+    pdf.table_row(["Right to marry", "Art. 12", "Art. 14"], widths, fill=True)
+    pdf.table_row(["Right to effective remedy", "Art. 13", "Art. 29a"], widths)
+    pdf.table_row(["Prohibition of discrimination", "Art. 14", "Art. 8 para. 2"], widths, fill=True)
+    pdf.ln(2)
+
+    pdf.subsection_title("Other Ratified International Conventions")
+    pdf.bullet("UN Covenant on Economic, Social and Cultural Rights (1966), SR 0.103.1")
+    pdf.bullet("UN Covenant on Civil and Political Rights (1966), SR 0.103.2")
+    pdf.bullet("International Convention on the Elimination of All Forms of Racial Discrimination (1965), SR 0.104")
+    pdf.bullet("UN Convention against Torture (1984), SR 0.105")
+    pdf.bullet("European Convention for the Prevention of Torture (1987), SR 0.106")
+    pdf.bullet("UN Convention on the Rights of the Child (1989), SR 0.107")
+    pdf.body_text("These are directly applicable (self-executing) in Switzerland insofar as they are clearly formulated and have direct bearing on a specific case.")
+
+    # ---- DIMENSIONS ----
+    pdf.add_page()
+    pdf.section_title("1.4 Dimensions of Fundamental Rights")
+
+    pdf.subsection_title("Defensive Dimension (Primary, Historical)")
+    pdf.body_text("Individuals defend their private sphere from state interference. The state must respect the protected sphere and refrain from undue intrusions.")
+
+    pdf.subsection_title("Constitutive Dimension")
+    pdf.body_text("Fundamental rights also act as guiding principles for overall state activity, influencing the entire legal system. Expressed by their placement in Title Two of the Constitution and Art. 35 para. 1 Cst.")
+
+    pdf.subsection_title("Negative vs Positive Obligations")
+    pdf.bullet("**Negative obligations**: The state must refrain from interfering with the enjoyment of rights")
+    pdf.bullet("**Positive obligations**: The state must take action to ensure individuals can enjoy civil liberties without interference from third parties and free from natural or human-made risks")
+    pdf.body_text("Forms of positive obligations:")
+    pdf.bullet("General legislation (e.g., penalizing murder to protect right to life)")
+    pdf.bullet("Individual measures protecting specific persons or groups")
+    pdf.bullet("Individual obligation to protect arises only if the state is aware (or should have been aware) of the violation/threat AND has practical and legal means to prevent it")
+
+    # ---- SPECIFIC RIGHTS FROM LECTURE ----
+    pdf.section_title("Specific Rights Detailed in Lecture")
+
+    pdf.subsection_title("Right to Personal Liberty (Art. 10 para. 2 Cst)")
+    pdf.body_text("Encompasses three sub-rights:")
+    pdf.bullet("**Physical integrity**: Affected by any interference with the body of an individual, even if it does not cause any pain or damage")
+    pdf.bullet("**Mental integrity**: Protects the psychological well-being of the individual")
+    pdf.bullet("**Freedom of movement**: Protects against deprivation of liberty without legal justification, e.g., detention against one's will")
+
+    pdf.subsection_title("Right to Informational Self-Determination (Art. 13 Cst)")
+    pdf.body_text("Must be interpreted broadly as a general fundamental right to informational self-determination:")
+    pdf.bullet("Protects against unlimited collection, processing, storage and dissemination of personal data")
+    pdf.bullet("In particular covers the collection and storage of **biometric and genetic data** by the authorities")
+
+    # ---- BENEFICIARIES ----
+    pdf.section_title("1.5 Beneficiaries")
+
+    pdf.bullet("**Natural persons**: Can invoke all fundamental rights. Foreign nationals can invoke all rights EXCEPT: political rights (Art. 34), freedom of domicile (Art. 24), protection against expulsion (Art. 25 para. 1). May face restrictions on economic freedom depending on legal status (Art. 27).")
+    pdf.bullet("**Persons with special state relationship** (Sonderstatusverhaltnis): Public officers, soldiers, prisoners, students. They are beneficiaries but their special relationship can justify specific restrictions (e.g., freedom of speech restricted by duty of loyalty).")
+    pdf.bullet("**Legal persons under private law** (companies): Can invoke rights not exclusively tied to human existence. Cannot invoke right to life or right to marriage. CAN invoke freedom of property, equality before the law.")
+    pdf.bullet("**Legal persons under public law** (e.g., communes): Can only invoke fundamental rights under exceptional circumstances -- when they act under private law and are affected by state activities in the same way as an individual.")
+
+    # ---- ADDRESSEES ----
+    pdf.section_title("1.6 Addressees")
+    pdf.body_text("Fundamental rights can only be asserted against the state (all state authorities at every level):")
+    pdf.bullet("**Legislature**: Must account for fundamental rights when enacting new laws")
+    pdf.bullet("**Executive**: Must observe fundamental rights in day-to-day enforcement AND when preparing legislation/ordinances")
+    pdf.bullet("**Judiciary**: Must redress violations, interpret provisions in conformity with fundamental rights, refuse to apply conflicting norms")
+
+    pdf.body_text("Art. 35 para. 2 Cst: Those exercising a state function must also respect fundamental rights, including private entities performing delegated public tasks (e.g., a private security firm mistreating a prisoner).")
+
+    pdf.subsection_title("Third-Party Applicability (Drittwirkung)")
+    pdf.body_text("Private persons are generally NOT addressees. Two exceptions:")
+    pdf.bullet("**Direct third-party applicability** (direkte Drittwirkung): Art. 8 para. 3 Cst, last sentence -- men and women have the right to equal pay for work of equal value. Private enterprises must respect this.")
+    pdf.bullet("**Indirect third-party applicability** (indirekte Drittwirkung, Art. 35 para. 3 Cst): Fundamental rights as essential values influence private relationships indirectly. Courts must consider fundamental rights when applying general clauses or open legal terms.")
+
+    pdf.article_box([
+        "**Art. 8 para. 3 Cst** (last sentence): Men and women have the right to equal pay for work of equal value -> direct third-party applicability",
+        "**Art. 35 para. 2 Cst**: Those exercising a state function must respect fundamental rights",
+        "**Art. 35 para. 3 Cst**: Authorities must ensure fundamental rights apply to private relations where appropriate -> indirect third-party applicability",
+    ])
+
+    # ---- RESTRICTIONS (ART. 36 CST) ----
+    pdf.add_page()
+    pdf.chapter_title("RESTRICTIONS OF FUNDAMENTAL RIGHTS (ART. 36 CST)")
+
+    pdf.body_text("Fundamental rights are NOT absolute. Art. 36 Cst prescribes four **cumulative** conditions -- ALL must be met for a restriction to be lawful.")
+
+    # a) Legal Basis
+    pdf.section_title("a) Legal Basis (Art. 36 para. 1)")
+    pdf.body_text("Two elements must be satisfied:")
+
+    pdf.subsection_title("Element 1: Legal Rule (Rechtssatz)")
+    pdf.bullet("Must be **generally applicable** (indefinite number of individuals) and **abstract** (indefinite number of cases) -- links to equality before the law")
+    pdf.bullet("Must be formulated with **sufficient precision** so individuals can understand what conduct is prohibited and foresee consequences -- links to legal certainty")
+    pdf.bullet("Degree of precision depends on: identity of addressees, gravity of limitation, complexity and foreseeability")
+
+    pdf.subsection_title("Element 2: Legal Form (Gesetzesform)")
+    pdf.bullet("**Significant restrictions** (imprisonment, monitoring communications): Must be based in a statute enacted by the legislature (federal or cantonal), subject to referendum. An executive ordinance does NOT suffice.")
+    pdf.bullet("**Minor restrictions**: May be provided for in an executive ordinance adopted by executive authorities.")
+    pdf.bullet("The democratic legitimacy needs to be higher, the more significant a restriction is.")
+
+    pdf.subsection_title("Exception: General Police Clause (Art. 36 para. 1, sentence 3)")
+    pdf.body_text("In cases of serious and immediate danger where no other course of action is possible, the general police clause may temporarily substitute for a legal basis. Four conditions must ALL be met:")
+    pdf.bullet("(1) Very important public interests or interests of individuals are endangered")
+    pdf.bullet("(2) Serious danger exists or these interests have already been disrupted")
+    pdf.bullet("(3) The situation calls for immediate action")
+    pdf.bullet("(4) No adequate legal measures are provided for")
+
+    pdf.key_concept_box("Case: Jura Separatist Struggle (BGE 103 Ia 310)",
+        "In 1977, the executive of Canton Bern prohibited all political assemblies in Moutier for two days "
+        "based on the general police clause, during the Jura separatist movement (arson attacks by separatists). "
+        "The Federal Supreme Court held it legitimate. However, the textbook notes that nowadays such a general "
+        "prohibition would likely be considered problematic.")
+
+    # b) Public Interest
+    pdf.section_title("b) Public Interest or Protection of Others (Art. 36 para. 2)")
+    pdf.body_text("Restrictions must be justified by public interests or by the need to protect fundamental rights of others. Public interest encompasses all measures available to the state for the promotion of the common good:")
+    pdf.bullet("**Police interests**: Protection of public order, safety, peace, health, morals, and good faith in business dealings")
+    pdf.bullet("**Other examples**: Environmental protection, land-use planning, socio-political considerations restricting economic freedom")
+    pdf.bullet("Civil liberties must be limited to permit concurrent exercise by the entire population (one person's enjoyment must not overly interfere with another's)")
+
+    # c) Proportionality
+    pdf.section_title("c) Proportionality (Art. 36 para. 3)")
+    pdf.body_text("Three sub-conditions must EACH be fulfilled:")
+
+    pdf.subsection_title("(1) Adequacy (Eignung)")
+    pdf.body_text("The regulatory measure must be adequate to achieve the legitimate public purpose.")
+
+    pdf.subsection_title("(2) Necessity (Erforderlichkeit)")
+    pdf.body_text("The measure must be necessary. If less restrictive measures could achieve the same goal, the restriction is disproportionate.")
+
+    pdf.subsection_title("(3) Proportionality in the Narrow Sense (Verhaltnismassigkeit i.e.S.)")
+    pdf.body_text("The public and private interests must be balanced. If the negative effects on the individual outweigh the public interests, the measure is disproportionate.")
+
+    pdf.key_concept_box("Proportionality Balancing",
+        "LEFT side: Private interests in the protection of the fundamental right concerned.\n"
+        "RIGHT side: Public interests in restricting the fundamental right + protection of fundamental rights of third persons.\n"
+        "The two sides must be weighed against each other. If private interests outweigh, the restriction is unlawful.")
+
+    # d) Essence
+    pdf.section_title("d) Essence of Fundamental Rights (Art. 36 para. 4)")
+    pdf.body_text("The core content of each fundamental right can never be restricted. If a restriction disregards the essence, it is per se a violation of the Constitution -- no justification is possible.")
+    pdf.body_text("Some rights are per se inviolable:")
+    pdf.bullet("Human dignity (Art. 7 Cst) -- absolutely prohibited to compromise")
+    pdf.bullet("Prohibition of death penalty (Art. 10 para. 1 Cst)")
+    pdf.bullet("Prohibition of torture and cruel/inhuman/degrading treatment (Art. 10 para. 3 Cst)")
+    pdf.body_text("For other rights, the essence cannot be defined abstractly but must be determined through Federal Supreme Court case law.")
+
+    pdf.article_box([
+        "**Art. 36 para. 1 Cst**: Restrictions require a legal basis; significant restrictions need a formal statute",
+        "**Art. 36 para. 2 Cst**: Restrictions must serve a public interest or protect others' fundamental rights",
+        "**Art. 36 para. 3 Cst**: Restrictions must be proportionate (adequate, necessary, proportionate in narrow sense)",
+        "**Art. 36 para. 4 Cst**: The essence of fundamental rights may not be violated under any circumstances",
+    ])
+
+    # ---- CASE APPLICATION ----
+    pdf.add_page()
+    pdf.chapter_title("CASE APPLICATION: IDENTIFICATION MEASURES")
+
+    pdf.section_title("Step 1: Is a Fundamental Right Affected?")
+
+    pdf.subsection_title("(1) Guarantee on national/international level?")
+    pdf.body_text("Yes. Right to personal liberty (Art. 10 para. 2 Cst) and right to informational self-determination/privacy (Art. 13 Cst) are guaranteed in the Federal Constitution. Also protected under ECHR Art. 8 (right to private life).")
+
+    pdf.subsection_title("(2) Scope of application affected?")
+    pdf.body_text("Yes. A buccal swab is an interference with the body (physical integrity under Art. 10 para. 2), even though it is non-invasive and causes no pain. The creation of a DNA profile involves collection of biometric/genetic data (informational self-determination under Art. 13).")
+
+    pdf.subsection_title("(3) Is A. a beneficiary?")
+    pdf.body_text("Yes. A. is a natural person and can invoke all fundamental rights.")
+
+    pdf.subsection_title("(4) Claim against an addressee?")
+    pdf.body_text("Yes. The police and public prosecutor's office are state authorities.")
+
+    pdf.body_text("**Conclusion**: Fundamental rights (personal liberty and informational self-determination) are affected.")
+
+    pdf.section_title("Step 2: Is the Restriction Lawful?")
+
+    pdf.subsection_title("(1) Legal basis?")
+    pdf.body_text("Yes. Art. 255 Swiss Criminal Procedure Code is a federal statute enacted by the legislature. It authorizes the police to order non-invasive sampling and DNA profiling of accused persons. The provision is sufficiently precise and has the required legal form for a significant restriction.")
+
+    pdf.subsection_title("(2) Public interest?")
+    pdf.body_text("Yes. The investigation and prosecution of criminal offences (here: criminal damage, trespass) serves the public interest in maintaining public order and safety.")
+
+    pdf.subsection_title("(3) Proportionate?")
+    pdf.bullet("**Adequate**: DNA identification is suitable for identifying the accused and linking them to evidence at the crime scene")
+    pdf.bullet("**Necessary**: A buccal swab is the least invasive method for obtaining DNA (compared to blood samples); alternative identification methods may be insufficient")
+    pdf.bullet("**Proportionate in narrow sense**: The interference is minor (non-invasive, no pain) relative to the public interest in solving criminal offences. The measure appears proportionate.")
+
+    pdf.subsection_title("(4) Essence respected?")
+    pdf.body_text("Yes. A non-invasive buccal swab does not touch the essence of personal liberty or informational self-determination. Human dignity is not compromised.")
+
+    pdf.body_text("**Conclusion**: The restriction of A.'s fundamental rights is lawful under Art. 36 Cst.")
+
+    # ---- KEY ARTICLES ----
+    pdf.add_page()
+    pdf.chapter_title("KEY ARTICLES AND ABBREVIATIONS")
+
+    pdf.article_box([
+        "**Art. 7 Cst**: Human dignity (inviolable core)",
+        "**Art. 8 Cst**: Equality before the law; para. 2: non-discrimination; para. 3: equal pay (direct Drittwirkung)",
+        "**Art. 9 Cst**: Protection against arbitrariness and good faith",
+        "**Art. 10 Cst**: Right to life (para. 1), personal liberty (para. 2), prohibition of torture (para. 3)",
+        "**Art. 11 Cst**: Protection of children and young people",
+        "**Art. 12 Cst**: Right to assistance when in need",
+        "**Art. 13 Cst**: Right to privacy and informational self-determination",
+        "**Art. 14 Cst**: Right to marry and found a family",
+        "**Art. 15 Cst**: Freedom of religion and conscience",
+        "**Art. 16-17 Cst**: Freedom of expression, freedom of the media",
+        "**Art. 19 Cst**: Right to basic education",
+        "**Art. 22-23 Cst**: Freedom of assembly, freedom of association",
+        "**Art. 26 Cst**: Right to property; Art. 27: Economic freedom",
+        "**Art. 29-32 Cst**: Procedural rights (fair trial, presumption of innocence, etc.)",
+        "**Art. 33-34 Cst**: Political rights",
+        "**Art. 35 Cst**: Realization of fundamental rights (para. 1: throughout legal system; para. 2: state functions; para. 3: indirect Drittwirkung)",
+        "**Art. 36 Cst**: Restrictions (legal basis, public interest, proportionality, essence)",
+        "**ECHR Arts. 2-14**: European Convention rights (see comparison table above)",
+        "**Art. 255 CrimPC**: DNA sampling/profiling for criminal investigation",
+    ])
+
+    pdf.section_title("Key Abbreviations")
+    pdf.bullet("**Cst** = Federal Constitution of the Swiss Confederation")
+    pdf.bullet("**ECHR** = European Convention on Human Rights")
+    pdf.bullet("**ICCPR** = International Covenant on Civil and Political Rights")
+    pdf.bullet("**ICESCR** = International Covenant on Economic, Social and Cultural Rights")
+    pdf.bullet("**CrimPC** = Swiss Criminal Procedure Code")
+    pdf.bullet("**BGE** = Bundesgerichtsentscheid (Federal Supreme Court decision)")
+    pdf.bullet("**ECtHR** = European Court of Human Rights (Strasbourg)")
+    pdf.bullet("**Drittwirkung** = Third-party applicability of fundamental rights")
+    pdf.bullet("**Sonderstatusverhaltnis** = Special state relationship (officers, prisoners, students)")
+
+    out = os.path.join(os.path.dirname(__file__), "Lecture5_Fundamental_Rights.pdf")
+    pdf.output(out)
+    print(f"Generated: {out}")
+
+
 if __name__ == "__main__":
     generate_lecture1()
     generate_lecture2()
     generate_lecture3()
     generate_lecture4()
+    generate_lecture5()
     print("\nAll law lecture notes generated successfully!")
